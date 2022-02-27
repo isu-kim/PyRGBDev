@@ -1,0 +1,8 @@
+.idea
+venv
+__pycache__/
+setuaap.py
+cythontest/
+build
+pyrgbdev.egg-info
+testdir
