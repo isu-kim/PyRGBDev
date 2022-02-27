@@ -20,9 +20,12 @@ Installing this library for your personal project would be a piece of cake. Ther
 ### If you encounter those errors:  
 1. `ERROR: Could not install packages due to an OSError: [Errno 2] No such file or directory:`  
 2. `error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/`  
+
   Please check [here](https://github.com/gooday2die/PyRGBDev/blob/main/github/KnownIssues.md) for support.   
+
+### Please be aware that installing this module needs admin permissions since dlls are going to be moved into `System32` directory. Check [here](https://github.com/gooday2die/PyRGBDev/tree/main/pyrgbdev/dllHelper) fore more information.
   
-## Examples  
+## Examples
 > Please note that current version of pyrgbdev supports two SDKs.  
 > - Corsair  
 > - Razer  
