@@ -59,7 +59,7 @@ Check [here](https://github.com/gooday2die/PyRGBDev/blob/main/github/Guide.md) f
   
   
 ## Demos  
-For demonstration videos and gifs, please check [here](https://github.com/gooday2die/pyrgbdev/tree/Cython/Demos) for more information! The demo contains most loved **Screen Reactive Lightning** feature as well!  
+For demonstration videos and gifs, please check [here](https://github.com/gooday2die/pyrgbdev/tree/main/Demos) for more information! The demo contains most loved **Screen Reactive Lightning** feature as well!  
 ## Contributions 
 
 I do not have every RGB devices on planet Earth. If you have any devices and brands that I do not possess, you can defintely help me out. Do not feel afraid contributing this project. It's open source and everyone can contribute to it.     

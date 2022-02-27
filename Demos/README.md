@@ -95,7 +95,7 @@ If you have successfully installed all the dependencies, you are almost ready to
 2. After you have unzipped the `.zip` file, you can see several files in the folder. **Please note that the files that you are seeing might change from time to time**. 
 3. If you have installed all those `dependencies` by **Step 3**, please `double click` a file named `runner.bat`. Your PC might or might not warn you from executing `runner.bat`. The file is not suspicious file. However, if you cannot trust me or think the file is malicious, you can open up the program by `double clicking` the file named `GUI.py`
 4. When you see the screen below, it means that you have set everything up correctly.
-![enter image description here](https://raw.githubusercontent.com/gooday2die/pyrgbdev/OOP_Version/Demos/ui_pics/ui_1.png)
+![enter image description here](https://raw.githubusercontent.com/gooday2die/PyRGBDev/main/Demos/ui_pics/ui_1.png)
 
 - On the left side of the program, you are able to see 3 buttons: (Screen Reactive, Rainbow All, Static Color). Those buttons will let you choose which feature to use. 
 - - Screen Reactive : Reacts to the screen like [this](### Screen Reactive)

@@ -1,0 +1,1 @@
+xcopy %~dp0CUESDK.x64_2019.dll "C:\Windows\System32"
