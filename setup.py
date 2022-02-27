@@ -11,8 +11,8 @@ Since xcopying something to system32 needs admin permission, this will request a
 """
 
 import os
-from distutils.core import setup
-from distutils.extension import Extension
+from setuptools import setup
+from setuptools.extension import Extension
 from Cython.Build import cythonize
 import win32com.shell.shell as shell
 
@@ -47,23 +47,22 @@ ext_modules = [
 # General setup process
 setup(
     name='pyrgbdev',
-    version='1.0.0',
+    version='1.0.4',
     description='A RGB Controlling Library for Python',
-    long_description=long_description,
     long_description_content_type="text/markdown",
+    long_description=long_description,
     url='https://github.com/gooday2die/pyrgbdev',
     author='Gooday2die',
     author_email='edina00@naver.com',
     license='MIT',
     classifiers=[
-        'Programming Language :: Python :: 3.8',
         'Environment :: Win32 (MS Windows)',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: Microsoft :: Windows',
         'Topic :: System :: Hardware',
     ],
-    install_requires=['cython', 'pywin32'],
+    install_requires=["cython", "pywin32"],
     ext_modules=cythonize(ext_modules),
 )
 

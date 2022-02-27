@@ -7,3 +7,4 @@ build
 pyrgbdev.egg-info
 testdir
 SDK.cpp/
+dist/
