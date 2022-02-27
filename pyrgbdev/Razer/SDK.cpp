@@ -935,8 +935,8 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_8pyrgbdev_5Razer_sdk;
 
-/* "pyrgbdev/Razer/SDK.pyx":44
- * 
+/* "pyrgbdev/Razer/SDK.pyx":51
+ *     pass
  * 
  * cdef class sdk:             # <<<<<<<<<<<<<<
  *     cdef Razer* razer_ptr  # make a Razer object
@@ -947,6 +947,7 @@ struct __pyx_obj_8pyrgbdev_5Razer_sdk {
   Razer *razer_ptr;
   PyObject *connected_devices;
   PyObject *is_connected;
+  PyObject *device_count;
 };
 
 
@@ -1499,8 +1500,10 @@ static const char __pyx_k_pyrgbdev_Razer[] = "pyrgbdev.Razer";
 static const char __pyx_k_set_device_rgb[] = "__set_device_rgb";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_get_device_count[] = "get_device_count";
+static const char __pyx_k_InvalidDeviceType[] = "InvalidDeviceType";
 static const char __pyx_k_UnicodeDecodeError[] = "UnicodeDecodeError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_Invalid_Device_Type[] = "Invalid Device Type : ";
 static const char __pyx_k_InvalidRgbValueError[] = "InvalidRgbValueError";
 static const char __pyx_k_SDKNotConnectedError[] = "SDKNotConnectedError";
 static const char __pyx_k_RazerSDKInitFailError[] = "RazerSDKInitFailError";
@@ -1515,9 +1518,11 @@ static const char __pyx_k_The_upper_distutils_part_MUST_t[] = "\nThe upper #dist
 static const char __pyx_k_Cue_SDK_is_not_Connected_Use_con[] = "Cue SDK is not Connected. Use connect() first.";
 static const char __pyx_k_Razer_SDK_is_not_Connected_Use_c[] = "Razer SDK is not Connected. Use connect() first.";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
+static const char __pyx_k_An_Error_class_for_Invalid_Devi_2[] = "\n    An Error class for Invalid Device Type.\n    Example: \"InvalidDeviceType\"\n    Would raise this error\n    ";
 static PyObject *__pyx_n_s_ALL;
 static PyObject *__pyx_kp_s_A_Error_class_for_when_sdk_is_n;
 static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_Devi;
+static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_Devi_2;
 static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_RGB;
 static PyObject *__pyx_kp_s_An_error_class_for_Razer_SDK_fa;
 static PyObject *__pyx_kp_s_Cannot_connect_Razer_SDK;
@@ -1528,7 +1533,9 @@ static PyObject *__pyx_n_s_GPU;
 static PyObject *__pyx_n_s_Headset;
 static PyObject *__pyx_n_s_HeadsetStand;
 static PyObject *__pyx_n_s_InvalidDeviceIndexError;
+static PyObject *__pyx_n_s_InvalidDeviceType;
 static PyObject *__pyx_n_s_InvalidRgbValueError;
+static PyObject *__pyx_kp_s_Invalid_Device_Type;
 static PyObject *__pyx_kp_s_Invalid_index;
 static PyObject *__pyx_n_s_Keyboard;
 static PyObject *__pyx_n_s_MemoryModule;
@@ -1596,8 +1603,8 @@ static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 /* Late includes */
 
-/* "pyrgbdev/Razer/SDK.pyx":49
- *     cdef object is_connected
+/* "pyrgbdev/Razer/SDK.pyx":57
+ *     cdef object device_count
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
  *         self.razer_ptr = new Razer() # generate this object using new keyboard
@@ -1630,7 +1637,7 @@ static int __pyx_pf_8pyrgbdev_5Razer_3sdk___cinit__(struct __pyx_obj_8pyrgbdev_5
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":50
+  /* "pyrgbdev/Razer/SDK.pyx":58
  * 
  *     def __cinit__(self):
  *         self.razer_ptr = new Razer() # generate this object using new keyboard             # <<<<<<<<<<<<<<
@@ -1641,18 +1648,18 @@ static int __pyx_pf_8pyrgbdev_5Razer_3sdk___cinit__(struct __pyx_obj_8pyrgbdev_5
     __pyx_t_1 = new Razer();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 50, __pyx_L1_error)
+    __PYX_ERR(0, 58, __pyx_L1_error)
   }
   __pyx_v_self->razer_ptr = __pyx_t_1;
 
-  /* "pyrgbdev/Razer/SDK.pyx":51
+  /* "pyrgbdev/Razer/SDK.pyx":59
  *     def __cinit__(self):
  *         self.razer_ptr = new Razer() # generate this object using new keyboard
  *         self.connected_devices = dict()             # <<<<<<<<<<<<<<
  *         self.is_connected = False
- * 
+ *         self.device_count = 0
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->connected_devices);
@@ -1660,12 +1667,12 @@ static int __pyx_pf_8pyrgbdev_5Razer_3sdk___cinit__(struct __pyx_obj_8pyrgbdev_5
   __pyx_v_self->connected_devices = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":52
+  /* "pyrgbdev/Razer/SDK.pyx":60
  *         self.razer_ptr = new Razer() # generate this object using new keyboard
  *         self.connected_devices = dict()
  *         self.is_connected = False             # <<<<<<<<<<<<<<
+ *         self.device_count = 0
  * 
- *     def connect(self):
  */
   __Pyx_INCREF(Py_False);
   __Pyx_GIVEREF(Py_False);
@@ -1673,8 +1680,21 @@ static int __pyx_pf_8pyrgbdev_5Razer_3sdk___cinit__(struct __pyx_obj_8pyrgbdev_5
   __Pyx_DECREF(__pyx_v_self->is_connected);
   __pyx_v_self->is_connected = Py_False;
 
-  /* "pyrgbdev/Razer/SDK.pyx":49
- *     cdef object is_connected
+  /* "pyrgbdev/Razer/SDK.pyx":61
+ *         self.connected_devices = dict()
+ *         self.is_connected = False
+ *         self.device_count = 0             # <<<<<<<<<<<<<<
+ * 
+ *     def connect(self):
+ */
+  __Pyx_INCREF(__pyx_int_0);
+  __Pyx_GIVEREF(__pyx_int_0);
+  __Pyx_GOTREF(__pyx_v_self->device_count);
+  __Pyx_DECREF(__pyx_v_self->device_count);
+  __pyx_v_self->device_count = __pyx_int_0;
+
+  /* "pyrgbdev/Razer/SDK.pyx":57
+ *     cdef object device_count
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
  *         self.razer_ptr = new Razer() # generate this object using new keyboard
@@ -1693,8 +1713,8 @@ static int __pyx_pf_8pyrgbdev_5Razer_3sdk___cinit__(struct __pyx_obj_8pyrgbdev_5
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":54
- *         self.is_connected = False
+/* "pyrgbdev/Razer/SDK.pyx":63
+ *         self.device_count = 0
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
  *         """
@@ -1727,7 +1747,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("connect", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":60
+  /* "pyrgbdev/Razer/SDK.pyx":69
  *         :return: returns True if success, False if not.
  *         """
  *         if self.razer_ptr.connect():             # <<<<<<<<<<<<<<
@@ -1737,7 +1757,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
   __pyx_t_1 = (__pyx_v_self->razer_ptr->connect() != 0);
   if (likely(__pyx_t_1)) {
 
-    /* "pyrgbdev/Razer/SDK.pyx":61
+    /* "pyrgbdev/Razer/SDK.pyx":70
  *         """
  *         if self.razer_ptr.connect():
  *             self.is_connected = True             # <<<<<<<<<<<<<<
@@ -1750,7 +1770,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
     __Pyx_DECREF(__pyx_v_self->is_connected);
     __pyx_v_self->is_connected = Py_True;
 
-    /* "pyrgbdev/Razer/SDK.pyx":62
+    /* "pyrgbdev/Razer/SDK.pyx":71
  *         if self.razer_ptr.connect():
  *             self.is_connected = True
  *             return self.is_connected             # <<<<<<<<<<<<<<
@@ -1762,7 +1782,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
     __pyx_r = __pyx_v_self->is_connected;
     goto __pyx_L0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":60
+    /* "pyrgbdev/Razer/SDK.pyx":69
  *         :return: returns True if success, False if not.
  *         """
  *         if self.razer_ptr.connect():             # <<<<<<<<<<<<<<
@@ -1771,7 +1791,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
  */
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":64
+  /* "pyrgbdev/Razer/SDK.pyx":73
  *             return self.is_connected
  *         else:
  *             raise RazerSDKInitFailError("Cannot connect Razer SDK")             # <<<<<<<<<<<<<<
@@ -1779,7 +1799,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
  *     def disconnect(self):
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_RazerSDKInitFailError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 64, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_RazerSDKInitFailError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -1793,16 +1813,16 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
     }
     __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_kp_s_Cannot_connect_Razer_SDK) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_kp_s_Cannot_connect_Razer_SDK);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 64, __pyx_L1_error)
+    __PYX_ERR(0, 73, __pyx_L1_error)
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":54
- *         self.is_connected = False
+  /* "pyrgbdev/Razer/SDK.pyx":63
+ *         self.device_count = 0
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
  *         """
@@ -1822,7 +1842,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_2connect(struct __pyx_obj_8pyrgb
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":66
+/* "pyrgbdev/Razer/SDK.pyx":75
  *             raise RazerSDKInitFailError("Cannot connect Razer SDK")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
@@ -1853,7 +1873,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_4disconnect(struct __pyx_obj_8py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("disconnect", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":71
+  /* "pyrgbdev/Razer/SDK.pyx":80
  *         :return: returns True if success, False if not.
  *         """
  *         self.is_connected = False             # <<<<<<<<<<<<<<
@@ -1866,7 +1886,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_4disconnect(struct __pyx_obj_8py
   __Pyx_DECREF(__pyx_v_self->is_connected);
   __pyx_v_self->is_connected = Py_False;
 
-  /* "pyrgbdev/Razer/SDK.pyx":72
+  /* "pyrgbdev/Razer/SDK.pyx":81
  *         """
  *         self.is_connected = False
  *         return self.razer_ptr.disconnect()             # <<<<<<<<<<<<<<
@@ -1874,13 +1894,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_4disconnect(struct __pyx_obj_8py
  *     def __set_device_rgb(self, type, r, g, b):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->razer_ptr->disconnect()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->razer_ptr->disconnect()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":66
+  /* "pyrgbdev/Razer/SDK.pyx":75
  *             raise RazerSDKInitFailError("Cannot connect Razer SDK")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
@@ -1899,7 +1919,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_4disconnect(struct __pyx_obj_8py
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":74
+/* "pyrgbdev/Razer/SDK.pyx":83
  *         return self.razer_ptr.disconnect()
  * 
  *     def __set_device_rgb(self, type, r, g, b):             # <<<<<<<<<<<<<<
@@ -1948,23 +1968,23 @@ static PyObject *__pyx_pw_8pyrgbdev_5Razer_3sdk_7__set_device_rgb(PyObject *__py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_r)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 1); __PYX_ERR(0, 74, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 1); __PYX_ERR(0, 83, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_g)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 2); __PYX_ERR(0, 74, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 2); __PYX_ERR(0, 83, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_b)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 3); __PYX_ERR(0, 74, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 3); __PYX_ERR(0, 83, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__set_device_rgb") < 0)) __PYX_ERR(0, 74, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__set_device_rgb") < 0)) __PYX_ERR(0, 83, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -1981,7 +2001,7 @@ static PyObject *__pyx_pw_8pyrgbdev_5Razer_3sdk_7__set_device_rgb(PyObject *__py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 74, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 83, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyrgbdev.Razer.sdk.__set_device_rgb", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2011,25 +2031,25 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_6__set_device_rgb(struct __pyx_o
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set_device_rgb", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":83
+  /* "pyrgbdev/Razer/SDK.pyx":92
  *         :return: returns True if successful, False if not
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  *         return self.razer_ptr.setDeviceRgb(type, r, g, b)
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Razer/SDK.pyx":84
+    /* "pyrgbdev/Razer/SDK.pyx":93
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  *         return self.razer_ptr.setDeviceRgb(type, r, g, b)
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 84, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -2043,14 +2063,14 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_6__set_device_rgb(struct __pyx_o
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 84, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 84, __pyx_L1_error)
+    __PYX_ERR(0, 93, __pyx_L1_error)
 
-    /* "pyrgbdev/Razer/SDK.pyx":83
+    /* "pyrgbdev/Razer/SDK.pyx":92
  *         :return: returns True if successful, False if not
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -2059,7 +2079,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_6__set_device_rgb(struct __pyx_o
  */
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":85
+  /* "pyrgbdev/Razer/SDK.pyx":94
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  *         return self.razer_ptr.setDeviceRgb(type, r, g, b)             # <<<<<<<<<<<<<<
@@ -2067,17 +2087,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_6__set_device_rgb(struct __pyx_o
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_type); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_r); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_g); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_b); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->razer_ptr->setDeviceRgb(__pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_type); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_r); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_g); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_b); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->razer_ptr->setDeviceRgb(__pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":74
+  /* "pyrgbdev/Razer/SDK.pyx":83
  *         return self.razer_ptr.disconnect()
  * 
  *     def __set_device_rgb(self, type, r, g, b):             # <<<<<<<<<<<<<<
@@ -2098,7 +2118,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_6__set_device_rgb(struct __pyx_o
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":88
+/* "pyrgbdev/Razer/SDK.pyx":97
  * 
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
@@ -2146,25 +2166,25 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set_rgb", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":95
+  /* "pyrgbdev/Razer/SDK.pyx":104
  *         """
  * 
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 104, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Razer/SDK.pyx":96
+    /* "pyrgbdev/Razer/SDK.pyx":105
  * 
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  * 
  *         for device_type in rgb_info:
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -2178,14 +2198,14 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 96, __pyx_L1_error)
+    __PYX_ERR(0, 105, __pyx_L1_error)
 
-    /* "pyrgbdev/Razer/SDK.pyx":95
+    /* "pyrgbdev/Razer/SDK.pyx":104
  *         """
  * 
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -2194,7 +2214,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":98
+  /* "pyrgbdev/Razer/SDK.pyx":107
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  *         for device_type in rgb_info:             # <<<<<<<<<<<<<<
@@ -2205,26 +2225,26 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
     __pyx_t_3 = __pyx_v_rgb_info; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_rgb_info); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 98, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_rgb_info); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 98, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 107, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_7)) {
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 107, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 107, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -2234,28 +2254,28 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 98, __pyx_L1_error)
+          else __PYX_ERR(0, 107, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_4);
     }
-    __Pyx_XDECREF_SET(__pyx_v_device_type, __pyx_t_4);
+    __pyx_v_device_type = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":99
+    /* "pyrgbdev/Razer/SDK.pyx":108
  * 
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]             # <<<<<<<<<<<<<<
  *             try:
  *                 if device_type == "MouseMat":
  */
-    __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_rgb_info, __pyx_v_device_type); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_rgb_info, __pyx_v_device_type); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_XDECREF_SET(__pyx_v_values, __pyx_t_4);
+    __pyx_v_values = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":100
+    /* "pyrgbdev/Razer/SDK.pyx":109
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]
  *             try:             # <<<<<<<<<<<<<<
@@ -2271,17 +2291,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
       __Pyx_XGOTREF(__pyx_t_10);
       /*try:*/ {
 
-        /* "pyrgbdev/Razer/SDK.pyx":101
+        /* "pyrgbdev/Razer/SDK.pyx":110
  *             values = rgb_info[device_type]
  *             try:
  *                 if device_type == "MouseMat":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MouseMat, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 101, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MouseMat, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 110, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":102
+          /* "pyrgbdev/Razer/SDK.pyx":111
  *             try:
  *                 if device_type == "MouseMat":
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2289,13 +2309,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "Mouse":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 102, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 111, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 102, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 111, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 102, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 111, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 102, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 111, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -2312,7 +2332,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_3, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2323,7 +2343,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_3, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2332,7 +2352,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 102, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 111, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -2349,7 +2369,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_11 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 102, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -2359,7 +2379,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":101
+          /* "pyrgbdev/Razer/SDK.pyx":110
  *             values = rgb_info[device_type]
  *             try:
  *                 if device_type == "MouseMat":             # <<<<<<<<<<<<<<
@@ -2368,17 +2388,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":104
+        /* "pyrgbdev/Razer/SDK.pyx":113
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Mouse":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Mouse, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 104, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Mouse, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 113, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":105
+          /* "pyrgbdev/Razer/SDK.pyx":114
  * 
  *                 elif device_type == "Mouse":
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2386,13 +2406,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "Keyboard":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 105, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 114, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 105, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 114, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 105, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 114, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -2409,7 +2429,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_0, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2420,7 +2440,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_0, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2429,7 +2449,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 105, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 114, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -2446,7 +2466,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_16 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -2456,7 +2476,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":104
+          /* "pyrgbdev/Razer/SDK.pyx":113
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Mouse":             # <<<<<<<<<<<<<<
@@ -2465,17 +2485,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":107
+        /* "pyrgbdev/Razer/SDK.pyx":116
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Keyboard":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Keyboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 107, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Keyboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 116, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":108
+          /* "pyrgbdev/Razer/SDK.pyx":117
  * 
  *                 elif device_type == "Keyboard":
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2483,13 +2503,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "Headset":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 108, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 117, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 108, __pyx_L6_error)
+          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 117, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 108, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 117, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 108, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 117, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_16 = NULL;
           __pyx_t_15 = 0;
@@ -2506,7 +2526,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_1, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2517,7 +2537,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_1, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2526,7 +2546,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 108, __pyx_L6_error)
+            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 117, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_11);
             if (__pyx_t_16) {
               __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -2543,7 +2563,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_14 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
@@ -2553,7 +2573,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":107
+          /* "pyrgbdev/Razer/SDK.pyx":116
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Keyboard":             # <<<<<<<<<<<<<<
@@ -2562,17 +2582,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":110
+        /* "pyrgbdev/Razer/SDK.pyx":119
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Headset":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Headset, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 110, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Headset, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 119, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":111
+          /* "pyrgbdev/Razer/SDK.pyx":120
  * 
  *                 elif device_type == "Headset":
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2580,13 +2600,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "HeadsetStand":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 111, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 120, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 111, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 120, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 111, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 120, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 111, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 120, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -2603,7 +2623,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_2, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2614,7 +2634,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_2, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2623,7 +2643,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 111, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 120, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -2640,7 +2660,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_11 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -2650,7 +2670,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":110
+          /* "pyrgbdev/Razer/SDK.pyx":119
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Headset":             # <<<<<<<<<<<<<<
@@ -2659,17 +2679,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":113
+        /* "pyrgbdev/Razer/SDK.pyx":122
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])
  * 
  *                 elif device_type == "HeadsetStand":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_HeadsetStand, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 113, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_HeadsetStand, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 122, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":114
+          /* "pyrgbdev/Razer/SDK.pyx":123
  * 
  *                 elif device_type == "HeadsetStand":
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2677,13 +2697,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "Cooler":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 123, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 123, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 123, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -2700,7 +2720,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_4, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2711,7 +2731,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_4, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2720,7 +2740,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 123, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -2737,7 +2757,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_16 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -2747,7 +2767,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":113
+          /* "pyrgbdev/Razer/SDK.pyx":122
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])
  * 
  *                 elif device_type == "HeadsetStand":             # <<<<<<<<<<<<<<
@@ -2756,17 +2776,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":116
+        /* "pyrgbdev/Razer/SDK.pyx":125
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Cooler":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Cooler, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 116, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Cooler, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 125, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":117
+          /* "pyrgbdev/Razer/SDK.pyx":126
  * 
  *                 elif device_type == "Cooler":
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2774,13 +2794,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "MemoryModule":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_16 = NULL;
           __pyx_t_15 = 0;
@@ -2797,7 +2817,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_5, __pyx_t_14, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2808,7 +2828,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_5, __pyx_t_14, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2817,7 +2837,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_11);
             if (__pyx_t_16) {
               __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -2834,7 +2854,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_14 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
@@ -2844,7 +2864,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":116
+          /* "pyrgbdev/Razer/SDK.pyx":125
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Cooler":             # <<<<<<<<<<<<<<
@@ -2853,17 +2873,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":119
+        /* "pyrgbdev/Razer/SDK.pyx":128
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])
  * 
  *                 elif device_type == "MemoryModule":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MemoryModule, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 119, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MemoryModule, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 128, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":120
+          /* "pyrgbdev/Razer/SDK.pyx":129
  * 
  *                 elif device_type == "MemoryModule":
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2871,13 +2891,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "Motherboard":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -2894,7 +2914,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_6, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2905,7 +2925,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_6, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2914,7 +2934,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -2931,7 +2951,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_11 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -2941,7 +2961,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":119
+          /* "pyrgbdev/Razer/SDK.pyx":128
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])
  * 
  *                 elif device_type == "MemoryModule":             # <<<<<<<<<<<<<<
@@ -2950,17 +2970,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":122
+        /* "pyrgbdev/Razer/SDK.pyx":131
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Motherboard":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Motherboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 122, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Motherboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 131, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":123
+          /* "pyrgbdev/Razer/SDK.pyx":132
  * 
  *                 elif device_type == "Motherboard":
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2968,13 +2988,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "GPU":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -2991,7 +3011,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_7, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3002,7 +3022,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_7, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3011,7 +3031,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -3028,7 +3048,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_16 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -3038,7 +3058,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":122
+          /* "pyrgbdev/Razer/SDK.pyx":131
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Motherboard":             # <<<<<<<<<<<<<<
@@ -3047,17 +3067,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":125
+        /* "pyrgbdev/Razer/SDK.pyx":134
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])
  * 
  *                 elif device_type == "GPU":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_GPU, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 125, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_GPU, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 134, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":126
+          /* "pyrgbdev/Razer/SDK.pyx":135
  * 
  *                 elif device_type == "GPU":
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -3065,13 +3085,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "ETC":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_16 = NULL;
           __pyx_t_15 = 0;
@@ -3088,7 +3108,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_8, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -3099,7 +3119,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_8, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -3108,7 +3128,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_11);
             if (__pyx_t_16) {
               __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -3125,7 +3145,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_14 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
@@ -3135,7 +3155,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":125
+          /* "pyrgbdev/Razer/SDK.pyx":134
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])
  * 
  *                 elif device_type == "GPU":             # <<<<<<<<<<<<<<
@@ -3144,17 +3164,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":128
+        /* "pyrgbdev/Razer/SDK.pyx":137
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ETC":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ETC, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 128, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ETC, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 137, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":129
+          /* "pyrgbdev/Razer/SDK.pyx":138
  * 
  *                 elif device_type == "ETC":
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -3162,13 +3182,13 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                 elif device_type == "ALL":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -3185,7 +3205,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_9, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -3196,7 +3216,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_9, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -3205,7 +3225,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -3222,7 +3242,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_11 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -3232,7 +3252,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":128
+          /* "pyrgbdev/Razer/SDK.pyx":137
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ETC":             # <<<<<<<<<<<<<<
@@ -3241,31 +3261,31 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":131
+        /* "pyrgbdev/Razer/SDK.pyx":140
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ALL":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
- *             except TypeError:
+ *                 else:
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ALL, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 131, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ALL, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 140, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Razer/SDK.pyx":132
+          /* "pyrgbdev/Razer/SDK.pyx":141
  * 
  *                 elif device_type == "ALL":
  *                     return self.__set_device_rgb(10, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
- *             except TypeError:
- *                 raise InvalidRgbValueError
+ *                 else:
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -3282,7 +3302,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_10, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3293,7 +3313,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_10, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3302,7 +3322,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -3319,7 +3339,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
             __pyx_t_16 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -3329,16 +3349,51 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Razer/SDK.pyx":131
+          /* "pyrgbdev/Razer/SDK.pyx":140
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ALL":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
- *             except TypeError:
+ *                 else:
  */
         }
 
-        /* "pyrgbdev/Razer/SDK.pyx":100
+        /* "pyrgbdev/Razer/SDK.pyx":143
+ *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+ *                 else:
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)             # <<<<<<<<<<<<<<
+ *             except TypeError:
+ *                 raise InvalidRgbValueError
+ */
+        /*else*/ {
+          __Pyx_XDECREF(__pyx_r);
+          __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_InvalidDeviceType); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 143, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_14 = PyNumber_Add(__pyx_kp_s_Invalid_Device_Type, __pyx_v_device_type); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 143, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_14);
+          __pyx_t_13 = NULL;
+          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+            __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_5);
+            if (likely(__pyx_t_13)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+              __Pyx_INCREF(__pyx_t_13);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_5, function);
+            }
+          }
+          __pyx_t_4 = (__pyx_t_13) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_13, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_14);
+          __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 143, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          __pyx_r = __pyx_t_4;
+          __pyx_t_4 = 0;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L10_try_return;
+        }
+
+        /* "pyrgbdev/Razer/SDK.pyx":109
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]
  *             try:             # <<<<<<<<<<<<<<
@@ -3346,10 +3401,6 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  */
       }
-      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-      goto __pyx_L13_try_end;
       __pyx_L6_error:;
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -3359,9 +3410,9 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "pyrgbdev/Razer/SDK.pyx":133
- *                 elif device_type == "ALL":
- *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+      /* "pyrgbdev/Razer/SDK.pyx":144
+ *                 else:
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  *             except TypeError:             # <<<<<<<<<<<<<<
  *                 raise InvalidRgbValueError
  * 
@@ -3369,28 +3420,28 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
       __pyx_t_15 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError);
       if (__pyx_t_15) {
         __Pyx_AddTraceback("pyrgbdev.Razer.sdk.set_rgb", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_14) < 0) __PYX_ERR(0, 133, __pyx_L8_except_error)
+        if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_14) < 0) __PYX_ERR(0, 144, __pyx_L8_except_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_GOTREF(__pyx_t_14);
 
-        /* "pyrgbdev/Razer/SDK.pyx":134
- *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+        /* "pyrgbdev/Razer/SDK.pyx":145
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  *             except TypeError:
  *                 raise InvalidRgbValueError             # <<<<<<<<<<<<<<
  * 
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_InvalidRgbValueError); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 134, __pyx_L8_except_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_InvalidRgbValueError); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 145, __pyx_L8_except_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_Raise(__pyx_t_13, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __PYX_ERR(0, 134, __pyx_L8_except_error)
+        __PYX_ERR(0, 145, __pyx_L8_except_error)
       }
       goto __pyx_L8_except_error;
       __pyx_L8_except_error:;
 
-      /* "pyrgbdev/Razer/SDK.pyx":100
+      /* "pyrgbdev/Razer/SDK.pyx":109
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]
  *             try:             # <<<<<<<<<<<<<<
@@ -3408,10 +3459,9 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
       __Pyx_XGIVEREF(__pyx_t_10);
       __Pyx_ExceptionReset(__pyx_t_8, __pyx_t_9, __pyx_t_10);
       goto __pyx_L0;
-      __pyx_L13_try_end:;
     }
 
-    /* "pyrgbdev/Razer/SDK.pyx":98
+    /* "pyrgbdev/Razer/SDK.pyx":107
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  *         for device_type in rgb_info:             # <<<<<<<<<<<<<<
@@ -3421,7 +3471,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":88
+  /* "pyrgbdev/Razer/SDK.pyx":97
  * 
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
@@ -3451,7 +3501,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_8set_rgb(struct __pyx_obj_8pyrgb
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":137
+/* "pyrgbdev/Razer/SDK.pyx":148
  * 
  * 
  *     def get_device_information(self, index):             # <<<<<<<<<<<<<<
@@ -3487,9 +3537,9 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
-  char const *__pyx_t_10;
-  PyObject *__pyx_t_11 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  int __pyx_t_10;
+  char const *__pyx_t_11;
   PyObject *__pyx_t_12 = NULL;
   PyObject *__pyx_t_13 = NULL;
   PyObject *__pyx_t_14 = NULL;
@@ -3498,25 +3548,25 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_device_information", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":145
+  /* "pyrgbdev/Razer/SDK.pyx":156
  *         :return: returns tuple object that contains [name, device_type, device index]
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Razer/SDK.pyx":146
+    /* "pyrgbdev/Razer/SDK.pyx":157
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  * 
- *         try:  # try to checking index is valid
+ *         if index >= self.device_count:
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -3530,14 +3580,14 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Razer_SDK_is_not_Connected_Use_c) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Razer_SDK_is_not_Connected_Use_c);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 146, __pyx_L1_error)
+    __PYX_ERR(0, 157, __pyx_L1_error)
 
-    /* "pyrgbdev/Razer/SDK.pyx":145
+    /* "pyrgbdev/Razer/SDK.pyx":156
  *         :return: returns tuple object that contains [name, device_type, device index]
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -3546,8 +3596,63 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
  */
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":148
+  /* "pyrgbdev/Razer/SDK.pyx":159
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
+ * 
+ *         if index >= self.device_count:             # <<<<<<<<<<<<<<
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
+ * 
+ */
+  __pyx_t_3 = PyObject_RichCompare(__pyx_v_index, __pyx_v_self->device_count, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(__pyx_t_2)) {
+
+    /* "pyrgbdev/Razer/SDK.pyx":160
+ * 
+ *         if index >= self.device_count:
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))             # <<<<<<<<<<<<<<
+ * 
+ *         try:  # try to checking index is valid
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_InvalidDeviceIndexError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = PyNumber_Add(__pyx_kp_s_Invalid_index, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 160, __pyx_L1_error)
+
+    /* "pyrgbdev/Razer/SDK.pyx":159
+ *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
+ * 
+ *         if index >= self.device_count:             # <<<<<<<<<<<<<<
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
+ * 
+ */
+  }
+
+  /* "pyrgbdev/Razer/SDK.pyx":162
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         try:  # try to checking index is valid             # <<<<<<<<<<<<<<
  *             result = self.razer_ptr.getDeviceInfo(index)
@@ -3556,119 +3661,123 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
   {
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_6, &__pyx_t_7, &__pyx_t_8);
-    __Pyx_XGOTREF(__pyx_t_6);
+    __Pyx_ExceptionSave(&__pyx_t_7, &__pyx_t_8, &__pyx_t_9);
     __Pyx_XGOTREF(__pyx_t_7);
     __Pyx_XGOTREF(__pyx_t_8);
+    __Pyx_XGOTREF(__pyx_t_9);
     /*try:*/ {
 
-      /* "pyrgbdev/Razer/SDK.pyx":149
+      /* "pyrgbdev/Razer/SDK.pyx":163
  * 
  *         try:  # try to checking index is valid
  *             result = self.razer_ptr.getDeviceInfo(index)             # <<<<<<<<<<<<<<
  *             name = result.name.decode("utf-8")
  *         except UnicodeDecodeError:  # If that index is not valid
  */
-      __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L4_error)
-      __pyx_v_result = __pyx_v_self->razer_ptr->getDeviceInfo(__pyx_t_9);
+      __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 163, __pyx_L5_error)
+      __pyx_v_result = __pyx_v_self->razer_ptr->getDeviceInfo(__pyx_t_10);
 
-      /* "pyrgbdev/Razer/SDK.pyx":150
+      /* "pyrgbdev/Razer/SDK.pyx":164
  *         try:  # try to checking index is valid
  *             result = self.razer_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")             # <<<<<<<<<<<<<<
  *         except UnicodeDecodeError:  # If that index is not valid
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  */
-      __pyx_t_10 = __pyx_v_result.name;
-      __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_10, 0, strlen(__pyx_t_10), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L4_error)
+      __pyx_t_11 = __pyx_v_result.name;
+      __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_11, 0, strlen(__pyx_t_11), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L5_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_3);
       __pyx_v_name = __pyx_t_3;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "pyrgbdev/Razer/SDK.pyx":148
- *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
+      /* "pyrgbdev/Razer/SDK.pyx":162
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         try:  # try to checking index is valid             # <<<<<<<<<<<<<<
  *             result = self.razer_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")
  */
     }
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    goto __pyx_L9_try_end;
-    __pyx_L4_error:;
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    goto __pyx_L10_try_end;
+    __pyx_L5_error:;
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":151
+    /* "pyrgbdev/Razer/SDK.pyx":165
  *             result = self.razer_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")
  *         except UnicodeDecodeError:  # If that index is not valid             # <<<<<<<<<<<<<<
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  */
-    __pyx_t_9 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_UnicodeDecodeError);
-    if (__pyx_t_9) {
+    __pyx_t_10 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_UnicodeDecodeError);
+    if (__pyx_t_10) {
       __Pyx_AddTraceback("pyrgbdev.Razer.sdk.get_device_information", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5) < 0) __PYX_ERR(0, 151, __pyx_L6_except_error)
+      if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_4, &__pyx_t_6) < 0) __PYX_ERR(0, 165, __pyx_L7_except_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GOTREF(__pyx_t_6);
 
-      /* "pyrgbdev/Razer/SDK.pyx":152
+      /* "pyrgbdev/Razer/SDK.pyx":166
  *             name = result.name.decode("utf-8")
  *         except UnicodeDecodeError:  # If that index is not valid
- *             raise InvalidDeviceIndexError("Invalid index : " + index)             # <<<<<<<<<<<<<<
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))             # <<<<<<<<<<<<<<
  * 
  *         if result.type == 0:
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_InvalidDeviceIndexError); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 152, __pyx_L6_except_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_InvalidDeviceIndexError); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 166, __pyx_L7_except_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_13 = PyNumber_Add(__pyx_kp_s_Invalid_index, __pyx_v_index); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 152, __pyx_L6_except_error)
+      __pyx_t_13 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_index); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 166, __pyx_L7_except_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_14 = NULL;
+      __pyx_t_14 = PyNumber_Add(__pyx_kp_s_Invalid_index, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 166, __pyx_L7_except_error)
+      __Pyx_GOTREF(__pyx_t_14);
+      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __pyx_t_13 = NULL;
       if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
-        __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_12);
-        if (likely(__pyx_t_14)) {
+        __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_12);
+        if (likely(__pyx_t_13)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
-          __Pyx_INCREF(__pyx_t_14);
+          __Pyx_INCREF(__pyx_t_13);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_12, function);
         }
       }
-      __pyx_t_11 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_14, __pyx_t_13) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_13);
-      __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 152, __pyx_L6_except_error)
-      __Pyx_GOTREF(__pyx_t_11);
+      __pyx_t_5 = (__pyx_t_13) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_13, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_14);
+      __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L7_except_error)
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __Pyx_Raise(__pyx_t_11, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __PYX_ERR(0, 152, __pyx_L6_except_error)
+      __Pyx_Raise(__pyx_t_5, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __PYX_ERR(0, 166, __pyx_L7_except_error)
     }
-    goto __pyx_L6_except_error;
-    __pyx_L6_except_error:;
+    goto __pyx_L7_except_error;
+    __pyx_L7_except_error:;
 
-    /* "pyrgbdev/Razer/SDK.pyx":148
- *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
+    /* "pyrgbdev/Razer/SDK.pyx":162
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         try:  # try to checking index is valid             # <<<<<<<<<<<<<<
  *             result = self.razer_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")
  */
-    __Pyx_XGIVEREF(__pyx_t_6);
     __Pyx_XGIVEREF(__pyx_t_7);
     __Pyx_XGIVEREF(__pyx_t_8);
-    __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
+    __Pyx_XGIVEREF(__pyx_t_9);
+    __Pyx_ExceptionReset(__pyx_t_7, __pyx_t_8, __pyx_t_9);
     goto __pyx_L1_error;
-    __pyx_L9_try_end:;
+    __pyx_L10_try_end:;
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":154
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+  /* "pyrgbdev/Razer/SDK.pyx":168
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         if result.type == 0:             # <<<<<<<<<<<<<<
  *             device_type = "Mouse"
@@ -3677,7 +3786,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
   switch (__pyx_v_result.type) {
     case 0:
 
-    /* "pyrgbdev/Razer/SDK.pyx":155
+    /* "pyrgbdev/Razer/SDK.pyx":169
  * 
  *         if result.type == 0:
  *             device_type = "Mouse"             # <<<<<<<<<<<<<<
@@ -3687,8 +3796,8 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_Mouse);
     __pyx_v_device_type = __pyx_n_s_Mouse;
 
-    /* "pyrgbdev/Razer/SDK.pyx":154
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+    /* "pyrgbdev/Razer/SDK.pyx":168
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         if result.type == 0:             # <<<<<<<<<<<<<<
  *             device_type = "Mouse"
@@ -3697,7 +3806,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 1:
 
-    /* "pyrgbdev/Razer/SDK.pyx":157
+    /* "pyrgbdev/Razer/SDK.pyx":171
  *             device_type = "Mouse"
  *         elif result.type == 1:
  *             device_type = "Keyboard"             # <<<<<<<<<<<<<<
@@ -3707,7 +3816,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_Keyboard);
     __pyx_v_device_type = __pyx_n_s_Keyboard;
 
-    /* "pyrgbdev/Razer/SDK.pyx":156
+    /* "pyrgbdev/Razer/SDK.pyx":170
  *         if result.type == 0:
  *             device_type = "Mouse"
  *         elif result.type == 1:             # <<<<<<<<<<<<<<
@@ -3717,7 +3826,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 2:
 
-    /* "pyrgbdev/Razer/SDK.pyx":159
+    /* "pyrgbdev/Razer/SDK.pyx":173
  *             device_type = "Keyboard"
  *         elif result.type == 2:
  *             device_type = "Headset"             # <<<<<<<<<<<<<<
@@ -3727,7 +3836,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_Headset);
     __pyx_v_device_type = __pyx_n_s_Headset;
 
-    /* "pyrgbdev/Razer/SDK.pyx":158
+    /* "pyrgbdev/Razer/SDK.pyx":172
  *         elif result.type == 1:
  *             device_type = "Keyboard"
  *         elif result.type == 2:             # <<<<<<<<<<<<<<
@@ -3737,7 +3846,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 3:
 
-    /* "pyrgbdev/Razer/SDK.pyx":161
+    /* "pyrgbdev/Razer/SDK.pyx":175
  *             device_type = "Headset"
  *         elif result.type == 3:
  *             device_type = "MouseMat"             # <<<<<<<<<<<<<<
@@ -3747,7 +3856,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_MouseMat);
     __pyx_v_device_type = __pyx_n_s_MouseMat;
 
-    /* "pyrgbdev/Razer/SDK.pyx":160
+    /* "pyrgbdev/Razer/SDK.pyx":174
  *         elif result.type == 2:
  *             device_type = "Headset"
  *         elif result.type == 3:             # <<<<<<<<<<<<<<
@@ -3757,7 +3866,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 4:
 
-    /* "pyrgbdev/Razer/SDK.pyx":163
+    /* "pyrgbdev/Razer/SDK.pyx":177
  *             device_type = "MouseMat"
  *         elif result.type == 4:
  *             device_type = "HeadsetStand"             # <<<<<<<<<<<<<<
@@ -3767,7 +3876,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_HeadsetStand);
     __pyx_v_device_type = __pyx_n_s_HeadsetStand;
 
-    /* "pyrgbdev/Razer/SDK.pyx":162
+    /* "pyrgbdev/Razer/SDK.pyx":176
  *         elif result.type == 3:
  *             device_type = "MouseMat"
  *         elif result.type == 4:             # <<<<<<<<<<<<<<
@@ -3777,7 +3886,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 5:
 
-    /* "pyrgbdev/Razer/SDK.pyx":165
+    /* "pyrgbdev/Razer/SDK.pyx":179
  *             device_type = "HeadsetStand"
  *         elif result.type == 5:
  *             device_type = "Cooler"             # <<<<<<<<<<<<<<
@@ -3787,7 +3896,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_Cooler);
     __pyx_v_device_type = __pyx_n_s_Cooler;
 
-    /* "pyrgbdev/Razer/SDK.pyx":164
+    /* "pyrgbdev/Razer/SDK.pyx":178
  *         elif result.type == 4:
  *             device_type = "HeadsetStand"
  *         elif result.type == 5:             # <<<<<<<<<<<<<<
@@ -3797,7 +3906,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 6:
 
-    /* "pyrgbdev/Razer/SDK.pyx":167
+    /* "pyrgbdev/Razer/SDK.pyx":181
  *             device_type = "Cooler"
  *         elif result.type == 6:
  *             device_type = "MemoryModule"             # <<<<<<<<<<<<<<
@@ -3807,7 +3916,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_MemoryModule);
     __pyx_v_device_type = __pyx_n_s_MemoryModule;
 
-    /* "pyrgbdev/Razer/SDK.pyx":166
+    /* "pyrgbdev/Razer/SDK.pyx":180
  *         elif result.type == 5:
  *             device_type = "Cooler"
  *         elif result.type == 6:             # <<<<<<<<<<<<<<
@@ -3817,7 +3926,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 7:
 
-    /* "pyrgbdev/Razer/SDK.pyx":169
+    /* "pyrgbdev/Razer/SDK.pyx":183
  *             device_type = "MemoryModule"
  *         elif result.type == 7:
  *             device_type = "Motherboard"             # <<<<<<<<<<<<<<
@@ -3827,7 +3936,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_Motherboard);
     __pyx_v_device_type = __pyx_n_s_Motherboard;
 
-    /* "pyrgbdev/Razer/SDK.pyx":168
+    /* "pyrgbdev/Razer/SDK.pyx":182
  *         elif result.type == 6:
  *             device_type = "MemoryModule"
  *         elif result.type == 7:             # <<<<<<<<<<<<<<
@@ -3837,7 +3946,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 8:
 
-    /* "pyrgbdev/Razer/SDK.pyx":171
+    /* "pyrgbdev/Razer/SDK.pyx":185
  *             device_type = "Motherboard"
  *         elif result.type == 8:
  *             device_type = "GPU"             # <<<<<<<<<<<<<<
@@ -3847,7 +3956,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_GPU);
     __pyx_v_device_type = __pyx_n_s_GPU;
 
-    /* "pyrgbdev/Razer/SDK.pyx":170
+    /* "pyrgbdev/Razer/SDK.pyx":184
  *         elif result.type == 7:
  *             device_type = "Motherboard"
  *         elif result.type == 8:             # <<<<<<<<<<<<<<
@@ -3857,7 +3966,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     break;
     case 9:
 
-    /* "pyrgbdev/Razer/SDK.pyx":173
+    /* "pyrgbdev/Razer/SDK.pyx":187
  *             device_type = "GPU"
  *         elif result.type == 9:
  *             device_type = "ETC"             # <<<<<<<<<<<<<<
@@ -3867,7 +3976,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     __Pyx_INCREF(__pyx_n_s_ETC);
     __pyx_v_device_type = __pyx_n_s_ETC;
 
-    /* "pyrgbdev/Razer/SDK.pyx":172
+    /* "pyrgbdev/Razer/SDK.pyx":186
  *         elif result.type == 8:
  *             device_type = "GPU"
  *         elif result.type == 9:             # <<<<<<<<<<<<<<
@@ -3878,7 +3987,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
     default: break;
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":175
+  /* "pyrgbdev/Razer/SDK.pyx":189
  *             device_type = "ETC"
  * 
  *         return name, device_type             # <<<<<<<<<<<<<<
@@ -3886,20 +3995,20 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
  *     def get_device_count(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_device_type)) { __Pyx_RaiseUnboundLocalError("device_type"); __PYX_ERR(0, 175, __pyx_L1_error) }
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 175, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  if (unlikely(!__pyx_v_device_type)) { __Pyx_RaiseUnboundLocalError("device_type"); __PYX_ERR(0, 189, __pyx_L1_error) }
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_name);
   __Pyx_GIVEREF(__pyx_v_name);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_name);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_name);
   __Pyx_INCREF(__pyx_v_device_type);
   __Pyx_GIVEREF(__pyx_v_device_type);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_device_type);
-  __pyx_r = __pyx_t_5;
-  __pyx_t_5 = 0;
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_device_type);
+  __pyx_r = __pyx_t_6;
+  __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":137
+  /* "pyrgbdev/Razer/SDK.pyx":148
  * 
  * 
  *     def get_device_information(self, index):             # <<<<<<<<<<<<<<
@@ -3912,7 +4021,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
   __Pyx_XDECREF(__pyx_t_14);
@@ -3926,7 +4035,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_10get_device_information(struct 
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":177
+/* "pyrgbdev/Razer/SDK.pyx":191
  *         return name, device_type
  * 
  *     def get_device_count(self):             # <<<<<<<<<<<<<<
@@ -3961,25 +4070,25 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_12get_device_count(struct __pyx_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_device_count", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":182
+  /* "pyrgbdev/Razer/SDK.pyx":196
  *         :return: returns integer value of connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
- * 
+ *         self.device_count = self.razer_ptr.getDeviceCount()
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 196, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Razer/SDK.pyx":183
+    /* "pyrgbdev/Razer/SDK.pyx":197
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
- * 
- *         return self.razer_ptr.getDeviceCount()
+ *         self.device_count = self.razer_ptr.getDeviceCount()
+ *         return self.device_count
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -3993,37 +4102,50 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_12get_device_count(struct __pyx_
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Razer_SDK_is_not_Connected_Use_c) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Razer_SDK_is_not_Connected_Use_c);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 183, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 183, __pyx_L1_error)
+    __PYX_ERR(0, 197, __pyx_L1_error)
 
-    /* "pyrgbdev/Razer/SDK.pyx":182
+    /* "pyrgbdev/Razer/SDK.pyx":196
  *         :return: returns integer value of connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
- * 
+ *         self.device_count = self.razer_ptr.getDeviceCount()
  */
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":185
+  /* "pyrgbdev/Razer/SDK.pyx":198
+ *         if not self.is_connected:
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
+ *         self.device_count = self.razer_ptr.getDeviceCount()             # <<<<<<<<<<<<<<
+ *         return self.device_count
  * 
- *         return self.razer_ptr.getDeviceCount()             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->razer_ptr->getDeviceCount()); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_3);
+  __Pyx_GOTREF(__pyx_v_self->device_count);
+  __Pyx_DECREF(__pyx_v_self->device_count);
+  __pyx_v_self->device_count = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "pyrgbdev/Razer/SDK.pyx":199
+ *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
+ *         self.device_count = self.razer_ptr.getDeviceCount()
+ *         return self.device_count             # <<<<<<<<<<<<<<
  * 
  *     def get_all_device_information(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->razer_ptr->getDeviceCount()); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 185, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_r = __pyx_t_3;
-  __pyx_t_3 = 0;
+  __Pyx_INCREF(__pyx_v_self->device_count);
+  __pyx_r = __pyx_v_self->device_count;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":177
+  /* "pyrgbdev/Razer/SDK.pyx":191
  *         return name, device_type
  * 
  *     def get_device_count(self):             # <<<<<<<<<<<<<<
@@ -4044,8 +4166,8 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_12get_device_count(struct __pyx_
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":187
- *         return self.razer_ptr.getDeviceCount()
+/* "pyrgbdev/Razer/SDK.pyx":201
+ *         return self.device_count
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
  *         """
@@ -4088,25 +4210,25 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_all_device_information", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":192
+  /* "pyrgbdev/Razer/SDK.pyx":206
  *         :return: returns dict object containing connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Razer/SDK.pyx":193
+    /* "pyrgbdev/Razer/SDK.pyx":207
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  * 
  *         device_count = self.get_device_count()
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 193, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -4120,14 +4242,14 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Razer_SDK_is_not_Connected_Use_c) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Razer_SDK_is_not_Connected_Use_c);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 193, __pyx_L1_error)
+    __PYX_ERR(0, 207, __pyx_L1_error)
 
-    /* "pyrgbdev/Razer/SDK.pyx":192
+    /* "pyrgbdev/Razer/SDK.pyx":206
  *         :return: returns dict object containing connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -4136,14 +4258,14 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
  */
   }
 
-  /* "pyrgbdev/Razer/SDK.pyx":195
+  /* "pyrgbdev/Razer/SDK.pyx":209
  *             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
  * 
  *         device_count = self.get_device_count()             # <<<<<<<<<<<<<<
  * 
  *         for i in range(device_count):
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -4157,28 +4279,28 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
   }
   __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_device_count = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":197
+  /* "pyrgbdev/Razer/SDK.pyx":211
  *         device_count = self.get_device_count()
  * 
  *         for i in range(device_count):             # <<<<<<<<<<<<<<
  *             cur_device_info = self.get_device_information(i)
  *             device_type = cur_device_info[1]
  */
-  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_device_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_device_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
     __pyx_t_4 = __pyx_t_3; __Pyx_INCREF(__pyx_t_4); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 197, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 211, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   for (;;) {
@@ -4186,17 +4308,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 197, __pyx_L1_error)
+        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 211, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 197, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 211, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       }
@@ -4206,7 +4328,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 197, __pyx_L1_error)
+          else __PYX_ERR(0, 211, __pyx_L1_error)
         }
         break;
       }
@@ -4215,14 +4337,14 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":198
+    /* "pyrgbdev/Razer/SDK.pyx":212
  * 
  *         for i in range(device_count):
  *             cur_device_info = self.get_device_information(i)             # <<<<<<<<<<<<<<
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_information); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 198, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_information); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -4236,44 +4358,44 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
     }
     __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_8, __pyx_v_i) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_i);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 212, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF_SET(__pyx_v_cur_device_info, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":199
+    /* "pyrgbdev/Razer/SDK.pyx":213
  *         for i in range(device_count):
  *             cur_device_info = self.get_device_information(i)
  *             device_type = cur_device_info[1]             # <<<<<<<<<<<<<<
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 213, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_device_type, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":200
+    /* "pyrgbdev/Razer/SDK.pyx":214
  *             cur_device_info = self.get_device_information(i)
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]             # <<<<<<<<<<<<<<
  *             if device_type in self.connected_devices.keys():
  *                 self.connected_devices[device_type].append((device_name, i))
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_device_name, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Razer/SDK.pyx":201
+    /* "pyrgbdev/Razer/SDK.pyx":215
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():             # <<<<<<<<<<<<<<
  *                 self.connected_devices[device_type].append((device_name, i))
  *             else:
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->connected_devices, __pyx_n_s_keys); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 201, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->connected_devices, __pyx_n_s_keys); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -4287,24 +4409,24 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
     }
     __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 201, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_device_type, __pyx_t_3, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
+    __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_device_type, __pyx_t_3, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "pyrgbdev/Razer/SDK.pyx":202
+      /* "pyrgbdev/Razer/SDK.pyx":216
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():
  *                 self.connected_devices[device_type].append((device_name, i))             # <<<<<<<<<<<<<<
  *             else:
  *                 self.connected_devices[device_type] = [(device_name, i)]
  */
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_self->connected_devices, __pyx_v_device_type); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_self->connected_devices, __pyx_v_device_type); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 216, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 216, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_v_device_name);
       __Pyx_GIVEREF(__pyx_v_device_name);
@@ -4312,11 +4434,11 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
       __Pyx_INCREF(__pyx_v_i);
       __Pyx_GIVEREF(__pyx_v_i);
       PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_i);
-      __pyx_t_9 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_5); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_5); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 216, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "pyrgbdev/Razer/SDK.pyx":201
+      /* "pyrgbdev/Razer/SDK.pyx":215
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():             # <<<<<<<<<<<<<<
@@ -4326,7 +4448,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
       goto __pyx_L6;
     }
 
-    /* "pyrgbdev/Razer/SDK.pyx":204
+    /* "pyrgbdev/Razer/SDK.pyx":218
  *                 self.connected_devices[device_type].append((device_name, i))
  *             else:
  *                 self.connected_devices[device_type] = [(device_name, i)]             # <<<<<<<<<<<<<<
@@ -4334,7 +4456,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
  *         return self.connected_devices
  */
     /*else*/ {
-      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 204, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 218, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_v_device_name);
       __Pyx_GIVEREF(__pyx_v_device_name);
@@ -4342,17 +4464,17 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
       __Pyx_INCREF(__pyx_v_i);
       __Pyx_GIVEREF(__pyx_v_i);
       PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_i);
-      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
+      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 218, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_5);
       PyList_SET_ITEM(__pyx_t_3, 0, __pyx_t_5);
       __pyx_t_5 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_v_self->connected_devices, __pyx_v_device_type, __pyx_t_3) < 0)) __PYX_ERR(0, 204, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_self->connected_devices, __pyx_v_device_type, __pyx_t_3) < 0)) __PYX_ERR(0, 218, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __pyx_L6:;
 
-    /* "pyrgbdev/Razer/SDK.pyx":197
+    /* "pyrgbdev/Razer/SDK.pyx":211
  *         device_count = self.get_device_count()
  * 
  *         for i in range(device_count):             # <<<<<<<<<<<<<<
@@ -4362,7 +4484,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":206
+  /* "pyrgbdev/Razer/SDK.pyx":220
  *                 self.connected_devices[device_type] = [(device_name, i)]
  * 
  *         return self.connected_devices             # <<<<<<<<<<<<<<
@@ -4374,8 +4496,8 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
   __pyx_r = __pyx_v_self->connected_devices;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":187
- *         return self.razer_ptr.getDeviceCount()
+  /* "pyrgbdev/Razer/SDK.pyx":201
+ *         return self.device_count
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
  *         """
@@ -4401,7 +4523,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_14get_all_device_information(str
   return __pyx_r;
 }
 
-/* "pyrgbdev/Razer/SDK.pyx":208
+/* "pyrgbdev/Razer/SDK.pyx":222
  *         return self.connected_devices
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -4431,7 +4553,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_16__repr__(CYTHON_UNUSED struct 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "pyrgbdev/Razer/SDK.pyx":212
+  /* "pyrgbdev/Razer/SDK.pyx":226
  *         A __repr__ method for this class
  *         """
  *         return "Razer SDK"             # <<<<<<<<<<<<<<
@@ -4441,7 +4563,7 @@ static PyObject *__pyx_pf_8pyrgbdev_5Razer_3sdk_16__repr__(CYTHON_UNUSED struct 
   __pyx_r = __pyx_kp_s_Razer_SDK;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Razer/SDK.pyx":208
+  /* "pyrgbdev/Razer/SDK.pyx":222
  *         return self.connected_devices
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -4581,6 +4703,7 @@ static PyObject *__pyx_tp_new_8pyrgbdev_5Razer_sdk(PyTypeObject *t, CYTHON_UNUSE
   p = ((struct __pyx_obj_8pyrgbdev_5Razer_sdk *)o);
   p->connected_devices = Py_None; Py_INCREF(Py_None);
   p->is_connected = Py_None; Py_INCREF(Py_None);
+  p->device_count = Py_None; Py_INCREF(Py_None);
   if (unlikely(__pyx_pw_8pyrgbdev_5Razer_3sdk_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) goto bad;
   return o;
   bad:
@@ -4598,6 +4721,7 @@ static void __pyx_tp_dealloc_8pyrgbdev_5Razer_sdk(PyObject *o) {
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->connected_devices);
   Py_CLEAR(p->is_connected);
+  Py_CLEAR(p->device_count);
   (*Py_TYPE(o)->tp_free)(o);
 }
 
@@ -4610,6 +4734,9 @@ static int __pyx_tp_traverse_8pyrgbdev_5Razer_sdk(PyObject *o, visitproc v, void
   if (p->is_connected) {
     e = (*v)(p->is_connected, a); if (e) return e;
   }
+  if (p->device_count) {
+    e = (*v)(p->device_count, a); if (e) return e;
+  }
   return 0;
 }
 
@@ -4621,6 +4748,9 @@ static int __pyx_tp_clear_8pyrgbdev_5Razer_sdk(PyObject *o) {
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->is_connected);
   p->is_connected = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->device_count);
+  p->device_count = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -4759,6 +4889,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ALL, __pyx_k_ALL, sizeof(__pyx_k_ALL), 0, 0, 1, 1},
   {&__pyx_kp_s_A_Error_class_for_when_sdk_is_n, __pyx_k_A_Error_class_for_when_sdk_is_n, sizeof(__pyx_k_A_Error_class_for_when_sdk_is_n), 0, 0, 1, 0},
   {&__pyx_kp_s_An_Error_class_for_Invalid_Devi, __pyx_k_An_Error_class_for_Invalid_Devi, sizeof(__pyx_k_An_Error_class_for_Invalid_Devi), 0, 0, 1, 0},
+  {&__pyx_kp_s_An_Error_class_for_Invalid_Devi_2, __pyx_k_An_Error_class_for_Invalid_Devi_2, sizeof(__pyx_k_An_Error_class_for_Invalid_Devi_2), 0, 0, 1, 0},
   {&__pyx_kp_s_An_Error_class_for_Invalid_RGB, __pyx_k_An_Error_class_for_Invalid_RGB, sizeof(__pyx_k_An_Error_class_for_Invalid_RGB), 0, 0, 1, 0},
   {&__pyx_kp_s_An_error_class_for_Razer_SDK_fa, __pyx_k_An_error_class_for_Razer_SDK_fa, sizeof(__pyx_k_An_error_class_for_Razer_SDK_fa), 0, 0, 1, 0},
   {&__pyx_kp_s_Cannot_connect_Razer_SDK, __pyx_k_Cannot_connect_Razer_SDK, sizeof(__pyx_k_Cannot_connect_Razer_SDK), 0, 0, 1, 0},
@@ -4769,7 +4900,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Headset, __pyx_k_Headset, sizeof(__pyx_k_Headset), 0, 0, 1, 1},
   {&__pyx_n_s_HeadsetStand, __pyx_k_HeadsetStand, sizeof(__pyx_k_HeadsetStand), 0, 0, 1, 1},
   {&__pyx_n_s_InvalidDeviceIndexError, __pyx_k_InvalidDeviceIndexError, sizeof(__pyx_k_InvalidDeviceIndexError), 0, 0, 1, 1},
+  {&__pyx_n_s_InvalidDeviceType, __pyx_k_InvalidDeviceType, sizeof(__pyx_k_InvalidDeviceType), 0, 0, 1, 1},
   {&__pyx_n_s_InvalidRgbValueError, __pyx_k_InvalidRgbValueError, sizeof(__pyx_k_InvalidRgbValueError), 0, 0, 1, 1},
+  {&__pyx_kp_s_Invalid_Device_Type, __pyx_k_Invalid_Device_Type, sizeof(__pyx_k_Invalid_Device_Type), 0, 0, 1, 0},
   {&__pyx_kp_s_Invalid_index, __pyx_k_Invalid_index, sizeof(__pyx_k_Invalid_index), 0, 0, 1, 0},
   {&__pyx_n_s_Keyboard, __pyx_k_Keyboard, sizeof(__pyx_k_Keyboard), 0, 0, 1, 1},
   {&__pyx_n_s_MemoryModule, __pyx_k_MemoryModule, sizeof(__pyx_k_MemoryModule), 0, 0, 1, 1},
@@ -4813,9 +4946,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 133, __pyx_L1_error)
-  __pyx_builtin_UnicodeDecodeError = __Pyx_GetBuiltinName(__pyx_n_s_UnicodeDecodeError); if (!__pyx_builtin_UnicodeDecodeError) __PYX_ERR(0, 151, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_builtin_UnicodeDecodeError = __Pyx_GetBuiltinName(__pyx_n_s_UnicodeDecodeError); if (!__pyx_builtin_UnicodeDecodeError) __PYX_ERR(0, 165, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 211, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -4907,7 +5040,7 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_8pyrgbdev_5Razer_sdk) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_8pyrgbdev_5Razer_sdk) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_8pyrgbdev_5Razer_sdk.tp_print = 0;
   #endif
@@ -4916,7 +5049,7 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_8pyrgbdev_5Razer_sdk, "__repr__"); if (unlikely(!wrapper)) __PYX_ERR(0, 44, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_8pyrgbdev_5Razer_sdk, "__repr__"); if (unlikely(!wrapper)) __PYX_ERR(0, 51, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_8pyrgbdev_5Razer_3sdk_16__repr__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_8pyrgbdev_5Razer_3sdk_16__repr__.doc = __pyx_doc_8pyrgbdev_5Razer_3sdk_16__repr__;
@@ -4924,8 +5057,8 @@ static int __Pyx_modinit_type_init_code(void) {
     }
   }
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_sdk, (PyObject *)&__pyx_type_8pyrgbdev_5Razer_sdk) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_8pyrgbdev_5Razer_sdk) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_sdk, (PyObject *)&__pyx_type_8pyrgbdev_5Razer_sdk) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_8pyrgbdev_5Razer_sdk) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
   __pyx_ptype_8pyrgbdev_5Razer_sdk = &__pyx_type_8pyrgbdev_5Razer_sdk;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -5252,6 +5385,30 @@ if (!__Pyx_RefNanny) {
   __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_InvalidRgbValueError, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_InvalidRgbValueError, __pyx_t_4) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pyrgbdev/Razer/SDK.pyx":43
+ *     pass
+ * 
+ * class InvalidDeviceType(Exception):             # <<<<<<<<<<<<<<
+ *     """
+ *     An Error class for Invalid Device Type.
+ */
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __Pyx_GIVEREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_InvalidDeviceType, __pyx_n_s_InvalidDeviceType, (PyObject *) NULL, __pyx_n_s_pyrgbdev_Razer, __pyx_kp_s_An_Error_class_for_Invalid_Devi_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_InvalidDeviceType, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_InvalidDeviceType, __pyx_t_4) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;

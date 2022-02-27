@@ -46,6 +46,16 @@ class InvalidRgbValueError(Exception):
     """
     pass
 
+
+class InvalidDeviceType(Exception):
+    """
+    An Error class for Invalid Device Type.
+    Example: "InvalidDeviceType"
+    Would raise this error
+    """
+    pass
+
+
 try:
     from pyrgbdev.Corsair.Corsair cimport *
 except ImportError:
@@ -56,10 +66,12 @@ cdef class sdk:
     cdef Corsair* corsair_ptr  # make a Corsair object
     cdef object connected_devices
     cdef object is_connected
+    cdef object device_count
 
     def __cinit__(self):
         self.corsair_ptr = new Corsair() # generate this object using new keyboard
         self.connected_devices = dict()
+        self.device_count = 0
         self.is_connected = False
 
     def connect(self):
@@ -142,6 +154,8 @@ cdef class sdk:
 
                 elif device_type == "ALL":
                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+                else:
+                    return InvalidDeviceType("Invalid Device Type : " + device_type)
             except TypeError:
                 raise InvalidRgbValueError
 
@@ -149,7 +163,7 @@ cdef class sdk:
     def get_device_information(self, index):
         """
         A method that gets device information from a specific index.
-        The type is raw value from CUEDSK. So there needs to be a method that translates CorsairDeviceType into
+        The type is raw value from CUESDK. So there needs to be a method that translates CorsairDeviceType into
         a value that is for our project.
         :param index: the index to find device information from
         :return: returns tuple object that contains [name, device_type, device index]
@@ -157,11 +171,14 @@ cdef class sdk:
         if not self.is_connected:
             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
 
+        if index >= self.device_count:
+            raise InvalidDeviceIndexError("Invalid index : " + str(index))
+
         try:  # try to checking index is valid
             result = self.corsair_ptr.getDeviceInfo(index)
             name = result.name.decode("utf-8")
         except UnicodeDecodeError:  # If that index is not valid
-            raise InvalidDeviceIndexError("Invalid index : " + index)
+            raise InvalidDeviceIndexError("Invalid index : " + str(index))
 
         if result.type == 0:
             device_type = "Mouse"
@@ -193,8 +210,8 @@ cdef class sdk:
         """
         if not self.is_connected:
             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
-
-        return self.corsair_ptr.getDeviceCount()
+        self.device_count = self.corsair_ptr.getDeviceCount()
+        return self.device_count
 
     def get_all_device_information(self):
         """

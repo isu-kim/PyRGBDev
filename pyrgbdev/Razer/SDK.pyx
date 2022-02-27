@@ -40,16 +40,25 @@ class InvalidRgbValueError(Exception):
     """
     pass
 
+class InvalidDeviceType(Exception):
+    """
+    An Error class for Invalid Device Type.
+    Example: "InvalidDeviceType"
+    Would raise this error
+    """
+    pass
 
 cdef class sdk:
     cdef Razer* razer_ptr  # make a Razer object
     cdef object connected_devices
     cdef object is_connected
+    cdef object device_count
 
     def __cinit__(self):
         self.razer_ptr = new Razer() # generate this object using new keyboard
         self.connected_devices = dict()
         self.is_connected = False
+        self.device_count = 0
 
     def connect(self):
         """
@@ -130,6 +139,8 @@ cdef class sdk:
 
                 elif device_type == "ALL":
                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+                else:
+                    return InvalidDeviceType("Invalid Device Type : " + device_type)
             except TypeError:
                 raise InvalidRgbValueError
 
@@ -145,11 +156,14 @@ cdef class sdk:
         if not self.is_connected:
             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
 
+        if index >= self.device_count:
+            raise InvalidDeviceIndexError("Invalid index : " + str(index))
+
         try:  # try to checking index is valid
             result = self.razer_ptr.getDeviceInfo(index)
             name = result.name.decode("utf-8")
         except UnicodeDecodeError:  # If that index is not valid
-            raise InvalidDeviceIndexError("Invalid index : " + index)
+            raise InvalidDeviceIndexError("Invalid index : " + str(index))
 
         if result.type == 0:
             device_type = "Mouse"
@@ -181,8 +195,8 @@ cdef class sdk:
         """
         if not self.is_connected:
             raise SDKNotConnectedError("Razer SDK is not Connected. Use connect() first.")
-
-        return self.razer_ptr.getDeviceCount()
+        self.device_count = self.razer_ptr.getDeviceCount()
+        return self.device_count
 
     def get_all_device_information(self):
         """

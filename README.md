@@ -55,7 +55,7 @@ True
 ```  
   
 ## Using pyrgbdev  
-Will be updated soon  
+Check [here](https://github.com/gooday2die/PyRGBDev/blob/main/github/Guide.md) for more information
   
   
 ## Demos  

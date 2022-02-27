@@ -941,7 +941,7 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_8pyrgbdev_7Corsair_sdk;
 
-/* "pyrgbdev/Corsair/SDK.pyx":55
+/* "pyrgbdev/Corsair/SDK.pyx":65
  * # There will be red error in Pycharm with this import, but it works.
  * 
  * cdef class sdk:             # <<<<<<<<<<<<<<
@@ -953,6 +953,7 @@ struct __pyx_obj_8pyrgbdev_7Corsair_sdk {
   Corsair *corsair_ptr;
   PyObject *connected_devices;
   PyObject *is_connected;
+  PyObject *device_count;
 };
 
 
@@ -1507,8 +1508,10 @@ static const char __pyx_k_set_device_rgb[] = "__set_device_rgb";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_get_device_count[] = "get_device_count";
 static const char __pyx_k_pyrgbdev_Corsair[] = "pyrgbdev.Corsair";
+static const char __pyx_k_InvalidDeviceType[] = "InvalidDeviceType";
 static const char __pyx_k_UnicodeDecodeError[] = "UnicodeDecodeError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_Invalid_Device_Type[] = "Invalid Device Type : ";
 static const char __pyx_k_InvalidRgbValueError[] = "InvalidRgbValueError";
 static const char __pyx_k_SDKNotConnectedError[] = "SDKNotConnectedError";
 static const char __pyx_k_get_device_information[] = "get_device_information";
@@ -1524,9 +1527,11 @@ static const char __pyx_k_An_Error_class_for_Invalid_Devi[] = "\n    An Error cl
 static const char __pyx_k_The_upper_distutils_part_MUST_t[] = "\nThe upper #distutils part MUST to on top of this code\nThis script is for implementing all Wrapper methods for Corsair.\nPlease note that if we do not put CUESDK.x64_2019.dll into the directory where pyd is generated,\nthis will result ImportError since it is not possble to load DLL.\n@project : pyrgbdev\n@author : Gooday2die\n@date : 2022-02-20\n@file : SDK.pyx\n";
 static const char __pyx_k_Cue_SDK_is_not_Connected_Use_con[] = "Cue SDK is not Connected. Use connect() first.";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
+static const char __pyx_k_An_Error_class_for_Invalid_Devi_2[] = "\n    An Error class for Invalid Device Type.\n    Example: \"InvalidDeviceType\"\n    Would raise this error\n    ";
 static PyObject *__pyx_n_s_ALL;
 static PyObject *__pyx_kp_s_A_Error_class_for_when_sdk_is_n;
 static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_Devi;
+static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_Devi_2;
 static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_RGB;
 static PyObject *__pyx_kp_s_An_error_class_for_Corsair_DLL;
 static PyObject *__pyx_kp_s_An_error_class_for_Corsair_SDK;
@@ -1542,7 +1547,9 @@ static PyObject *__pyx_n_s_Headset;
 static PyObject *__pyx_n_s_HeadsetStand;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_n_s_InvalidDeviceIndexError;
+static PyObject *__pyx_n_s_InvalidDeviceType;
 static PyObject *__pyx_n_s_InvalidRgbValueError;
+static PyObject *__pyx_kp_s_Invalid_Device_Type;
 static PyObject *__pyx_kp_s_Invalid_index;
 static PyObject *__pyx_n_s_Keyboard;
 static PyObject *__pyx_n_s_MemoryModule;
@@ -1607,8 +1614,8 @@ static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 /* Late includes */
 
-/* "pyrgbdev/Corsair/SDK.pyx":60
- *     cdef object is_connected
+/* "pyrgbdev/Corsair/SDK.pyx":71
+ *     cdef object device_count
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
  *         self.corsair_ptr = new Corsair() # generate this object using new keyboard
@@ -1641,29 +1648,29 @@ static int __pyx_pf_8pyrgbdev_7Corsair_3sdk___cinit__(struct __pyx_obj_8pyrgbdev
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":61
+  /* "pyrgbdev/Corsair/SDK.pyx":72
  * 
  *     def __cinit__(self):
  *         self.corsair_ptr = new Corsair() # generate this object using new keyboard             # <<<<<<<<<<<<<<
  *         self.connected_devices = dict()
- *         self.is_connected = False
+ *         self.device_count = 0
  */
   try {
     __pyx_t_1 = new Corsair();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 61, __pyx_L1_error)
+    __PYX_ERR(0, 72, __pyx_L1_error)
   }
   __pyx_v_self->corsair_ptr = __pyx_t_1;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":62
+  /* "pyrgbdev/Corsair/SDK.pyx":73
  *     def __cinit__(self):
  *         self.corsair_ptr = new Corsair() # generate this object using new keyboard
  *         self.connected_devices = dict()             # <<<<<<<<<<<<<<
+ *         self.device_count = 0
  *         self.is_connected = False
- * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->connected_devices);
@@ -1671,9 +1678,22 @@ static int __pyx_pf_8pyrgbdev_7Corsair_3sdk___cinit__(struct __pyx_obj_8pyrgbdev
   __pyx_v_self->connected_devices = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":63
+  /* "pyrgbdev/Corsair/SDK.pyx":74
  *         self.corsair_ptr = new Corsair() # generate this object using new keyboard
  *         self.connected_devices = dict()
+ *         self.device_count = 0             # <<<<<<<<<<<<<<
+ *         self.is_connected = False
+ * 
+ */
+  __Pyx_INCREF(__pyx_int_0);
+  __Pyx_GIVEREF(__pyx_int_0);
+  __Pyx_GOTREF(__pyx_v_self->device_count);
+  __Pyx_DECREF(__pyx_v_self->device_count);
+  __pyx_v_self->device_count = __pyx_int_0;
+
+  /* "pyrgbdev/Corsair/SDK.pyx":75
+ *         self.connected_devices = dict()
+ *         self.device_count = 0
  *         self.is_connected = False             # <<<<<<<<<<<<<<
  * 
  *     def connect(self):
@@ -1684,8 +1704,8 @@ static int __pyx_pf_8pyrgbdev_7Corsair_3sdk___cinit__(struct __pyx_obj_8pyrgbdev
   __Pyx_DECREF(__pyx_v_self->is_connected);
   __pyx_v_self->is_connected = Py_False;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":60
- *     cdef object is_connected
+  /* "pyrgbdev/Corsair/SDK.pyx":71
+ *     cdef object device_count
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
  *         self.corsair_ptr = new Corsair() # generate this object using new keyboard
@@ -1704,7 +1724,7 @@ static int __pyx_pf_8pyrgbdev_7Corsair_3sdk___cinit__(struct __pyx_obj_8pyrgbdev
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":65
+/* "pyrgbdev/Corsair/SDK.pyx":77
  *         self.is_connected = False
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
@@ -1738,7 +1758,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("connect", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":71
+  /* "pyrgbdev/Corsair/SDK.pyx":83
  *         :return: returns True if success, False if not.
  *         """
  *         if self.corsair_ptr.connect():             # <<<<<<<<<<<<<<
@@ -1748,7 +1768,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
   __pyx_t_1 = (__pyx_v_self->corsair_ptr->connect() != 0);
   if (likely(__pyx_t_1)) {
 
-    /* "pyrgbdev/Corsair/SDK.pyx":72
+    /* "pyrgbdev/Corsair/SDK.pyx":84
  *         """
  *         if self.corsair_ptr.connect():
  *             self.is_connected = True             # <<<<<<<<<<<<<<
@@ -1761,7 +1781,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
     __Pyx_DECREF(__pyx_v_self->is_connected);
     __pyx_v_self->is_connected = Py_True;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":73
+    /* "pyrgbdev/Corsair/SDK.pyx":85
  *         if self.corsair_ptr.connect():
  *             self.is_connected = True
  *             return self.is_connected             # <<<<<<<<<<<<<<
@@ -1773,7 +1793,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
     __pyx_r = __pyx_v_self->is_connected;
     goto __pyx_L0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":71
+    /* "pyrgbdev/Corsair/SDK.pyx":83
  *         :return: returns True if success, False if not.
  *         """
  *         if self.corsair_ptr.connect():             # <<<<<<<<<<<<<<
@@ -1782,7 +1802,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
  */
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":75
+  /* "pyrgbdev/Corsair/SDK.pyx":87
  *             return self.is_connected
  *         else:
  *             raise CorsairSDKInitFailError("Cannot connect Corsair SDK")             # <<<<<<<<<<<<<<
@@ -1790,7 +1810,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
  *     def disconnect(self):
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CorsairSDKInitFailError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_CorsairSDKInitFailError); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -1804,15 +1824,15 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
     }
     __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_kp_s_Cannot_connect_Corsair_SDK) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_kp_s_Cannot_connect_Corsair_SDK);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 75, __pyx_L1_error)
+    __PYX_ERR(0, 87, __pyx_L1_error)
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":65
+  /* "pyrgbdev/Corsair/SDK.pyx":77
  *         self.is_connected = False
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
@@ -1833,7 +1853,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_2connect(struct __pyx_obj_8pyr
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":77
+/* "pyrgbdev/Corsair/SDK.pyx":89
  *             raise CorsairSDKInitFailError("Cannot connect Corsair SDK")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
@@ -1864,7 +1884,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_4disconnect(struct __pyx_obj_8
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("disconnect", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":83
+  /* "pyrgbdev/Corsair/SDK.pyx":95
  *         :return: returns True if success, False if not.
  *         """
  *         self.is_connected = False             # <<<<<<<<<<<<<<
@@ -1877,7 +1897,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_4disconnect(struct __pyx_obj_8
   __Pyx_DECREF(__pyx_v_self->is_connected);
   __pyx_v_self->is_connected = Py_False;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":84
+  /* "pyrgbdev/Corsair/SDK.pyx":96
  *         """
  *         self.is_connected = False
  *         return self.corsair_ptr.disconnect()             # <<<<<<<<<<<<<<
@@ -1885,13 +1905,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_4disconnect(struct __pyx_obj_8
  *     def __set_device_rgb(self, type, r, g, b):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->corsair_ptr->disconnect()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->corsair_ptr->disconnect()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":77
+  /* "pyrgbdev/Corsair/SDK.pyx":89
  *             raise CorsairSDKInitFailError("Cannot connect Corsair SDK")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
@@ -1910,7 +1930,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_4disconnect(struct __pyx_obj_8
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":86
+/* "pyrgbdev/Corsair/SDK.pyx":98
  *         return self.corsair_ptr.disconnect()
  * 
  *     def __set_device_rgb(self, type, r, g, b):             # <<<<<<<<<<<<<<
@@ -1959,23 +1979,23 @@ static PyObject *__pyx_pw_8pyrgbdev_7Corsair_3sdk_7__set_device_rgb(PyObject *__
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_r)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 1); __PYX_ERR(0, 86, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 1); __PYX_ERR(0, 98, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_g)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 2); __PYX_ERR(0, 86, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 2); __PYX_ERR(0, 98, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_b)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 3); __PYX_ERR(0, 86, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, 3); __PYX_ERR(0, 98, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__set_device_rgb") < 0)) __PYX_ERR(0, 86, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__set_device_rgb") < 0)) __PYX_ERR(0, 98, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
@@ -1992,7 +2012,7 @@ static PyObject *__pyx_pw_8pyrgbdev_7Corsair_3sdk_7__set_device_rgb(PyObject *__
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 86, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__set_device_rgb", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 98, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyrgbdev.Corsair.sdk.__set_device_rgb", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2022,25 +2042,25 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_6__set_device_rgb(struct __pyx
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set_device_rgb", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":95
+  /* "pyrgbdev/Corsair/SDK.pyx":107
  *         :return: returns True if successful, False if not
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  *         return self.corsair_ptr.setDeviceRgb(type, r, g, b)
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 95, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Corsair/SDK.pyx":96
+    /* "pyrgbdev/Corsair/SDK.pyx":108
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  *         return self.corsair_ptr.setDeviceRgb(type, r, g, b)
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -2054,14 +2074,14 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_6__set_device_rgb(struct __pyx
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 96, __pyx_L1_error)
+    __PYX_ERR(0, 108, __pyx_L1_error)
 
-    /* "pyrgbdev/Corsair/SDK.pyx":95
+    /* "pyrgbdev/Corsair/SDK.pyx":107
  *         :return: returns True if successful, False if not
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -2070,7 +2090,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_6__set_device_rgb(struct __pyx
  */
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":97
+  /* "pyrgbdev/Corsair/SDK.pyx":109
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  *         return self.corsair_ptr.setDeviceRgb(type, r, g, b)             # <<<<<<<<<<<<<<
@@ -2078,17 +2098,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_6__set_device_rgb(struct __pyx
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_type); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_r); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
-  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_g); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
-  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_b); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->corsair_ptr->setDeviceRgb(__pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_type); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_r); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_As_int(__pyx_v_g); if (unlikely((__pyx_t_8 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_b); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 109, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->corsair_ptr->setDeviceRgb(__pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":86
+  /* "pyrgbdev/Corsair/SDK.pyx":98
  *         return self.corsair_ptr.disconnect()
  * 
  *     def __set_device_rgb(self, type, r, g, b):             # <<<<<<<<<<<<<<
@@ -2109,7 +2129,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_6__set_device_rgb(struct __pyx
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":100
+/* "pyrgbdev/Corsair/SDK.pyx":112
  * 
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
@@ -2157,25 +2177,25 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set_rgb", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":107
+  /* "pyrgbdev/Corsair/SDK.pyx":119
  *         """
  * 
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 119, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Corsair/SDK.pyx":108
+    /* "pyrgbdev/Corsair/SDK.pyx":120
  * 
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  * 
  *         for device_type in rgb_info:
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -2189,14 +2209,14 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 108, __pyx_L1_error)
+    __PYX_ERR(0, 120, __pyx_L1_error)
 
-    /* "pyrgbdev/Corsair/SDK.pyx":107
+    /* "pyrgbdev/Corsair/SDK.pyx":119
  *         """
  * 
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -2205,7 +2225,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":110
+  /* "pyrgbdev/Corsair/SDK.pyx":122
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  *         for device_type in rgb_info:             # <<<<<<<<<<<<<<
@@ -2216,26 +2236,26 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
     __pyx_t_3 = __pyx_v_rgb_info; __Pyx_INCREF(__pyx_t_3); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_rgb_info); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_rgb_info); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 122, __pyx_L1_error)
   }
   for (;;) {
     if (likely(!__pyx_t_7)) {
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 122, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_6); __Pyx_INCREF(__pyx_t_4); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
         #else
-        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 122, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
@@ -2245,28 +2265,28 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 110, __pyx_L1_error)
+          else __PYX_ERR(0, 122, __pyx_L1_error)
         }
         break;
       }
       __Pyx_GOTREF(__pyx_t_4);
     }
-    __Pyx_XDECREF_SET(__pyx_v_device_type, __pyx_t_4);
+    __pyx_v_device_type = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":111
+    /* "pyrgbdev/Corsair/SDK.pyx":123
  * 
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]             # <<<<<<<<<<<<<<
  *             try:
  *                 if device_type == "MouseMat":
  */
-    __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_rgb_info, __pyx_v_device_type); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_rgb_info, __pyx_v_device_type); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_XDECREF_SET(__pyx_v_values, __pyx_t_4);
+    __pyx_v_values = __pyx_t_4;
     __pyx_t_4 = 0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":112
+    /* "pyrgbdev/Corsair/SDK.pyx":124
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]
  *             try:             # <<<<<<<<<<<<<<
@@ -2282,17 +2302,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
       __Pyx_XGOTREF(__pyx_t_10);
       /*try:*/ {
 
-        /* "pyrgbdev/Corsair/SDK.pyx":113
+        /* "pyrgbdev/Corsair/SDK.pyx":125
  *             values = rgb_info[device_type]
  *             try:
  *                 if device_type == "MouseMat":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MouseMat, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 113, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MouseMat, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 125, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":114
+          /* "pyrgbdev/Corsair/SDK.pyx":126
  *             try:
  *                 if device_type == "MouseMat":
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2300,13 +2320,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "Mouse":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 114, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -2323,7 +2343,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_3, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2334,7 +2354,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_3, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2343,7 +2363,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -2360,7 +2380,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_11 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 114, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -2370,7 +2390,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":113
+          /* "pyrgbdev/Corsair/SDK.pyx":125
  *             values = rgb_info[device_type]
  *             try:
  *                 if device_type == "MouseMat":             # <<<<<<<<<<<<<<
@@ -2379,17 +2399,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":116
+        /* "pyrgbdev/Corsair/SDK.pyx":128
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Mouse":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Mouse, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 116, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Mouse, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 128, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":117
+          /* "pyrgbdev/Corsair/SDK.pyx":129
  * 
  *                 elif device_type == "Mouse":
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2397,13 +2417,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "Keyboard":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 117, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 129, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -2420,7 +2440,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_0, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2431,7 +2451,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_0, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2440,7 +2460,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -2457,7 +2477,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_16 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 117, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -2467,7 +2487,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":116
+          /* "pyrgbdev/Corsair/SDK.pyx":128
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Mouse":             # <<<<<<<<<<<<<<
@@ -2476,17 +2496,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":119
+        /* "pyrgbdev/Corsair/SDK.pyx":131
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Keyboard":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Keyboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 119, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Keyboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 131, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":120
+          /* "pyrgbdev/Corsair/SDK.pyx":132
  * 
  *                 elif device_type == "Keyboard":
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2494,13 +2514,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "Headset":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 120, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 132, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_16 = NULL;
           __pyx_t_15 = 0;
@@ -2517,7 +2537,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_1, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2528,7 +2548,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_1, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2537,7 +2557,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_11);
             if (__pyx_t_16) {
               __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -2554,7 +2574,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_14 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 120, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
@@ -2564,7 +2584,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":119
+          /* "pyrgbdev/Corsair/SDK.pyx":131
  *                     return self.__set_device_rgb(0, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Keyboard":             # <<<<<<<<<<<<<<
@@ -2573,17 +2593,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":122
+        /* "pyrgbdev/Corsair/SDK.pyx":134
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Headset":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Headset, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 122, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Headset, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 134, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":123
+          /* "pyrgbdev/Corsair/SDK.pyx":135
  * 
  *                 elif device_type == "Headset":
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2591,13 +2611,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "HeadsetStand":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 123, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 135, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -2614,7 +2634,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_2, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2625,7 +2645,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_2, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2634,7 +2654,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -2651,7 +2671,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_11 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 123, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -2661,7 +2681,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":122
+          /* "pyrgbdev/Corsair/SDK.pyx":134
  *                     return self.__set_device_rgb(1, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Headset":             # <<<<<<<<<<<<<<
@@ -2670,17 +2690,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":125
+        /* "pyrgbdev/Corsair/SDK.pyx":137
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])
  * 
  *                 elif device_type == "HeadsetStand":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_HeadsetStand, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 125, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_HeadsetStand, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 137, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":126
+          /* "pyrgbdev/Corsair/SDK.pyx":138
  * 
  *                 elif device_type == "HeadsetStand":
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2688,13 +2708,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "Cooler":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 126, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 138, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -2711,7 +2731,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_4, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2722,7 +2742,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_4, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -2731,7 +2751,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -2748,7 +2768,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_16 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 126, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -2758,7 +2778,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":125
+          /* "pyrgbdev/Corsair/SDK.pyx":137
  *                     return self.__set_device_rgb(2, values[0], values[1], values[2])
  * 
  *                 elif device_type == "HeadsetStand":             # <<<<<<<<<<<<<<
@@ -2767,17 +2787,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":128
+        /* "pyrgbdev/Corsair/SDK.pyx":140
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Cooler":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Cooler, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 128, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Cooler, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 140, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":129
+          /* "pyrgbdev/Corsair/SDK.pyx":141
  * 
  *                 elif device_type == "Cooler":
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2785,13 +2805,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "MemoryModule":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 129, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 141, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_16 = NULL;
           __pyx_t_15 = 0;
@@ -2808,7 +2828,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_5, __pyx_t_14, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2819,7 +2839,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_5, __pyx_t_14, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -2828,7 +2848,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_11);
             if (__pyx_t_16) {
               __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -2845,7 +2865,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_14 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 129, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
@@ -2855,7 +2875,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":128
+          /* "pyrgbdev/Corsair/SDK.pyx":140
  *                     return self.__set_device_rgb(4, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Cooler":             # <<<<<<<<<<<<<<
@@ -2864,17 +2884,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":131
+        /* "pyrgbdev/Corsair/SDK.pyx":143
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])
  * 
  *                 elif device_type == "MemoryModule":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MemoryModule, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 131, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_MemoryModule, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 143, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":132
+          /* "pyrgbdev/Corsair/SDK.pyx":144
  * 
  *                 elif device_type == "MemoryModule":
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2882,13 +2902,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "Motherboard":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 144, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 144, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 132, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 144, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -2905,7 +2925,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_6, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2916,7 +2936,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_6, __pyx_t_11, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -2925,7 +2945,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 144, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -2942,7 +2962,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_11 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -2952,7 +2972,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":131
+          /* "pyrgbdev/Corsair/SDK.pyx":143
  *                     return self.__set_device_rgb(5, values[0], values[1], values[2])
  * 
  *                 elif device_type == "MemoryModule":             # <<<<<<<<<<<<<<
@@ -2961,17 +2981,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":134
+        /* "pyrgbdev/Corsair/SDK.pyx":146
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Motherboard":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Motherboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 134, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_Motherboard, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 146, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":135
+          /* "pyrgbdev/Corsair/SDK.pyx":147
  * 
  *                 elif device_type == "Motherboard":
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -2979,13 +2999,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "GPU":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 135, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 147, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 135, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 147, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 135, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 147, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 135, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 147, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -3002,7 +3022,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_7, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3013,7 +3033,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_7, __pyx_t_16, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3022,7 +3042,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 135, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 147, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -3039,7 +3059,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_16 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -3049,7 +3069,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":134
+          /* "pyrgbdev/Corsair/SDK.pyx":146
  *                     return self.__set_device_rgb(6, values[0], values[1], values[2])
  * 
  *                 elif device_type == "Motherboard":             # <<<<<<<<<<<<<<
@@ -3058,17 +3078,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":137
+        /* "pyrgbdev/Corsair/SDK.pyx":149
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])
  * 
  *                 elif device_type == "GPU":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_GPU, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 137, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_GPU, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 149, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":138
+          /* "pyrgbdev/Corsair/SDK.pyx":150
  * 
  *                 elif device_type == "GPU":
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -3076,13 +3096,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "ETC":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 138, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 150, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 138, __pyx_L6_error)
+          __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 150, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_14);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 138, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 150, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 138, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 150, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_16 = NULL;
           __pyx_t_15 = 0;
@@ -3099,7 +3119,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_8, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -3110,7 +3130,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_16, __pyx_int_8, __pyx_t_14, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
@@ -3119,7 +3139,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 138, __pyx_L6_error)
+            __pyx_t_11 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 150, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_11);
             if (__pyx_t_16) {
               __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -3136,7 +3156,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_14 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 138, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 150, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
@@ -3146,7 +3166,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":137
+          /* "pyrgbdev/Corsair/SDK.pyx":149
  *                     return self.__set_device_rgb(7, values[0], values[1], values[2])
  * 
  *                 elif device_type == "GPU":             # <<<<<<<<<<<<<<
@@ -3155,17 +3175,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":140
+        /* "pyrgbdev/Corsair/SDK.pyx":152
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ETC":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])
  * 
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ETC, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 140, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ETC, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 152, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":141
+          /* "pyrgbdev/Corsair/SDK.pyx":153
  * 
  *                 elif device_type == "ETC":
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
@@ -3173,13 +3193,13 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 elif device_type == "ALL":
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 153, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 141, __pyx_L6_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 153, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 141, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 153, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 141, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 153, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_14 = NULL;
           __pyx_t_15 = 0;
@@ -3196,7 +3216,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_9, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 153, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -3207,7 +3227,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_14, __pyx_int_9, __pyx_t_11, __pyx_t_13, __pyx_t_12};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 153, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -3216,7 +3236,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 141, __pyx_L6_error)
+            __pyx_t_16 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 153, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_16);
             if (__pyx_t_14) {
               __Pyx_GIVEREF(__pyx_t_14); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_14); __pyx_t_14 = NULL;
@@ -3233,7 +3253,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_11 = 0;
             __pyx_t_13 = 0;
             __pyx_t_12 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_16, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 153, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
           }
@@ -3243,7 +3263,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":140
+          /* "pyrgbdev/Corsair/SDK.pyx":152
  *                     return self.__set_device_rgb(8, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ETC":             # <<<<<<<<<<<<<<
@@ -3252,31 +3272,31 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":143
+        /* "pyrgbdev/Corsair/SDK.pyx":155
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ALL":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
- *             except TypeError:
+ *                 else:
  */
-        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ALL, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 143, __pyx_L6_error)
+        __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_v_device_type, __pyx_n_s_ALL, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 155, __pyx_L6_error)
         if (__pyx_t_2) {
 
-          /* "pyrgbdev/Corsair/SDK.pyx":144
+          /* "pyrgbdev/Corsair/SDK.pyx":156
  * 
  *                 elif device_type == "ALL":
  *                     return self.__set_device_rgb(10, values[0], values[1], values[2])             # <<<<<<<<<<<<<<
- *             except TypeError:
- *                 raise InvalidRgbValueError
+ *                 else:
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  */
           __Pyx_XDECREF(__pyx_r);
-          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L6_error)
+          __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_device_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 156, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_5);
-          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 144, __pyx_L6_error)
+          __pyx_t_16 = __Pyx_GetItemInt(__pyx_v_values, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 156, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_16);
-          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 144, __pyx_L6_error)
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_values, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 156, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 144, __pyx_L6_error)
+          __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_values, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 156, __pyx_L6_error)
           __Pyx_GOTREF(__pyx_t_13);
           __pyx_t_11 = NULL;
           __pyx_t_15 = 0;
@@ -3293,7 +3313,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_10, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3304,7 +3324,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
             PyObject *__pyx_temp[5] = {__pyx_t_11, __pyx_int_10, __pyx_t_16, __pyx_t_12, __pyx_t_13};
-            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_15, 4+__pyx_t_15); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L6_error)
             __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -3313,7 +3333,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           } else
           #endif
           {
-            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 144, __pyx_L6_error)
+            __pyx_t_14 = PyTuple_New(4+__pyx_t_15); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 156, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_14);
             if (__pyx_t_11) {
               __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_11); __pyx_t_11 = NULL;
@@ -3330,7 +3350,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
             __pyx_t_16 = 0;
             __pyx_t_12 = 0;
             __pyx_t_13 = 0;
-            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L6_error)
+            __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L6_error)
             __Pyx_GOTREF(__pyx_t_4);
             __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
           }
@@ -3340,16 +3360,51 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           goto __pyx_L10_try_return;
 
-          /* "pyrgbdev/Corsair/SDK.pyx":143
+          /* "pyrgbdev/Corsair/SDK.pyx":155
  *                     return self.__set_device_rgb(9, values[0], values[1], values[2])
  * 
  *                 elif device_type == "ALL":             # <<<<<<<<<<<<<<
  *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
- *             except TypeError:
+ *                 else:
  */
         }
 
-        /* "pyrgbdev/Corsair/SDK.pyx":112
+        /* "pyrgbdev/Corsair/SDK.pyx":158
+ *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+ *                 else:
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)             # <<<<<<<<<<<<<<
+ *             except TypeError:
+ *                 raise InvalidRgbValueError
+ */
+        /*else*/ {
+          __Pyx_XDECREF(__pyx_r);
+          __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_InvalidDeviceType); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 158, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_14 = PyNumber_Add(__pyx_kp_s_Invalid_Device_Type, __pyx_v_device_type); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 158, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_14);
+          __pyx_t_13 = NULL;
+          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
+            __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_5);
+            if (likely(__pyx_t_13)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+              __Pyx_INCREF(__pyx_t_13);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_5, function);
+            }
+          }
+          __pyx_t_4 = (__pyx_t_13) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_13, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_14);
+          __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+          __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+          if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L6_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          __pyx_r = __pyx_t_4;
+          __pyx_t_4 = 0;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          goto __pyx_L10_try_return;
+        }
+
+        /* "pyrgbdev/Corsair/SDK.pyx":124
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]
  *             try:             # <<<<<<<<<<<<<<
@@ -3357,10 +3412,6 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                     return self.__set_device_rgb(3, values[0], values[1], values[2])
  */
       }
-      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-      goto __pyx_L13_try_end;
       __pyx_L6_error:;
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
       __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -3370,9 +3421,9 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "pyrgbdev/Corsair/SDK.pyx":145
- *                 elif device_type == "ALL":
- *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+      /* "pyrgbdev/Corsair/SDK.pyx":159
+ *                 else:
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  *             except TypeError:             # <<<<<<<<<<<<<<
  *                 raise InvalidRgbValueError
  * 
@@ -3380,28 +3431,28 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
       __pyx_t_15 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError);
       if (__pyx_t_15) {
         __Pyx_AddTraceback("pyrgbdev.Corsair.sdk.set_rgb", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_14) < 0) __PYX_ERR(0, 145, __pyx_L8_except_error)
+        if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_5, &__pyx_t_14) < 0) __PYX_ERR(0, 159, __pyx_L8_except_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_GOTREF(__pyx_t_14);
 
-        /* "pyrgbdev/Corsair/SDK.pyx":146
- *                     return self.__set_device_rgb(10, values[0], values[1], values[2])
+        /* "pyrgbdev/Corsair/SDK.pyx":160
+ *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  *             except TypeError:
  *                 raise InvalidRgbValueError             # <<<<<<<<<<<<<<
  * 
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_InvalidRgbValueError); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 146, __pyx_L8_except_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_InvalidRgbValueError); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L8_except_error)
         __Pyx_GOTREF(__pyx_t_13);
         __Pyx_Raise(__pyx_t_13, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-        __PYX_ERR(0, 146, __pyx_L8_except_error)
+        __PYX_ERR(0, 160, __pyx_L8_except_error)
       }
       goto __pyx_L8_except_error;
       __pyx_L8_except_error:;
 
-      /* "pyrgbdev/Corsair/SDK.pyx":112
+      /* "pyrgbdev/Corsair/SDK.pyx":124
  *         for device_type in rgb_info:
  *             values = rgb_info[device_type]
  *             try:             # <<<<<<<<<<<<<<
@@ -3419,10 +3470,9 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
       __Pyx_XGIVEREF(__pyx_t_10);
       __Pyx_ExceptionReset(__pyx_t_8, __pyx_t_9, __pyx_t_10);
       goto __pyx_L0;
-      __pyx_L13_try_end:;
     }
 
-    /* "pyrgbdev/Corsair/SDK.pyx":110
+    /* "pyrgbdev/Corsair/SDK.pyx":122
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  *         for device_type in rgb_info:             # <<<<<<<<<<<<<<
@@ -3432,7 +3482,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":100
+  /* "pyrgbdev/Corsair/SDK.pyx":112
  * 
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
@@ -3462,7 +3512,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":149
+/* "pyrgbdev/Corsair/SDK.pyx":163
  * 
  * 
  *     def get_device_information(self, index):             # <<<<<<<<<<<<<<
@@ -3472,7 +3522,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
 
 /* Python wrapper */
 static PyObject *__pyx_pw_8pyrgbdev_7Corsair_3sdk_11get_device_information(PyObject *__pyx_v_self, PyObject *__pyx_v_index); /*proto*/
-static char __pyx_doc_8pyrgbdev_7Corsair_3sdk_10get_device_information[] = "\n        A method that gets device information from a specific index.\n        The type is raw value from CUEDSK. So there needs to be a method that translates CorsairDeviceType into\n        a value that is for our project.\n        :param index: the index to find device information from\n        :return: returns tuple object that contains [name, device_type, device index]\n        ";
+static char __pyx_doc_8pyrgbdev_7Corsair_3sdk_10get_device_information[] = "\n        A method that gets device information from a specific index.\n        The type is raw value from CUESDK. So there needs to be a method that translates CorsairDeviceType into\n        a value that is for our project.\n        :param index: the index to find device information from\n        :return: returns tuple object that contains [name, device_type, device index]\n        ";
 static PyObject *__pyx_pw_8pyrgbdev_7Corsair_3sdk_11get_device_information(PyObject *__pyx_v_self, PyObject *__pyx_v_index) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -3498,9 +3548,9 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
-  char const *__pyx_t_10;
-  PyObject *__pyx_t_11 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  int __pyx_t_10;
+  char const *__pyx_t_11;
   PyObject *__pyx_t_12 = NULL;
   PyObject *__pyx_t_13 = NULL;
   PyObject *__pyx_t_14 = NULL;
@@ -3509,25 +3559,25 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_device_information", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":157
+  /* "pyrgbdev/Corsair/SDK.pyx":171
  *         :return: returns tuple object that contains [name, device_type, device index]
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 171, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Corsair/SDK.pyx":158
+    /* "pyrgbdev/Corsair/SDK.pyx":172
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  * 
- *         try:  # try to checking index is valid
+ *         if index >= self.device_count:
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -3541,14 +3591,14 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 158, __pyx_L1_error)
+    __PYX_ERR(0, 172, __pyx_L1_error)
 
-    /* "pyrgbdev/Corsair/SDK.pyx":157
+    /* "pyrgbdev/Corsair/SDK.pyx":171
  *         :return: returns tuple object that contains [name, device_type, device index]
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -3557,8 +3607,63 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
  */
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":160
+  /* "pyrgbdev/Corsair/SDK.pyx":174
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
+ * 
+ *         if index >= self.device_count:             # <<<<<<<<<<<<<<
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
+ * 
+ */
+  __pyx_t_3 = PyObject_RichCompare(__pyx_v_index, __pyx_v_self->device_count, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (unlikely(__pyx_t_2)) {
+
+    /* "pyrgbdev/Corsair/SDK.pyx":175
+ * 
+ *         if index >= self.device_count:
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))             # <<<<<<<<<<<<<<
+ * 
+ *         try:  # try to checking index is valid
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_InvalidDeviceIndexError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_index); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = PyNumber_Add(__pyx_kp_s_Invalid_index, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(0, 175, __pyx_L1_error)
+
+    /* "pyrgbdev/Corsair/SDK.pyx":174
+ *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
+ * 
+ *         if index >= self.device_count:             # <<<<<<<<<<<<<<
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
+ * 
+ */
+  }
+
+  /* "pyrgbdev/Corsair/SDK.pyx":177
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         try:  # try to checking index is valid             # <<<<<<<<<<<<<<
  *             result = self.corsair_ptr.getDeviceInfo(index)
@@ -3567,119 +3672,123 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
   {
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_6, &__pyx_t_7, &__pyx_t_8);
-    __Pyx_XGOTREF(__pyx_t_6);
+    __Pyx_ExceptionSave(&__pyx_t_7, &__pyx_t_8, &__pyx_t_9);
     __Pyx_XGOTREF(__pyx_t_7);
     __Pyx_XGOTREF(__pyx_t_8);
+    __Pyx_XGOTREF(__pyx_t_9);
     /*try:*/ {
 
-      /* "pyrgbdev/Corsair/SDK.pyx":161
+      /* "pyrgbdev/Corsair/SDK.pyx":178
  * 
  *         try:  # try to checking index is valid
  *             result = self.corsair_ptr.getDeviceInfo(index)             # <<<<<<<<<<<<<<
  *             name = result.name.decode("utf-8")
  *         except UnicodeDecodeError:  # If that index is not valid
  */
-      __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 161, __pyx_L4_error)
-      __pyx_v_result = __pyx_v_self->corsair_ptr->getDeviceInfo(__pyx_t_9);
+      __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 178, __pyx_L5_error)
+      __pyx_v_result = __pyx_v_self->corsair_ptr->getDeviceInfo(__pyx_t_10);
 
-      /* "pyrgbdev/Corsair/SDK.pyx":162
+      /* "pyrgbdev/Corsair/SDK.pyx":179
  *         try:  # try to checking index is valid
  *             result = self.corsair_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")             # <<<<<<<<<<<<<<
  *         except UnicodeDecodeError:  # If that index is not valid
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  */
-      __pyx_t_10 = __pyx_v_result.name;
-      __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_10, 0, strlen(__pyx_t_10), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L4_error)
+      __pyx_t_11 = __pyx_v_result.name;
+      __pyx_t_3 = __Pyx_decode_c_string(__pyx_t_11, 0, strlen(__pyx_t_11), NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L5_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_3);
       __pyx_v_name = __pyx_t_3;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "pyrgbdev/Corsair/SDK.pyx":160
- *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
+      /* "pyrgbdev/Corsair/SDK.pyx":177
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         try:  # try to checking index is valid             # <<<<<<<<<<<<<<
  *             result = self.corsair_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")
  */
     }
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    goto __pyx_L9_try_end;
-    __pyx_L4_error:;
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+    goto __pyx_L10_try_end;
+    __pyx_L5_error:;
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":163
+    /* "pyrgbdev/Corsair/SDK.pyx":180
  *             result = self.corsair_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")
  *         except UnicodeDecodeError:  # If that index is not valid             # <<<<<<<<<<<<<<
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  */
-    __pyx_t_9 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_UnicodeDecodeError);
-    if (__pyx_t_9) {
+    __pyx_t_10 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_UnicodeDecodeError);
+    if (__pyx_t_10) {
       __Pyx_AddTraceback("pyrgbdev.Corsair.sdk.get_device_information", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5) < 0) __PYX_ERR(0, 163, __pyx_L6_except_error)
+      if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_4, &__pyx_t_6) < 0) __PYX_ERR(0, 180, __pyx_L7_except_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_GOTREF(__pyx_t_6);
 
-      /* "pyrgbdev/Corsair/SDK.pyx":164
+      /* "pyrgbdev/Corsair/SDK.pyx":181
  *             name = result.name.decode("utf-8")
  *         except UnicodeDecodeError:  # If that index is not valid
- *             raise InvalidDeviceIndexError("Invalid index : " + index)             # <<<<<<<<<<<<<<
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))             # <<<<<<<<<<<<<<
  * 
  *         if result.type == 0:
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_InvalidDeviceIndexError); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 164, __pyx_L6_except_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_InvalidDeviceIndexError); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 181, __pyx_L7_except_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_13 = PyNumber_Add(__pyx_kp_s_Invalid_index, __pyx_v_index); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 164, __pyx_L6_except_error)
+      __pyx_t_13 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_index); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 181, __pyx_L7_except_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_14 = NULL;
+      __pyx_t_14 = PyNumber_Add(__pyx_kp_s_Invalid_index, __pyx_t_13); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 181, __pyx_L7_except_error)
+      __Pyx_GOTREF(__pyx_t_14);
+      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __pyx_t_13 = NULL;
       if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
-        __pyx_t_14 = PyMethod_GET_SELF(__pyx_t_12);
-        if (likely(__pyx_t_14)) {
+        __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_12);
+        if (likely(__pyx_t_13)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
-          __Pyx_INCREF(__pyx_t_14);
+          __Pyx_INCREF(__pyx_t_13);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_12, function);
         }
       }
-      __pyx_t_11 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_14, __pyx_t_13) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_13);
-      __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 164, __pyx_L6_except_error)
-      __Pyx_GOTREF(__pyx_t_11);
+      __pyx_t_5 = (__pyx_t_13) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_13, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_14);
+      __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+      if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L7_except_error)
+      __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __Pyx_Raise(__pyx_t_11, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __PYX_ERR(0, 164, __pyx_L6_except_error)
+      __Pyx_Raise(__pyx_t_5, 0, 0, 0);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __PYX_ERR(0, 181, __pyx_L7_except_error)
     }
-    goto __pyx_L6_except_error;
-    __pyx_L6_except_error:;
+    goto __pyx_L7_except_error;
+    __pyx_L7_except_error:;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":160
- *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
+    /* "pyrgbdev/Corsair/SDK.pyx":177
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         try:  # try to checking index is valid             # <<<<<<<<<<<<<<
  *             result = self.corsair_ptr.getDeviceInfo(index)
  *             name = result.name.decode("utf-8")
  */
-    __Pyx_XGIVEREF(__pyx_t_6);
     __Pyx_XGIVEREF(__pyx_t_7);
     __Pyx_XGIVEREF(__pyx_t_8);
-    __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
+    __Pyx_XGIVEREF(__pyx_t_9);
+    __Pyx_ExceptionReset(__pyx_t_7, __pyx_t_8, __pyx_t_9);
     goto __pyx_L1_error;
-    __pyx_L9_try_end:;
+    __pyx_L10_try_end:;
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":166
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+  /* "pyrgbdev/Corsair/SDK.pyx":183
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         if result.type == 0:             # <<<<<<<<<<<<<<
  *             device_type = "Mouse"
@@ -3688,7 +3797,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
   switch (__pyx_v_result.type) {
     case 0:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":167
+    /* "pyrgbdev/Corsair/SDK.pyx":184
  * 
  *         if result.type == 0:
  *             device_type = "Mouse"             # <<<<<<<<<<<<<<
@@ -3698,8 +3807,8 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_Mouse);
     __pyx_v_device_type = __pyx_n_s_Mouse;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":166
- *             raise InvalidDeviceIndexError("Invalid index : " + index)
+    /* "pyrgbdev/Corsair/SDK.pyx":183
+ *             raise InvalidDeviceIndexError("Invalid index : " + str(index))
  * 
  *         if result.type == 0:             # <<<<<<<<<<<<<<
  *             device_type = "Mouse"
@@ -3708,7 +3817,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 1:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":169
+    /* "pyrgbdev/Corsair/SDK.pyx":186
  *             device_type = "Mouse"
  *         elif result.type == 1:
  *             device_type = "Keyboard"             # <<<<<<<<<<<<<<
@@ -3718,7 +3827,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_Keyboard);
     __pyx_v_device_type = __pyx_n_s_Keyboard;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":168
+    /* "pyrgbdev/Corsair/SDK.pyx":185
  *         if result.type == 0:
  *             device_type = "Mouse"
  *         elif result.type == 1:             # <<<<<<<<<<<<<<
@@ -3728,7 +3837,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 2:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":171
+    /* "pyrgbdev/Corsair/SDK.pyx":188
  *             device_type = "Keyboard"
  *         elif result.type == 2:
  *             device_type = "Headset"             # <<<<<<<<<<<<<<
@@ -3738,7 +3847,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_Headset);
     __pyx_v_device_type = __pyx_n_s_Headset;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":170
+    /* "pyrgbdev/Corsair/SDK.pyx":187
  *         elif result.type == 1:
  *             device_type = "Keyboard"
  *         elif result.type == 2:             # <<<<<<<<<<<<<<
@@ -3748,7 +3857,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 3:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":173
+    /* "pyrgbdev/Corsair/SDK.pyx":190
  *             device_type = "Headset"
  *         elif result.type == 3:
  *             device_type = "MouseMat"             # <<<<<<<<<<<<<<
@@ -3758,7 +3867,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_MouseMat);
     __pyx_v_device_type = __pyx_n_s_MouseMat;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":172
+    /* "pyrgbdev/Corsair/SDK.pyx":189
  *         elif result.type == 2:
  *             device_type = "Headset"
  *         elif result.type == 3:             # <<<<<<<<<<<<<<
@@ -3768,7 +3877,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 4:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":175
+    /* "pyrgbdev/Corsair/SDK.pyx":192
  *             device_type = "MouseMat"
  *         elif result.type == 4:
  *             device_type = "HeadsetStand"             # <<<<<<<<<<<<<<
@@ -3778,7 +3887,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_HeadsetStand);
     __pyx_v_device_type = __pyx_n_s_HeadsetStand;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":174
+    /* "pyrgbdev/Corsair/SDK.pyx":191
  *         elif result.type == 3:
  *             device_type = "MouseMat"
  *         elif result.type == 4:             # <<<<<<<<<<<<<<
@@ -3788,7 +3897,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 5:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":177
+    /* "pyrgbdev/Corsair/SDK.pyx":194
  *             device_type = "HeadsetStand"
  *         elif result.type == 5:
  *             device_type = "Cooler"             # <<<<<<<<<<<<<<
@@ -3798,7 +3907,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_Cooler);
     __pyx_v_device_type = __pyx_n_s_Cooler;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":176
+    /* "pyrgbdev/Corsair/SDK.pyx":193
  *         elif result.type == 4:
  *             device_type = "HeadsetStand"
  *         elif result.type == 5:             # <<<<<<<<<<<<<<
@@ -3808,7 +3917,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 6:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":179
+    /* "pyrgbdev/Corsair/SDK.pyx":196
  *             device_type = "Cooler"
  *         elif result.type == 6:
  *             device_type = "MemoryModule"             # <<<<<<<<<<<<<<
@@ -3818,7 +3927,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_MemoryModule);
     __pyx_v_device_type = __pyx_n_s_MemoryModule;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":178
+    /* "pyrgbdev/Corsair/SDK.pyx":195
  *         elif result.type == 5:
  *             device_type = "Cooler"
  *         elif result.type == 6:             # <<<<<<<<<<<<<<
@@ -3828,7 +3937,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 7:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":181
+    /* "pyrgbdev/Corsair/SDK.pyx":198
  *             device_type = "MemoryModule"
  *         elif result.type == 7:
  *             device_type = "Motherboard"             # <<<<<<<<<<<<<<
@@ -3838,7 +3947,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_Motherboard);
     __pyx_v_device_type = __pyx_n_s_Motherboard;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":180
+    /* "pyrgbdev/Corsair/SDK.pyx":197
  *         elif result.type == 6:
  *             device_type = "MemoryModule"
  *         elif result.type == 7:             # <<<<<<<<<<<<<<
@@ -3848,7 +3957,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 8:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":183
+    /* "pyrgbdev/Corsair/SDK.pyx":200
  *             device_type = "Motherboard"
  *         elif result.type == 8:
  *             device_type = "GPU"             # <<<<<<<<<<<<<<
@@ -3858,7 +3967,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_GPU);
     __pyx_v_device_type = __pyx_n_s_GPU;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":182
+    /* "pyrgbdev/Corsair/SDK.pyx":199
  *         elif result.type == 7:
  *             device_type = "Motherboard"
  *         elif result.type == 8:             # <<<<<<<<<<<<<<
@@ -3868,7 +3977,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     break;
     case 9:
 
-    /* "pyrgbdev/Corsair/SDK.pyx":185
+    /* "pyrgbdev/Corsair/SDK.pyx":202
  *             device_type = "GPU"
  *         elif result.type == 9:
  *             device_type = "ETC"             # <<<<<<<<<<<<<<
@@ -3878,7 +3987,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     __Pyx_INCREF(__pyx_n_s_ETC);
     __pyx_v_device_type = __pyx_n_s_ETC;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":184
+    /* "pyrgbdev/Corsair/SDK.pyx":201
  *         elif result.type == 8:
  *             device_type = "GPU"
  *         elif result.type == 9:             # <<<<<<<<<<<<<<
@@ -3889,7 +3998,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
     default: break;
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":187
+  /* "pyrgbdev/Corsair/SDK.pyx":204
  *             device_type = "ETC"
  * 
  *         return name, device_type             # <<<<<<<<<<<<<<
@@ -3897,20 +4006,20 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
  *     def get_device_count(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_device_type)) { __Pyx_RaiseUnboundLocalError("device_type"); __PYX_ERR(0, 187, __pyx_L1_error) }
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  if (unlikely(!__pyx_v_device_type)) { __Pyx_RaiseUnboundLocalError("device_type"); __PYX_ERR(0, 204, __pyx_L1_error) }
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_name);
   __Pyx_GIVEREF(__pyx_v_name);
-  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_name);
+  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_v_name);
   __Pyx_INCREF(__pyx_v_device_type);
   __Pyx_GIVEREF(__pyx_v_device_type);
-  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_device_type);
-  __pyx_r = __pyx_t_5;
-  __pyx_t_5 = 0;
+  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_device_type);
+  __pyx_r = __pyx_t_6;
+  __pyx_t_6 = 0;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":149
+  /* "pyrgbdev/Corsair/SDK.pyx":163
  * 
  * 
  *     def get_device_information(self, index):             # <<<<<<<<<<<<<<
@@ -3923,7 +4032,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
   __Pyx_XDECREF(__pyx_t_14);
@@ -3937,7 +4046,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_10get_device_information(struc
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":189
+/* "pyrgbdev/Corsair/SDK.pyx":206
  *         return name, device_type
  * 
  *     def get_device_count(self):             # <<<<<<<<<<<<<<
@@ -3972,25 +4081,25 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_12get_device_count(struct __py
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_device_count", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":194
+  /* "pyrgbdev/Corsair/SDK.pyx":211
  *         :return: returns integer value of connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
- * 
+ *         self.device_count = self.corsair_ptr.getDeviceCount()
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 211, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Corsair/SDK.pyx":195
+    /* "pyrgbdev/Corsair/SDK.pyx":212
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
- * 
- *         return self.corsair_ptr.getDeviceCount()
+ *         self.device_count = self.corsair_ptr.getDeviceCount()
+ *         return self.device_count
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 212, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -4004,37 +4113,50 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_12get_device_count(struct __py
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 212, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 195, __pyx_L1_error)
+    __PYX_ERR(0, 212, __pyx_L1_error)
 
-    /* "pyrgbdev/Corsair/SDK.pyx":194
+    /* "pyrgbdev/Corsair/SDK.pyx":211
  *         :return: returns integer value of connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
- * 
+ *         self.device_count = self.corsair_ptr.getDeviceCount()
  */
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":197
+  /* "pyrgbdev/Corsair/SDK.pyx":213
+ *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
+ *         self.device_count = self.corsair_ptr.getDeviceCount()             # <<<<<<<<<<<<<<
+ *         return self.device_count
  * 
- *         return self.corsair_ptr.getDeviceCount()             # <<<<<<<<<<<<<<
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->corsair_ptr->getDeviceCount()); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_3);
+  __Pyx_GOTREF(__pyx_v_self->device_count);
+  __Pyx_DECREF(__pyx_v_self->device_count);
+  __pyx_v_self->device_count = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "pyrgbdev/Corsair/SDK.pyx":214
+ *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
+ *         self.device_count = self.corsair_ptr.getDeviceCount()
+ *         return self.device_count             # <<<<<<<<<<<<<<
  * 
  *     def get_all_device_information(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->corsair_ptr->getDeviceCount()); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_r = __pyx_t_3;
-  __pyx_t_3 = 0;
+  __Pyx_INCREF(__pyx_v_self->device_count);
+  __pyx_r = __pyx_v_self->device_count;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":189
+  /* "pyrgbdev/Corsair/SDK.pyx":206
  *         return name, device_type
  * 
  *     def get_device_count(self):             # <<<<<<<<<<<<<<
@@ -4055,8 +4177,8 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_12get_device_count(struct __py
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":199
- *         return self.corsair_ptr.getDeviceCount()
+/* "pyrgbdev/Corsair/SDK.pyx":216
+ *         return self.device_count
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
  *         """
@@ -4099,25 +4221,25 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_all_device_information", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":204
+  /* "pyrgbdev/Corsair/SDK.pyx":221
  *         :return: returns dict object containing connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_self->is_connected); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 221, __pyx_L1_error)
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "pyrgbdev/Corsair/SDK.pyx":205
+    /* "pyrgbdev/Corsair/SDK.pyx":222
  *         """
  *         if not self.is_connected:
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
  * 
  *         device_count = self.get_device_count()
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 205, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -4131,14 +4253,14 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
     }
     __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_Cue_SDK_is_not_Connected_Use_con);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 205, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 205, __pyx_L1_error)
+    __PYX_ERR(0, 222, __pyx_L1_error)
 
-    /* "pyrgbdev/Corsair/SDK.pyx":204
+    /* "pyrgbdev/Corsair/SDK.pyx":221
  *         :return: returns dict object containing connected devices.
  *         """
  *         if not self.is_connected:             # <<<<<<<<<<<<<<
@@ -4147,14 +4269,14 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
  */
   }
 
-  /* "pyrgbdev/Corsair/SDK.pyx":207
+  /* "pyrgbdev/Corsair/SDK.pyx":224
  *             raise SDKNotConnectedError("Cue SDK is not Connected. Use connect() first.")
  * 
  *         device_count = self.get_device_count()             # <<<<<<<<<<<<<<
  * 
  *         for i in range(device_count):
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_count); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -4168,28 +4290,28 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
   }
   __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 207, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_device_count = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":209
+  /* "pyrgbdev/Corsair/SDK.pyx":226
  *         device_count = self.get_device_count()
  * 
  *         for i in range(device_count):             # <<<<<<<<<<<<<<
  *             cur_device_info = self.get_device_information(i)
  *             device_type = cur_device_info[1]
  */
-  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_device_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_device_count); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
     __pyx_t_4 = __pyx_t_3; __Pyx_INCREF(__pyx_t_4); __pyx_t_6 = 0;
     __pyx_t_7 = NULL;
   } else {
-    __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 226, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   for (;;) {
@@ -4197,17 +4319,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
       if (likely(PyList_CheckExact(__pyx_t_4))) {
         if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 226, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       } else {
         if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_3); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 226, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_3 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         #endif
       }
@@ -4217,7 +4339,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 209, __pyx_L1_error)
+          else __PYX_ERR(0, 226, __pyx_L1_error)
         }
         break;
       }
@@ -4226,14 +4348,14 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":210
+    /* "pyrgbdev/Corsair/SDK.pyx":227
  * 
  *         for i in range(device_count):
  *             cur_device_info = self.get_device_information(i)             # <<<<<<<<<<<<<<
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_information); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 210, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_device_information); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -4247,44 +4369,44 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
     }
     __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_8, __pyx_v_i) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_i);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 210, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_XDECREF_SET(__pyx_v_cur_device_info, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":211
+    /* "pyrgbdev/Corsair/SDK.pyx":228
  *         for i in range(device_count):
  *             cur_device_info = self.get_device_information(i)
  *             device_type = cur_device_info[1]             # <<<<<<<<<<<<<<
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 228, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_device_type, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":212
+    /* "pyrgbdev/Corsair/SDK.pyx":229
  *             cur_device_info = self.get_device_information(i)
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]             # <<<<<<<<<<<<<<
  *             if device_type in self.connected_devices.keys():
  *                 self.connected_devices[device_type].append((device_name, i))
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_cur_device_info, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 229, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_XDECREF_SET(__pyx_v_device_name, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":213
+    /* "pyrgbdev/Corsair/SDK.pyx":230
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():             # <<<<<<<<<<<<<<
  *                 self.connected_devices[device_type].append((device_name, i))
  *             else:
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->connected_devices, __pyx_n_s_keys); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->connected_devices, __pyx_n_s_keys); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -4298,24 +4420,24 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
     }
     __pyx_t_3 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 213, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 230, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_device_type, __pyx_t_3, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 213, __pyx_L1_error)
+    __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_v_device_type, __pyx_t_3, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 230, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "pyrgbdev/Corsair/SDK.pyx":214
+      /* "pyrgbdev/Corsair/SDK.pyx":231
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():
  *                 self.connected_devices[device_type].append((device_name, i))             # <<<<<<<<<<<<<<
  *             else:
  *                 self.connected_devices[device_type] = [(device_name, i)]
  */
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_self->connected_devices, __pyx_v_device_type); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 214, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_v_self->connected_devices, __pyx_v_device_type); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 214, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_v_device_name);
       __Pyx_GIVEREF(__pyx_v_device_name);
@@ -4323,11 +4445,11 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
       __Pyx_INCREF(__pyx_v_i);
       __Pyx_GIVEREF(__pyx_v_i);
       PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_i);
-      __pyx_t_9 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_5); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 214, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_Append(__pyx_t_3, __pyx_t_5); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 231, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "pyrgbdev/Corsair/SDK.pyx":213
+      /* "pyrgbdev/Corsair/SDK.pyx":230
  *             device_type = cur_device_info[1]
  *             device_name = cur_device_info[0]
  *             if device_type in self.connected_devices.keys():             # <<<<<<<<<<<<<<
@@ -4337,7 +4459,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
       goto __pyx_L6;
     }
 
-    /* "pyrgbdev/Corsair/SDK.pyx":216
+    /* "pyrgbdev/Corsair/SDK.pyx":233
  *                 self.connected_devices[device_type].append((device_name, i))
  *             else:
  *                 self.connected_devices[device_type] = [(device_name, i)]             # <<<<<<<<<<<<<<
@@ -4345,7 +4467,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
  *         return self.connected_devices
  */
     /*else*/ {
-      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 216, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 233, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_v_device_name);
       __Pyx_GIVEREF(__pyx_v_device_name);
@@ -4353,17 +4475,17 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
       __Pyx_INCREF(__pyx_v_i);
       __Pyx_GIVEREF(__pyx_v_i);
       PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_v_i);
-      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 216, __pyx_L1_error)
+      __pyx_t_3 = PyList_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 233, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_5);
       PyList_SET_ITEM(__pyx_t_3, 0, __pyx_t_5);
       __pyx_t_5 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_v_self->connected_devices, __pyx_v_device_type, __pyx_t_3) < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_v_self->connected_devices, __pyx_v_device_type, __pyx_t_3) < 0)) __PYX_ERR(0, 233, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __pyx_L6:;
 
-    /* "pyrgbdev/Corsair/SDK.pyx":209
+    /* "pyrgbdev/Corsair/SDK.pyx":226
  *         device_count = self.get_device_count()
  * 
  *         for i in range(device_count):             # <<<<<<<<<<<<<<
@@ -4373,7 +4495,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":218
+  /* "pyrgbdev/Corsair/SDK.pyx":235
  *                 self.connected_devices[device_type] = [(device_name, i)]
  * 
  *         return self.connected_devices             # <<<<<<<<<<<<<<
@@ -4385,8 +4507,8 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
   __pyx_r = __pyx_v_self->connected_devices;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":199
- *         return self.corsair_ptr.getDeviceCount()
+  /* "pyrgbdev/Corsair/SDK.pyx":216
+ *         return self.device_count
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
  *         """
@@ -4412,7 +4534,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_14get_all_device_information(s
   return __pyx_r;
 }
 
-/* "pyrgbdev/Corsair/SDK.pyx":220
+/* "pyrgbdev/Corsair/SDK.pyx":237
  *         return self.connected_devices
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -4442,7 +4564,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_16__repr__(CYTHON_UNUSED struc
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "pyrgbdev/Corsair/SDK.pyx":224
+  /* "pyrgbdev/Corsair/SDK.pyx":241
  *         A __repr__ method for this class
  *         """
  *         return "Corsair SDK"             # <<<<<<<<<<<<<<
@@ -4452,7 +4574,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_16__repr__(CYTHON_UNUSED struc
   __pyx_r = __pyx_kp_s_Corsair_SDK;
   goto __pyx_L0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":220
+  /* "pyrgbdev/Corsair/SDK.pyx":237
  *         return self.connected_devices
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -4592,6 +4714,7 @@ static PyObject *__pyx_tp_new_8pyrgbdev_7Corsair_sdk(PyTypeObject *t, CYTHON_UNU
   p = ((struct __pyx_obj_8pyrgbdev_7Corsair_sdk *)o);
   p->connected_devices = Py_None; Py_INCREF(Py_None);
   p->is_connected = Py_None; Py_INCREF(Py_None);
+  p->device_count = Py_None; Py_INCREF(Py_None);
   if (unlikely(__pyx_pw_8pyrgbdev_7Corsair_3sdk_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) goto bad;
   return o;
   bad:
@@ -4609,6 +4732,7 @@ static void __pyx_tp_dealloc_8pyrgbdev_7Corsair_sdk(PyObject *o) {
   PyObject_GC_UnTrack(o);
   Py_CLEAR(p->connected_devices);
   Py_CLEAR(p->is_connected);
+  Py_CLEAR(p->device_count);
   (*Py_TYPE(o)->tp_free)(o);
 }
 
@@ -4621,6 +4745,9 @@ static int __pyx_tp_traverse_8pyrgbdev_7Corsair_sdk(PyObject *o, visitproc v, vo
   if (p->is_connected) {
     e = (*v)(p->is_connected, a); if (e) return e;
   }
+  if (p->device_count) {
+    e = (*v)(p->device_count, a); if (e) return e;
+  }
   return 0;
 }
 
@@ -4632,6 +4759,9 @@ static int __pyx_tp_clear_8pyrgbdev_7Corsair_sdk(PyObject *o) {
   Py_XDECREF(tmp);
   tmp = ((PyObject*)p->is_connected);
   p->is_connected = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->device_count);
+  p->device_count = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -4770,6 +4900,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ALL, __pyx_k_ALL, sizeof(__pyx_k_ALL), 0, 0, 1, 1},
   {&__pyx_kp_s_A_Error_class_for_when_sdk_is_n, __pyx_k_A_Error_class_for_when_sdk_is_n, sizeof(__pyx_k_A_Error_class_for_when_sdk_is_n), 0, 0, 1, 0},
   {&__pyx_kp_s_An_Error_class_for_Invalid_Devi, __pyx_k_An_Error_class_for_Invalid_Devi, sizeof(__pyx_k_An_Error_class_for_Invalid_Devi), 0, 0, 1, 0},
+  {&__pyx_kp_s_An_Error_class_for_Invalid_Devi_2, __pyx_k_An_Error_class_for_Invalid_Devi_2, sizeof(__pyx_k_An_Error_class_for_Invalid_Devi_2), 0, 0, 1, 0},
   {&__pyx_kp_s_An_Error_class_for_Invalid_RGB, __pyx_k_An_Error_class_for_Invalid_RGB, sizeof(__pyx_k_An_Error_class_for_Invalid_RGB), 0, 0, 1, 0},
   {&__pyx_kp_s_An_error_class_for_Corsair_DLL, __pyx_k_An_error_class_for_Corsair_DLL, sizeof(__pyx_k_An_error_class_for_Corsair_DLL), 0, 0, 1, 0},
   {&__pyx_kp_s_An_error_class_for_Corsair_SDK, __pyx_k_An_error_class_for_Corsair_SDK, sizeof(__pyx_k_An_error_class_for_Corsair_SDK), 0, 0, 1, 0},
@@ -4785,7 +4916,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_HeadsetStand, __pyx_k_HeadsetStand, sizeof(__pyx_k_HeadsetStand), 0, 0, 1, 1},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_n_s_InvalidDeviceIndexError, __pyx_k_InvalidDeviceIndexError, sizeof(__pyx_k_InvalidDeviceIndexError), 0, 0, 1, 1},
+  {&__pyx_n_s_InvalidDeviceType, __pyx_k_InvalidDeviceType, sizeof(__pyx_k_InvalidDeviceType), 0, 0, 1, 1},
   {&__pyx_n_s_InvalidRgbValueError, __pyx_k_InvalidRgbValueError, sizeof(__pyx_k_InvalidRgbValueError), 0, 0, 1, 1},
+  {&__pyx_kp_s_Invalid_Device_Type, __pyx_k_Invalid_Device_Type, sizeof(__pyx_k_Invalid_Device_Type), 0, 0, 1, 0},
   {&__pyx_kp_s_Invalid_index, __pyx_k_Invalid_index, sizeof(__pyx_k_Invalid_index), 0, 0, 1, 0},
   {&__pyx_n_s_Keyboard, __pyx_k_Keyboard, sizeof(__pyx_k_Keyboard), 0, 0, 1, 1},
   {&__pyx_n_s_MemoryModule, __pyx_k_MemoryModule, sizeof(__pyx_k_MemoryModule), 0, 0, 1, 1},
@@ -4826,10 +4959,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(0, 51, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 145, __pyx_L1_error)
-  __pyx_builtin_UnicodeDecodeError = __Pyx_GetBuiltinName(__pyx_n_s_UnicodeDecodeError); if (!__pyx_builtin_UnicodeDecodeError) __PYX_ERR(0, 163, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_builtin_UnicodeDecodeError = __Pyx_GetBuiltinName(__pyx_n_s_UnicodeDecodeError); if (!__pyx_builtin_UnicodeDecodeError) __PYX_ERR(0, 180, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 226, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -4921,7 +5054,7 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_8pyrgbdev_7Corsair_sdk) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_8pyrgbdev_7Corsair_sdk) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_8pyrgbdev_7Corsair_sdk.tp_print = 0;
   #endif
@@ -4930,7 +5063,7 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_8pyrgbdev_7Corsair_sdk, "__repr__"); if (unlikely(!wrapper)) __PYX_ERR(0, 55, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_8pyrgbdev_7Corsair_sdk, "__repr__"); if (unlikely(!wrapper)) __PYX_ERR(0, 65, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
       __pyx_wrapperbase_8pyrgbdev_7Corsair_3sdk_16__repr__ = *((PyWrapperDescrObject *)wrapper)->d_base;
       __pyx_wrapperbase_8pyrgbdev_7Corsair_3sdk_16__repr__.doc = __pyx_doc_8pyrgbdev_7Corsair_3sdk_16__repr__;
@@ -4938,8 +5071,8 @@ static int __Pyx_modinit_type_init_code(void) {
     }
   }
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_sdk, (PyObject *)&__pyx_type_8pyrgbdev_7Corsair_sdk) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_8pyrgbdev_7Corsair_sdk) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_sdk, (PyObject *)&__pyx_type_8pyrgbdev_7Corsair_sdk) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_8pyrgbdev_7Corsair_sdk) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
   __pyx_ptype_8pyrgbdev_7Corsair_sdk = &__pyx_type_8pyrgbdev_7Corsair_sdk;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -5298,8 +5431,32 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyrgbdev/Corsair/SDK.pyx":49
- *     pass
+  /* "pyrgbdev/Corsair/SDK.pyx":50
+ * 
+ * 
+ * class InvalidDeviceType(Exception):             # <<<<<<<<<<<<<<
+ *     """
+ *     An Error class for Invalid Device Type.
+ */
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __Pyx_GIVEREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_InvalidDeviceType, __pyx_n_s_InvalidDeviceType, (PyObject *) NULL, __pyx_n_s_pyrgbdev_Corsair, __pyx_kp_s_An_Error_class_for_Invalid_Devi_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_InvalidDeviceType, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_InvalidDeviceType, __pyx_t_4) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pyrgbdev/Corsair/SDK.pyx":59
+ * 
  * 
  * try:             # <<<<<<<<<<<<<<
  *     from pyrgbdev.Corsair.Corsair cimport *
