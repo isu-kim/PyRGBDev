@@ -6,3 +6,4 @@ cythontest/
 build
 pyrgbdev.egg-info
 testdir
+SDK.cpp/
