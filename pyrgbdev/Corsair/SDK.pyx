@@ -157,7 +157,7 @@ cdef class sdk:
                 else:
                     return InvalidDeviceType("Invalid Device Type : " + device_type)
             except TypeError:
-                raise InvalidRgbValueError
+                raise InvalidRgbValueError("Invalid RGB Value : " + str(rgb_info))
 
 
     def get_device_information(self, index):

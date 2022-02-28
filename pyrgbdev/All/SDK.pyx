@@ -21,6 +21,30 @@ class NoAvailableSDKError(Exception):
     """
     pass
 
+class SDKNotConnectedError(Exception):
+    """
+    A Error class for when sdk is not connected and use is trying to perform
+    expressions which should be executed after sdk has been connected
+    """
+    pass
+
+class InvalidRgbValueError(Exception):
+    """
+    An Error class for Invalid RGB Values.
+    Example: ("AWD", 123, 123)
+    Would raise this error
+    """
+    pass
+
+
+class InvalidDeviceType(Exception):
+    """
+    An Error class for Invalid Device Type.
+    Example: "InvalidDeviceType"
+    Would raise this error
+    """
+    pass
+
 
 class sdk:
     """
@@ -31,7 +55,6 @@ class sdk:
         A initializer method for class sdk in All Wrappers
         """
         self.sdk_list = list()
-
         try:  # Try loading Razer SDK dll and the module
             from pyrgbdev.Razer import sdk as RazerSDK
             self.sdk_list.append(RazerSDK())  # add object for Razer
@@ -83,6 +106,9 @@ class sdk:
         return: This returns a list of string objects that represent each SDK's names.
         """
         sdk_names = list()
+        if not self.is_connected:
+            raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+
         for sdk_object in self.sdk_list:
             sdk_names.append(str(sdk_object))
         return sdk_names
@@ -95,6 +121,9 @@ class sdk:
         {'Razer SDK': {'Mouse': [('DEATHADDER ELITE CHROMA', 0)]}, 'Corsair SDK': {'Mouse': [('GLAIVE RGB', 0)]}}
         return: This returns a dictionary object that contains connected devices with keys as its sdk's names
         """
+        if not self.is_connected:
+            raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+
         all_devices = dict()
         for sdk in self.sdk_list:
             all_devices[str(sdk)] = sdk.get_all_device_information()
@@ -111,5 +140,15 @@ class sdk:
         :param rgb_info: the rgb_information to set
         :return: returns True if successful, False if failure.
         """
-        for sdk in self.sdk_list:
-            sdk.set_rgb(rgb_info)
+        if not self.is_connected:
+            raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+        try:  # try setting values
+            for sdk in self.sdk_list:
+                sdk.set_rgb(rgb_info)
+        except Exception as e:  # if exception happens, raise exception
+            if "Invalid Device Type" in str(e):
+                raise InvalidDeviceType(str(e))
+            elif "Invalid RGB Value" in str(e):
+                raise InvalidRgbValueError(str(e))
+            else:
+                raise e

@@ -1225,6 +1225,12 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
+/* PySequenceContains.proto */
+static CYTHON_INLINE int __Pyx_PySequence_ContainsTF(PyObject* item, PyObject* seq, int eq) {
+    int result = PySequence_Contains(seq, item);
+    return unlikely(result < 0) ? result : (result == (eq == Py_EQ));
+}
+
 /* CalculateMetaclass.proto */
 static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases);
 
@@ -1334,16 +1340,6 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
-/* Print.proto */
-static int __Pyx_Print(PyObject*, PyObject *, int);
-#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
-static PyObject* __pyx_print = 0;
-static PyObject* __pyx_print_kwargs = 0;
-#endif
-
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
-
 /* GCCDiagnostics.proto */
 #if defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
 #define __Pyx_HAS_GCC_DIAGNOSTIC
@@ -1385,17 +1381,15 @@ int __pyx_module_is_main_pyrgbdev__All = 0;
 
 /* Implementation of 'pyrgbdev.All' */
 static PyObject *__pyx_builtin_ImportError;
+static const char __pyx_k_e[] = "e";
 static const char __pyx_k_doc[] = "__doc__";
-static const char __pyx_k_end[] = "end";
 static const char __pyx_k_sdk[] = "sdk";
-static const char __pyx_k_file[] = "file";
 static const char __pyx_k_init[] = "__init__";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_repr[] = "__repr__";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_print[] = "print";
 static const char __pyx_k_append[] = "append";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_module[] = "__module__";
@@ -1418,7 +1412,6 @@ static const char __pyx_k_sdk___init[] = "sdk.__init__";
 static const char __pyx_k_sdk___repr[] = "sdk.__repr__";
 static const char __pyx_k_sdk_object[] = "sdk_object";
 static const char __pyx_k_ImportError[] = "ImportError";
-static const char __pyx_k_SDK_REMOVED[] = "SDK REMOVED : ";
 static const char __pyx_k_all_devices[] = "all_devices";
 static const char __pyx_k_sdk_connect[] = "sdk.connect";
 static const char __pyx_k_sdk_set_rgb[] = "sdk.set_rgb";
@@ -1427,34 +1420,50 @@ static const char __pyx_k_pyrgbdev_All[] = "pyrgbdev.All";
 static const char __pyx_k_pyrgbdev_Razer[] = "pyrgbdev.Razer";
 static const char __pyx_k_sdk_disconnect[] = "sdk.disconnect";
 static const char __pyx_k_pyrgbdev_Corsair[] = "pyrgbdev.Corsair";
+static const char __pyx_k_InvalidDeviceType[] = "InvalidDeviceType";
+static const char __pyx_k_Invalid_RGB_Value[] = "Invalid RGB Value";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
+static const char __pyx_k_Invalid_Device_Type[] = "Invalid Device Type";
 static const char __pyx_k_NoAvailableSDKError[] = "NoAvailableSDKError";
+static const char __pyx_k_InvalidRgbValueError[] = "InvalidRgbValueError";
+static const char __pyx_k_SDKNotConnectedError[] = "SDKNotConnectedError";
 static const char __pyx_k_pyrgbdev_All_SDK_pyx[] = "pyrgbdev\\All\\SDK.pyx";
 static const char __pyx_k_get_connected_sdk_names[] = "get_connected_sdk_names";
 static const char __pyx_k_No_Available_SDK_was_found[] = "No Available SDK was found";
 static const char __pyx_k_get_all_device_information[] = "get_all_device_information";
 static const char __pyx_k_sdk_get_connected_sdk_names[] = "sdk.get_connected_sdk_names";
 static const char __pyx_k_A_sdk_class_for_ALL_Wrappers[] = "\n    A sdk class for ALL Wrappers\n    ";
+static const char __pyx_k_An_Error_class_for_Invalid_RGB[] = "\n    An Error class for Invalid RGB Values.\n    Example: (\"AWD\", 123, 123)\n    Would raise this error\n    ";
 static const char __pyx_k_sdk_get_all_device_information[] = "sdk.get_all_device_information";
+static const char __pyx_k_A_Error_class_for_when_sdk_is_n[] = "\n    A Error class for when sdk is not connected and use is trying to perform\n    expressions which should be executed after sdk has been connected\n    ";
 static const char __pyx_k_A_Exception_class_for_no_Availa[] = "\n    A Exception class for no Available SDK found\n    ";
+static const char __pyx_k_An_Error_class_for_Invalid_Devi[] = "\n    An Error class for Invalid Device Type.\n    Example: \"InvalidDeviceType\"\n    Would raise this error\n    ";
 static const char __pyx_k_The_upper_distutils_part_MUST_t[] = "\nThe upper #distutils part MUST to on top of this code\nThis script is for ALL Wrappers for controlling all devices.\n@project : pyrgbdev\n@author : Gooday2die\n@date : 2022-02-25\n@file : SDK.pyx\n";
+static const char __pyx_k_ALL_SDK_is_not_Connected_Use_con[] = "ALL SDK is not Connected. Use connect() first.";
 static PyObject *__pyx_kp_s_ALL_SDK;
+static PyObject *__pyx_kp_s_ALL_SDK_is_not_Connected_Use_con;
+static PyObject *__pyx_kp_s_A_Error_class_for_when_sdk_is_n;
 static PyObject *__pyx_kp_s_A_Exception_class_for_no_Availa;
 static PyObject *__pyx_kp_s_A_sdk_class_for_ALL_Wrappers;
+static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_Devi;
+static PyObject *__pyx_kp_s_An_Error_class_for_Invalid_RGB;
 static PyObject *__pyx_n_s_CorsairSDK;
 static PyObject *__pyx_n_s_ImportError;
+static PyObject *__pyx_n_s_InvalidDeviceType;
+static PyObject *__pyx_n_s_InvalidRgbValueError;
+static PyObject *__pyx_kp_s_Invalid_Device_Type;
+static PyObject *__pyx_kp_s_Invalid_RGB_Value;
 static PyObject *__pyx_n_s_NoAvailableSDKError;
 static PyObject *__pyx_kp_s_No_Available_SDK_was_found;
 static PyObject *__pyx_n_s_RazerSDK;
-static PyObject *__pyx_kp_s_SDK_REMOVED;
+static PyObject *__pyx_n_s_SDKNotConnectedError;
 static PyObject *__pyx_n_s_all_devices;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_connect;
 static PyObject *__pyx_n_s_disconnect;
 static PyObject *__pyx_n_s_doc;
-static PyObject *__pyx_n_s_end;
-static PyObject *__pyx_n_s_file;
+static PyObject *__pyx_n_s_e;
 static PyObject *__pyx_n_s_get_all_device_information;
 static PyObject *__pyx_n_s_get_connected_sdk_names;
 static PyObject *__pyx_n_s_import;
@@ -1466,7 +1475,6 @@ static PyObject *__pyx_n_s_metaclass;
 static PyObject *__pyx_n_s_module;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_prepare;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyrgbdev_All;
 static PyObject *__pyx_kp_s_pyrgbdev_All_SDK_pyx;
 static PyObject *__pyx_n_s_pyrgbdev_Corsair;
@@ -1513,7 +1521,7 @@ static PyObject *__pyx_codeobj__12;
 static PyObject *__pyx_codeobj__14;
 /* Late includes */
 
-/* "pyrgbdev/All/SDK.pyx":29
+/* "pyrgbdev/All/SDK.pyx":53
  *     A sdk class for ALL Wrappers
  *     """
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1555,22 +1563,22 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":33
+  /* "pyrgbdev/All/SDK.pyx":57
  *         A initializer method for class sdk in All Wrappers
  *         """
  *         self.sdk_list = list()             # <<<<<<<<<<<<<<
- * 
- *         try:
+ *         try:  # Try loading Razer SDK dll and the module
+ *             from pyrgbdev.Razer import sdk as RazerSDK
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list, __pyx_t_1) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list, __pyx_t_1) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":35
+  /* "pyrgbdev/All/SDK.pyx":58
+ *         """
  *         self.sdk_list = list()
- * 
- *         try:             # <<<<<<<<<<<<<<
+ *         try:  # Try loading Razer SDK dll and the module             # <<<<<<<<<<<<<<
  *             from pyrgbdev.Razer import sdk as RazerSDK
  *             self.sdk_list.append(RazerSDK())  # add object for Razer
  */
@@ -1583,36 +1591,36 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     __Pyx_XGOTREF(__pyx_t_4);
     /*try:*/ {
 
-      /* "pyrgbdev/All/SDK.pyx":36
- * 
- *         try:
+      /* "pyrgbdev/All/SDK.pyx":59
+ *         self.sdk_list = list()
+ *         try:  # Try loading Razer SDK dll and the module
  *             from pyrgbdev.Razer import sdk as RazerSDK             # <<<<<<<<<<<<<<
  *             self.sdk_list.append(RazerSDK())  # add object for Razer
  *         except ImportError:
  */
-      __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L3_error)
+      __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_n_s_sdk);
       __Pyx_GIVEREF(__pyx_n_s_sdk);
       PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_sdk);
-      __pyx_t_5 = __Pyx_Import(__pyx_n_s_pyrgbdev_Razer, __pyx_t_1, -1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 36, __pyx_L3_error)
+      __pyx_t_5 = __Pyx_Import(__pyx_n_s_pyrgbdev_Razer, __pyx_t_1, -1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 59, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_5, __pyx_n_s_sdk); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L3_error)
+      __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_5, __pyx_n_s_sdk); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_RazerSDK = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "pyrgbdev/All/SDK.pyx":37
- *         try:
+      /* "pyrgbdev/All/SDK.pyx":60
+ *         try:  # Try loading Razer SDK dll and the module
  *             from pyrgbdev.Razer import sdk as RazerSDK
  *             self.sdk_list.append(RazerSDK())  # add object for Razer             # <<<<<<<<<<<<<<
  *         except ImportError:
  *             pass
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 37, __pyx_L3_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_v_RazerSDK);
       __pyx_t_6 = __pyx_v_RazerSDK; __pyx_t_7 = NULL;
@@ -1627,17 +1635,17 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
       }
       __pyx_t_1 = (__pyx_t_7) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L3_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 37, __pyx_L3_error)
+      __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 60, __pyx_L3_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pyrgbdev/All/SDK.pyx":35
+      /* "pyrgbdev/All/SDK.pyx":58
+ *         """
  *         self.sdk_list = list()
- * 
- *         try:             # <<<<<<<<<<<<<<
+ *         try:  # Try loading Razer SDK dll and the module             # <<<<<<<<<<<<<<
  *             from pyrgbdev.Razer import sdk as RazerSDK
  *             self.sdk_list.append(RazerSDK())  # add object for Razer
  */
@@ -1652,7 +1660,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":38
+    /* "pyrgbdev/All/SDK.pyx":61
  *             from pyrgbdev.Razer import sdk as RazerSDK
  *             self.sdk_list.append(RazerSDK())  # add object for Razer
  *         except ImportError:             # <<<<<<<<<<<<<<
@@ -1667,10 +1675,10 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "pyrgbdev/All/SDK.pyx":35
+    /* "pyrgbdev/All/SDK.pyx":58
+ *         """
  *         self.sdk_list = list()
- * 
- *         try:             # <<<<<<<<<<<<<<
+ *         try:  # Try loading Razer SDK dll and the module             # <<<<<<<<<<<<<<
  *             from pyrgbdev.Razer import sdk as RazerSDK
  *             self.sdk_list.append(RazerSDK())  # add object for Razer
  */
@@ -1687,10 +1695,10 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     __pyx_L8_try_end:;
   }
 
-  /* "pyrgbdev/All/SDK.pyx":41
+  /* "pyrgbdev/All/SDK.pyx":64
  *             pass
  * 
- *         try:             # <<<<<<<<<<<<<<
+ *         try:  # Try loading Corsair SDK dll and the module             # <<<<<<<<<<<<<<
  *             from pyrgbdev.Corsair import sdk as CorsairSDK
  *             self.sdk_list.append(CorsairSDK())  # add object for Corsair
  */
@@ -1703,36 +1711,36 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     __Pyx_XGOTREF(__pyx_t_2);
     /*try:*/ {
 
-      /* "pyrgbdev/All/SDK.pyx":42
+      /* "pyrgbdev/All/SDK.pyx":65
  * 
- *         try:
+ *         try:  # Try loading Corsair SDK dll and the module
  *             from pyrgbdev.Corsair import sdk as CorsairSDK             # <<<<<<<<<<<<<<
  *             self.sdk_list.append(CorsairSDK())  # add object for Corsair
  *         except ImportError:
  */
-      __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L9_error)
+      __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_n_s_sdk);
       __Pyx_GIVEREF(__pyx_n_s_sdk);
       PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_sdk);
-      __pyx_t_5 = __Pyx_Import(__pyx_n_s_pyrgbdev_Corsair, __pyx_t_1, -1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L9_error)
+      __pyx_t_5 = __Pyx_Import(__pyx_n_s_pyrgbdev_Corsair, __pyx_t_1, -1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_5, __pyx_n_s_sdk); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L9_error)
+      __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_5, __pyx_n_s_sdk); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_v_CorsairSDK = __pyx_t_1;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "pyrgbdev/All/SDK.pyx":43
- *         try:
+      /* "pyrgbdev/All/SDK.pyx":66
+ *         try:  # Try loading Corsair SDK dll and the module
  *             from pyrgbdev.Corsair import sdk as CorsairSDK
  *             self.sdk_list.append(CorsairSDK())  # add object for Corsair             # <<<<<<<<<<<<<<
  *         except ImportError:
  *             pass
  */
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 43, __pyx_L9_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 66, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_v_CorsairSDK);
       __pyx_t_6 = __pyx_v_CorsairSDK; __pyx_t_7 = NULL;
@@ -1747,17 +1755,17 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
       }
       __pyx_t_1 = (__pyx_t_7) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
       __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L9_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L9_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 43, __pyx_L9_error)
+      __pyx_t_8 = __Pyx_PyObject_Append(__pyx_t_5, __pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 66, __pyx_L9_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "pyrgbdev/All/SDK.pyx":41
+      /* "pyrgbdev/All/SDK.pyx":64
  *             pass
  * 
- *         try:             # <<<<<<<<<<<<<<
+ *         try:  # Try loading Corsair SDK dll and the module             # <<<<<<<<<<<<<<
  *             from pyrgbdev.Corsair import sdk as CorsairSDK
  *             self.sdk_list.append(CorsairSDK())  # add object for Corsair
  */
@@ -1772,7 +1780,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":44
+    /* "pyrgbdev/All/SDK.pyx":67
  *             from pyrgbdev.Corsair import sdk as CorsairSDK
  *             self.sdk_list.append(CorsairSDK())  # add object for Corsair
  *         except ImportError:             # <<<<<<<<<<<<<<
@@ -1787,10 +1795,10 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     goto __pyx_L11_except_error;
     __pyx_L11_except_error:;
 
-    /* "pyrgbdev/All/SDK.pyx":41
+    /* "pyrgbdev/All/SDK.pyx":64
  *             pass
  * 
- *         try:             # <<<<<<<<<<<<<<
+ *         try:  # Try loading Corsair SDK dll and the module             # <<<<<<<<<<<<<<
  *             from pyrgbdev.Corsair import sdk as CorsairSDK
  *             self.sdk_list.append(CorsairSDK())  # add object for Corsair
  */
@@ -1807,16 +1815,16 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
     __pyx_L14_try_end:;
   }
 
-  /* "pyrgbdev/All/SDK.pyx":47
+  /* "pyrgbdev/All/SDK.pyx":70
  *             pass
  * 
  *         self.is_connected = False             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(self):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_False) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_False) < 0) __PYX_ERR(0, 70, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":29
+  /* "pyrgbdev/All/SDK.pyx":53
  *     A sdk class for ALL Wrappers
  *     """
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1842,7 +1850,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk___init__(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "pyrgbdev/All/SDK.pyx":49
+/* "pyrgbdev/All/SDK.pyx":72
  *         self.is_connected = False
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -1870,7 +1878,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_2__repr__(CYTHON_UNUSED PyObject *
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":53
+  /* "pyrgbdev/All/SDK.pyx":76
  *         A __repr__ method for representing current object.
  *         """
  *         return "ALL SDK"             # <<<<<<<<<<<<<<
@@ -1882,7 +1890,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_2__repr__(CYTHON_UNUSED PyObject *
   __pyx_r = __pyx_kp_s_ALL_SDK;
   goto __pyx_L0;
 
-  /* "pyrgbdev/All/SDK.pyx":49
+  /* "pyrgbdev/All/SDK.pyx":72
  *         self.is_connected = False
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
@@ -1897,7 +1905,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_2__repr__(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "pyrgbdev/All/SDK.pyx":55
+/* "pyrgbdev/All/SDK.pyx":78
  *         return "ALL SDK"
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
@@ -1942,22 +1950,22 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("connect", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":59
+  /* "pyrgbdev/All/SDK.pyx":82
  *         A method for connecting all sdks in sdk_list and removing those sdks which does not connect
  *         """
  *         for sdk_object in self.sdk_list:  # For all SDKs,             # <<<<<<<<<<<<<<
  *             try:  # Try connecting them
  *                 sdk_object.connect()
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 59, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -1965,17 +1973,17 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 82, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 82, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -1985,7 +1993,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 59, __pyx_L1_error)
+          else __PYX_ERR(0, 82, __pyx_L1_error)
         }
         break;
       }
@@ -1994,7 +2002,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF_SET(__pyx_v_sdk_object, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":60
+    /* "pyrgbdev/All/SDK.pyx":83
  *         """
  *         for sdk_object in self.sdk_list:  # For all SDKs,
  *             try:  # Try connecting them             # <<<<<<<<<<<<<<
@@ -2010,14 +2018,14 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
       __Pyx_XGOTREF(__pyx_t_7);
       /*try:*/ {
 
-        /* "pyrgbdev/All/SDK.pyx":61
+        /* "pyrgbdev/All/SDK.pyx":84
  *         for sdk_object in self.sdk_list:  # For all SDKs,
  *             try:  # Try connecting them
  *                 sdk_object.connect()             # <<<<<<<<<<<<<<
  *             except:  # If any Exceptions occur that means that the connection was invalid.
  *                 # Yes, I know using bare except is dumb :b
  */
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk_object, __pyx_n_s_connect); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 61, __pyx_L5_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk_object, __pyx_n_s_connect); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 84, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_8);
         __pyx_t_9 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
@@ -2031,12 +2039,12 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
         }
         __pyx_t_1 = (__pyx_t_9) ? __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_9) : __Pyx_PyObject_CallNoArg(__pyx_t_8);
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L5_error)
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "pyrgbdev/All/SDK.pyx":60
+        /* "pyrgbdev/All/SDK.pyx":83
  *         """
  *         for sdk_object in self.sdk_list:  # For all SDKs,
  *             try:  # Try connecting them             # <<<<<<<<<<<<<<
@@ -2053,7 +2061,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
       __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "pyrgbdev/All/SDK.pyx":62
+      /* "pyrgbdev/All/SDK.pyx":85
  *             try:  # Try connecting them
  *                 sdk_object.connect()
  *             except:  # If any Exceptions occur that means that the connection was invalid.             # <<<<<<<<<<<<<<
@@ -2062,21 +2070,21 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
  */
       /*except:*/ {
         __Pyx_AddTraceback("pyrgbdev.All.sdk.connect", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_8, &__pyx_t_9) < 0) __PYX_ERR(0, 62, __pyx_L7_except_error)
+        if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_8, &__pyx_t_9) < 0) __PYX_ERR(0, 85, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_GOTREF(__pyx_t_9);
 
-        /* "pyrgbdev/All/SDK.pyx":64
+        /* "pyrgbdev/All/SDK.pyx":87
  *             except:  # If any Exceptions occur that means that the connection was invalid.
  *                 # Yes, I know using bare except is dumb :b
  *                 self.sdk_list.remove(sdk_object)             # <<<<<<<<<<<<<<
- *                 print("SDK REMOVED : " + str(sdk_object))
  * 
+ *         self.is_connected = True  # set self.is_connected = True
  */
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 64, __pyx_L7_except_error)
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 87, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_remove); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 64, __pyx_L7_except_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_remove); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 87, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __pyx_t_11 = NULL;
@@ -2091,25 +2099,10 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
         }
         __pyx_t_10 = (__pyx_t_11) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_11, __pyx_v_sdk_object) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_v_sdk_object);
         __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
-        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 64, __pyx_L7_except_error)
+        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 87, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-
-        /* "pyrgbdev/All/SDK.pyx":65
- *                 # Yes, I know using bare except is dumb :b
- *                 self.sdk_list.remove(sdk_object)
- *                 print("SDK REMOVED : " + str(sdk_object))             # <<<<<<<<<<<<<<
- * 
- *         self.is_connected = True  # set self.is_connected = True
- */
-        __pyx_t_10 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_sdk_object); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L7_except_error)
-        __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_12 = PyNumber_Add(__pyx_kp_s_SDK_REMOVED, __pyx_t_10); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 65, __pyx_L7_except_error)
-        __Pyx_GOTREF(__pyx_t_12);
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        if (__Pyx_PrintOne(0, __pyx_t_12) < 0) __PYX_ERR(0, 65, __pyx_L7_except_error)
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -2117,7 +2110,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
       }
       __pyx_L7_except_error:;
 
-      /* "pyrgbdev/All/SDK.pyx":60
+      /* "pyrgbdev/All/SDK.pyx":83
  *         """
  *         for sdk_object in self.sdk_list:  # For all SDKs,
  *             try:  # Try connecting them             # <<<<<<<<<<<<<<
@@ -2137,7 +2130,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
       __pyx_L12_try_end:;
     }
 
-    /* "pyrgbdev/All/SDK.pyx":59
+    /* "pyrgbdev/All/SDK.pyx":82
  *         A method for connecting all sdks in sdk_list and removing those sdks which does not connect
  *         """
  *         for sdk_object in self.sdk_list:  # For all SDKs,             # <<<<<<<<<<<<<<
@@ -2147,46 +2140,46 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":67
- *                 print("SDK REMOVED : " + str(sdk_object))
+  /* "pyrgbdev/All/SDK.pyx":89
+ *                 self.sdk_list.remove(sdk_object)
  * 
  *         self.is_connected = True  # set self.is_connected = True             # <<<<<<<<<<<<<<
  * 
  *         if len(self.sdk_list) == 0:  # if there is no connected sdks in our sdk_list
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_True) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_True) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":69
+  /* "pyrgbdev/All/SDK.pyx":91
  *         self.is_connected = True  # set self.is_connected = True
  * 
  *         if len(self.sdk_list) == 0:  # if there is no connected sdks in our sdk_list             # <<<<<<<<<<<<<<
  *             self.is_connected = False  # set it false and raise error
  *             raise NoAvailableSDKError("No Available SDK was found")
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 69, __pyx_L1_error)
+  __pyx_t_3 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_13 = ((__pyx_t_3 == 0) != 0);
   if (unlikely(__pyx_t_13)) {
 
-    /* "pyrgbdev/All/SDK.pyx":70
+    /* "pyrgbdev/All/SDK.pyx":92
  * 
  *         if len(self.sdk_list) == 0:  # if there is no connected sdks in our sdk_list
  *             self.is_connected = False  # set it false and raise error             # <<<<<<<<<<<<<<
  *             raise NoAvailableSDKError("No Available SDK was found")
  * 
  */
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_False) < 0) __PYX_ERR(0, 70, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_False) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
 
-    /* "pyrgbdev/All/SDK.pyx":71
+    /* "pyrgbdev/All/SDK.pyx":93
  *         if len(self.sdk_list) == 0:  # if there is no connected sdks in our sdk_list
  *             self.is_connected = False  # set it false and raise error
  *             raise NoAvailableSDKError("No Available SDK was found")             # <<<<<<<<<<<<<<
  * 
  *     def disconnect(self):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_NoAvailableSDKError); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 71, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_NoAvailableSDKError); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -2200,14 +2193,14 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
     }
     __pyx_t_2 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_kp_s_No_Available_SDK_was_found) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_kp_s_No_Available_SDK_was_found);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 71, __pyx_L1_error)
+    __PYX_ERR(0, 93, __pyx_L1_error)
 
-    /* "pyrgbdev/All/SDK.pyx":69
+    /* "pyrgbdev/All/SDK.pyx":91
  *         self.is_connected = True  # set self.is_connected = True
  * 
  *         if len(self.sdk_list) == 0:  # if there is no connected sdks in our sdk_list             # <<<<<<<<<<<<<<
@@ -2216,7 +2209,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "pyrgbdev/All/SDK.pyx":55
+  /* "pyrgbdev/All/SDK.pyx":78
  *         return "ALL SDK"
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
@@ -2244,7 +2237,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_4connect(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "pyrgbdev/All/SDK.pyx":73
+/* "pyrgbdev/All/SDK.pyx":95
  *             raise NoAvailableSDKError("No Available SDK was found")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
@@ -2282,22 +2275,22 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_6disconnect(CYTHON_UNUSED PyObject
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("disconnect", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":77
+  /* "pyrgbdev/All/SDK.pyx":99
  *         A method for disconnecting every sdks connected.
  *         """
  *         for sdk_object in self.sdk_list:             # <<<<<<<<<<<<<<
  *             sdk_object.disconnect()
  *         self.is_connected = False
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 99, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -2305,17 +2298,17 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_6disconnect(CYTHON_UNUSED PyObject
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 77, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 99, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 77, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 99, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -2325,7 +2318,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_6disconnect(CYTHON_UNUSED PyObject
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 77, __pyx_L1_error)
+          else __PYX_ERR(0, 99, __pyx_L1_error)
         }
         break;
       }
@@ -2334,14 +2327,14 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_6disconnect(CYTHON_UNUSED PyObject
     __Pyx_XDECREF_SET(__pyx_v_sdk_object, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":78
+    /* "pyrgbdev/All/SDK.pyx":100
  *         """
  *         for sdk_object in self.sdk_list:
  *             sdk_object.disconnect()             # <<<<<<<<<<<<<<
  *         self.is_connected = False
  * 
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk_object, __pyx_n_s_disconnect); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 78, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk_object, __pyx_n_s_disconnect); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -2355,12 +2348,12 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_6disconnect(CYTHON_UNUSED PyObject
     }
     __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":77
+    /* "pyrgbdev/All/SDK.pyx":99
  *         A method for disconnecting every sdks connected.
  *         """
  *         for sdk_object in self.sdk_list:             # <<<<<<<<<<<<<<
@@ -2370,16 +2363,16 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_6disconnect(CYTHON_UNUSED PyObject
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":79
+  /* "pyrgbdev/All/SDK.pyx":101
  *         for sdk_object in self.sdk_list:
  *             sdk_object.disconnect()
  *         self.is_connected = False             # <<<<<<<<<<<<<<
  * 
  *     def get_connected_sdk_names(self):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_False) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_is_connected, Py_False) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":73
+  /* "pyrgbdev/All/SDK.pyx":95
  *             raise NoAvailableSDKError("No Available SDK was found")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
@@ -2404,7 +2397,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_6disconnect(CYTHON_UNUSED PyObject
   return __pyx_r;
 }
 
-/* "pyrgbdev/All/SDK.pyx":81
+/* "pyrgbdev/All/SDK.pyx":103
  *         self.is_connected = False
  * 
  *     def get_connected_sdk_names(self):             # <<<<<<<<<<<<<<
@@ -2433,71 +2426,125 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_8get_connected_sdk_names(CYTHON_UN
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
-  int __pyx_t_5;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  Py_ssize_t __pyx_t_6;
+  PyObject *(*__pyx_t_7)(PyObject *);
+  int __pyx_t_8;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_connected_sdk_names", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":86
+  /* "pyrgbdev/All/SDK.pyx":108
  *         return: This returns a list of string objects that represent each SDK's names.
  *         """
  *         sdk_names = list()             # <<<<<<<<<<<<<<
- *         for sdk_object in self.sdk_list:
- *             sdk_names.append(str(sdk_object))
+ *         if not self.is_connected:
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_sdk_names = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":87
+  /* "pyrgbdev/All/SDK.pyx":109
  *         """
  *         sdk_names = list()
+ *         if not self.is_connected:             # <<<<<<<<<<<<<<
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_is_connected); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 109, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = ((!__pyx_t_2) != 0);
+  if (unlikely(__pyx_t_3)) {
+
+    /* "pyrgbdev/All/SDK.pyx":110
+ *         sdk_names = list()
+ *         if not self.is_connected:
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
+ * 
+ *         for sdk_object in self.sdk_list:
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_ALL_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_ALL_SDK_is_not_Connected_Use_con);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 110, __pyx_L1_error)
+
+    /* "pyrgbdev/All/SDK.pyx":109
+ *         """
+ *         sdk_names = list()
+ *         if not self.is_connected:             # <<<<<<<<<<<<<<
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ * 
+ */
+  }
+
+  /* "pyrgbdev/All/SDK.pyx":112
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ * 
  *         for sdk_object in self.sdk_list:             # <<<<<<<<<<<<<<
  *             sdk_names.append(str(sdk_object))
  *         return sdk_names
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
-    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
-    __pyx_t_4 = NULL;
+    __pyx_t_4 = __pyx_t_1; __Pyx_INCREF(__pyx_t_4); __pyx_t_6 = 0;
+    __pyx_t_7 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 87, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
-    if (likely(!__pyx_t_4)) {
-      if (likely(PyList_CheckExact(__pyx_t_2))) {
-        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
+    if (likely(!__pyx_t_7)) {
+      if (likely(PyList_CheckExact(__pyx_t_4))) {
+        if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
-        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
     } else {
-      __pyx_t_1 = __pyx_t_4(__pyx_t_2);
+      __pyx_t_1 = __pyx_t_7(__pyx_t_4);
       if (unlikely(!__pyx_t_1)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 87, __pyx_L1_error)
+          else __PYX_ERR(0, 112, __pyx_L1_error)
         }
         break;
       }
@@ -2506,29 +2553,29 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_8get_connected_sdk_names(CYTHON_UN
     __Pyx_XDECREF_SET(__pyx_v_sdk_object, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":88
- *         sdk_names = list()
+    /* "pyrgbdev/All/SDK.pyx":113
+ * 
  *         for sdk_object in self.sdk_list:
  *             sdk_names.append(str(sdk_object))             # <<<<<<<<<<<<<<
  *         return sdk_names
  * 
  */
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_sdk_object); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_sdk_object); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = __Pyx_PyList_Append(__pyx_v_sdk_names, __pyx_t_1); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(0, 88, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_sdk_names, __pyx_t_1); if (unlikely(__pyx_t_8 == ((int)-1))) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":87
- *         """
- *         sdk_names = list()
+    /* "pyrgbdev/All/SDK.pyx":112
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ * 
  *         for sdk_object in self.sdk_list:             # <<<<<<<<<<<<<<
  *             sdk_names.append(str(sdk_object))
  *         return sdk_names
  */
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":89
+  /* "pyrgbdev/All/SDK.pyx":114
  *         for sdk_object in self.sdk_list:
  *             sdk_names.append(str(sdk_object))
  *         return sdk_names             # <<<<<<<<<<<<<<
@@ -2540,7 +2587,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_8get_connected_sdk_names(CYTHON_UN
   __pyx_r = __pyx_v_sdk_names;
   goto __pyx_L0;
 
-  /* "pyrgbdev/All/SDK.pyx":81
+  /* "pyrgbdev/All/SDK.pyx":103
  *         self.is_connected = False
  * 
  *     def get_connected_sdk_names(self):             # <<<<<<<<<<<<<<
@@ -2551,7 +2598,8 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_8get_connected_sdk_names(CYTHON_UN
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("pyrgbdev.All.sdk.get_connected_sdk_names", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2562,7 +2610,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_8get_connected_sdk_names(CYTHON_UN
   return __pyx_r;
 }
 
-/* "pyrgbdev/All/SDK.pyx":91
+/* "pyrgbdev/All/SDK.pyx":116
  *         return sdk_names
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
@@ -2591,72 +2639,125 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_10get_all_device_information(CYTHO
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
+  Py_ssize_t __pyx_t_6;
+  PyObject *(*__pyx_t_7)(PyObject *);
+  PyObject *__pyx_t_8 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_all_device_information", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":99
+  /* "pyrgbdev/All/SDK.pyx":124
  *         return: This returns a dictionary object that contains connected devices with keys as its sdk's names
  *         """
+ *         if not self.is_connected:             # <<<<<<<<<<<<<<
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ * 
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_is_connected); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 124, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = ((!__pyx_t_2) != 0);
+  if (unlikely(__pyx_t_3)) {
+
+    /* "pyrgbdev/All/SDK.pyx":125
+ *         """
+ *         if not self.is_connected:
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
+ * 
+ *         all_devices = dict()
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_ALL_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_ALL_SDK_is_not_Connected_Use_con);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 125, __pyx_L1_error)
+
+    /* "pyrgbdev/All/SDK.pyx":124
+ *         return: This returns a dictionary object that contains connected devices with keys as its sdk's names
+ *         """
+ *         if not self.is_connected:             # <<<<<<<<<<<<<<
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ * 
+ */
+  }
+
+  /* "pyrgbdev/All/SDK.pyx":127
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ * 
  *         all_devices = dict()             # <<<<<<<<<<<<<<
  *         for sdk in self.sdk_list:
  *             all_devices[str(sdk)] = sdk.get_all_device_information()
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_all_devices = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":100
- *         """
+  /* "pyrgbdev/All/SDK.pyx":128
+ * 
  *         all_devices = dict()
  *         for sdk in self.sdk_list:             # <<<<<<<<<<<<<<
  *             all_devices[str(sdk)] = sdk.get_all_device_information()
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
-    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
-    __pyx_t_4 = NULL;
+    __pyx_t_4 = __pyx_t_1; __Pyx_INCREF(__pyx_t_4); __pyx_t_6 = 0;
+    __pyx_t_7 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 100, __pyx_L1_error)
+    __pyx_t_6 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 128, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_7 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 128, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
-    if (likely(!__pyx_t_4)) {
-      if (likely(PyList_CheckExact(__pyx_t_2))) {
-        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
+    if (likely(!__pyx_t_7)) {
+      if (likely(PyList_CheckExact(__pyx_t_4))) {
+        if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 128, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
-        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 128, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
     } else {
-      __pyx_t_1 = __pyx_t_4(__pyx_t_2);
+      __pyx_t_1 = __pyx_t_7(__pyx_t_4);
       if (unlikely(!__pyx_t_1)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 100, __pyx_L1_error)
+          else __PYX_ERR(0, 128, __pyx_L1_error)
         }
         break;
       }
@@ -2665,47 +2766,47 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_10get_all_device_information(CYTHO
     __Pyx_XDECREF_SET(__pyx_v_sdk, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":101
+    /* "pyrgbdev/All/SDK.pyx":129
  *         all_devices = dict()
  *         for sdk in self.sdk_list:
  *             all_devices[str(sdk)] = sdk.get_all_device_information()             # <<<<<<<<<<<<<<
  * 
  *         return all_devices
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk, __pyx_n_s_get_all_device_information); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk, __pyx_n_s_get_all_device_information); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = NULL;
+    __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
-      if (likely(__pyx_t_6)) {
+      __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_8)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-        __Pyx_INCREF(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_8);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_5, function);
       }
     }
-    __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_1 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_sdk); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_sdk); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (unlikely(PyDict_SetItem(__pyx_v_all_devices, __pyx_t_5, __pyx_t_1) < 0)) __PYX_ERR(0, 101, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_v_all_devices, __pyx_t_5, __pyx_t_1) < 0)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pyrgbdev/All/SDK.pyx":100
- *         """
+    /* "pyrgbdev/All/SDK.pyx":128
+ * 
  *         all_devices = dict()
  *         for sdk in self.sdk_list:             # <<<<<<<<<<<<<<
  *             all_devices[str(sdk)] = sdk.get_all_device_information()
  * 
  */
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":103
+  /* "pyrgbdev/All/SDK.pyx":131
  *             all_devices[str(sdk)] = sdk.get_all_device_information()
  * 
  *         return all_devices             # <<<<<<<<<<<<<<
@@ -2717,7 +2818,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_10get_all_device_information(CYTHO
   __pyx_r = __pyx_v_all_devices;
   goto __pyx_L0;
 
-  /* "pyrgbdev/All/SDK.pyx":91
+  /* "pyrgbdev/All/SDK.pyx":116
  *         return sdk_names
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
@@ -2728,9 +2829,9 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_10get_all_device_information(CYTHO
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("pyrgbdev.All.sdk.get_all_device_information", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2741,7 +2842,7 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_10get_all_device_information(CYTHO
   return __pyx_r;
 }
 
-/* "pyrgbdev/All/SDK.pyx":105
+/* "pyrgbdev/All/SDK.pyx":133
  *         return all_devices
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
@@ -2785,11 +2886,11 @@ static PyObject *__pyx_pw_8pyrgbdev_3All_3sdk_13set_rgb(PyObject *__pyx_self, Py
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rgb_info)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("set_rgb", 1, 2, 2, 1); __PYX_ERR(0, 105, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("set_rgb", 1, 2, 2, 1); __PYX_ERR(0, 133, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_rgb") < 0)) __PYX_ERR(0, 105, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "set_rgb") < 0)) __PYX_ERR(0, 133, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2802,7 +2903,7 @@ static PyObject *__pyx_pw_8pyrgbdev_3All_3sdk_13set_rgb(PyObject *__pyx_self, Py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("set_rgb", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 105, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("set_rgb", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 133, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyrgbdev.All.sdk.set_rgb", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2817,104 +2918,356 @@ static PyObject *__pyx_pw_8pyrgbdev_3All_3sdk_13set_rgb(PyObject *__pyx_self, Py
 
 static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_12set_rgb(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_rgb_info) {
   PyObject *__pyx_v_sdk = NULL;
+  PyObject *__pyx_v_e = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  Py_ssize_t __pyx_t_9;
+  PyObject *(*__pyx_t_10)(PyObject *);
+  PyObject *__pyx_t_11 = NULL;
+  int __pyx_t_12;
+  PyObject *__pyx_t_13 = NULL;
+  PyObject *__pyx_t_14 = NULL;
+  PyObject *__pyx_t_15 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("set_rgb", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":115
+  /* "pyrgbdev/All/SDK.pyx":143
  *         :return: returns True if successful, False if failure.
  *         """
- *         for sdk in self.sdk_list:             # <<<<<<<<<<<<<<
- *             sdk.set_rgb(rgb_info)
+ *         if not self.is_connected:             # <<<<<<<<<<<<<<
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ *         try:  # try setting values
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_is_connected); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
-    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
-    __pyx_t_4 = NULL;
-  } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
-  }
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  for (;;) {
-    if (likely(!__pyx_t_4)) {
-      if (likely(PyList_CheckExact(__pyx_t_2))) {
-        if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
-        #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        #endif
-      } else {
-        if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
-        #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
-        #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        #endif
-      }
-    } else {
-      __pyx_t_1 = __pyx_t_4(__pyx_t_2);
-      if (unlikely(!__pyx_t_1)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 115, __pyx_L1_error)
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_1);
-    }
-    __Pyx_XDECREF_SET(__pyx_v_sdk, __pyx_t_1);
-    __pyx_t_1 = 0;
+  __pyx_t_3 = ((!__pyx_t_2) != 0);
+  if (unlikely(__pyx_t_3)) {
 
-    /* "pyrgbdev/All/SDK.pyx":116
+    /* "pyrgbdev/All/SDK.pyx":144
  *         """
- *         for sdk in self.sdk_list:
- *             sdk.set_rgb(rgb_info)             # <<<<<<<<<<<<<<
+ *         if not self.is_connected:
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")             # <<<<<<<<<<<<<<
+ *         try:  # try setting values
+ *             for sdk in self.sdk_list:
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk, __pyx_n_s_set_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 116, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
-      if (likely(__pyx_t_6)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-        __Pyx_INCREF(__pyx_t_6);
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_SDKNotConnectedError); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+        __Pyx_INCREF(__pyx_t_5);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_5, function);
+        __Pyx_DECREF_SET(__pyx_t_4, function);
       }
     }
-    __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_6, __pyx_v_rgb_info) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_rgb_info);
-    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_kp_s_ALL_SDK_is_not_Connected_Use_con) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_kp_s_ALL_SDK_is_not_Connected_Use_con);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __PYX_ERR(0, 144, __pyx_L1_error)
 
-    /* "pyrgbdev/All/SDK.pyx":115
+    /* "pyrgbdev/All/SDK.pyx":143
  *         :return: returns True if successful, False if failure.
  *         """
- *         for sdk in self.sdk_list:             # <<<<<<<<<<<<<<
- *             sdk.set_rgb(rgb_info)
+ *         if not self.is_connected:             # <<<<<<<<<<<<<<
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ *         try:  # try setting values
  */
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":105
+  /* "pyrgbdev/All/SDK.pyx":145
+ *         if not self.is_connected:
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ *         try:  # try setting values             # <<<<<<<<<<<<<<
+ *             for sdk in self.sdk_list:
+ *                 sdk.set_rgb(rgb_info)
+ */
+  {
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ExceptionSave(&__pyx_t_6, &__pyx_t_7, &__pyx_t_8);
+    __Pyx_XGOTREF(__pyx_t_6);
+    __Pyx_XGOTREF(__pyx_t_7);
+    __Pyx_XGOTREF(__pyx_t_8);
+    /*try:*/ {
+
+      /* "pyrgbdev/All/SDK.pyx":146
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ *         try:  # try setting values
+ *             for sdk in self.sdk_list:             # <<<<<<<<<<<<<<
+ *                 sdk.set_rgb(rgb_info)
+ *         except Exception as e:  # if exception happens, raise exception
+ */
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_sdk_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L4_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
+        __pyx_t_4 = __pyx_t_1; __Pyx_INCREF(__pyx_t_4); __pyx_t_9 = 0;
+        __pyx_t_10 = NULL;
+      } else {
+        __pyx_t_9 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_10 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 146, __pyx_L4_error)
+      }
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      for (;;) {
+        if (likely(!__pyx_t_10)) {
+          if (likely(PyList_CheckExact(__pyx_t_4))) {
+            if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_4)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 146, __pyx_L4_error)
+            #else
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            #endif
+          } else {
+            if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 146, __pyx_L4_error)
+            #else
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L4_error)
+            __Pyx_GOTREF(__pyx_t_1);
+            #endif
+          }
+        } else {
+          __pyx_t_1 = __pyx_t_10(__pyx_t_4);
+          if (unlikely(!__pyx_t_1)) {
+            PyObject* exc_type = PyErr_Occurred();
+            if (exc_type) {
+              if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+              else __PYX_ERR(0, 146, __pyx_L4_error)
+            }
+            break;
+          }
+          __Pyx_GOTREF(__pyx_t_1);
+        }
+        __Pyx_XDECREF_SET(__pyx_v_sdk, __pyx_t_1);
+        __pyx_t_1 = 0;
+
+        /* "pyrgbdev/All/SDK.pyx":147
+ *         try:  # try setting values
+ *             for sdk in self.sdk_list:
+ *                 sdk.set_rgb(rgb_info)             # <<<<<<<<<<<<<<
+ *         except Exception as e:  # if exception happens, raise exception
+ *             if "Invalid Device Type" in str(e):
+ */
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_sdk, __pyx_n_s_set_rgb); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 147, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __pyx_t_11 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+          __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_5);
+          if (likely(__pyx_t_11)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+            __Pyx_INCREF(__pyx_t_11);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_5, function);
+          }
+        }
+        __pyx_t_1 = (__pyx_t_11) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_11, __pyx_v_rgb_info) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_v_rgb_info);
+        __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+        /* "pyrgbdev/All/SDK.pyx":146
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ *         try:  # try setting values
+ *             for sdk in self.sdk_list:             # <<<<<<<<<<<<<<
+ *                 sdk.set_rgb(rgb_info)
+ *         except Exception as e:  # if exception happens, raise exception
+ */
+      }
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+      /* "pyrgbdev/All/SDK.pyx":145
+ *         if not self.is_connected:
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ *         try:  # try setting values             # <<<<<<<<<<<<<<
+ *             for sdk in self.sdk_list:
+ *                 sdk.set_rgb(rgb_info)
+ */
+    }
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    goto __pyx_L9_try_end;
+    __pyx_L4_error:;
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "pyrgbdev/All/SDK.pyx":148
+ *             for sdk in self.sdk_list:
+ *                 sdk.set_rgb(rgb_info)
+ *         except Exception as e:  # if exception happens, raise exception             # <<<<<<<<<<<<<<
+ *             if "Invalid Device Type" in str(e):
+ *                 raise InvalidDeviceType(str(e))
+ */
+    __pyx_t_12 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+    if (__pyx_t_12) {
+      __Pyx_AddTraceback("pyrgbdev.All.sdk.set_rgb", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_1, &__pyx_t_5) < 0) __PYX_ERR(0, 148, __pyx_L6_except_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_1);
+      __pyx_v_e = __pyx_t_1;
+
+      /* "pyrgbdev/All/SDK.pyx":149
+ *                 sdk.set_rgb(rgb_info)
+ *         except Exception as e:  # if exception happens, raise exception
+ *             if "Invalid Device Type" in str(e):             # <<<<<<<<<<<<<<
+ *                 raise InvalidDeviceType(str(e))
+ *             elif "Invalid RGB Value" in str(e):
+ */
+      __pyx_t_11 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_e); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 149, __pyx_L6_except_error)
+      __Pyx_GOTREF(__pyx_t_11);
+      __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_Invalid_Device_Type, __pyx_t_11, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 149, __pyx_L6_except_error)
+      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      __pyx_t_2 = (__pyx_t_3 != 0);
+      if (unlikely(__pyx_t_2)) {
+
+        /* "pyrgbdev/All/SDK.pyx":150
+ *         except Exception as e:  # if exception happens, raise exception
+ *             if "Invalid Device Type" in str(e):
+ *                 raise InvalidDeviceType(str(e))             # <<<<<<<<<<<<<<
+ *             elif "Invalid RGB Value" in str(e):
+ *                 raise InvalidRgbValueError(str(e))
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_InvalidDeviceType); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 150, __pyx_L6_except_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __pyx_t_14 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_e); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 150, __pyx_L6_except_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_15 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
+          __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_13);
+          if (likely(__pyx_t_15)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
+            __Pyx_INCREF(__pyx_t_15);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_13, function);
+          }
+        }
+        __pyx_t_11 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_15, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_14);
+        __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 150, __pyx_L6_except_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+        __Pyx_Raise(__pyx_t_11, 0, 0, 0);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __PYX_ERR(0, 150, __pyx_L6_except_error)
+
+        /* "pyrgbdev/All/SDK.pyx":149
+ *                 sdk.set_rgb(rgb_info)
+ *         except Exception as e:  # if exception happens, raise exception
+ *             if "Invalid Device Type" in str(e):             # <<<<<<<<<<<<<<
+ *                 raise InvalidDeviceType(str(e))
+ *             elif "Invalid RGB Value" in str(e):
+ */
+      }
+
+      /* "pyrgbdev/All/SDK.pyx":151
+ *             if "Invalid Device Type" in str(e):
+ *                 raise InvalidDeviceType(str(e))
+ *             elif "Invalid RGB Value" in str(e):             # <<<<<<<<<<<<<<
+ *                 raise InvalidRgbValueError(str(e))
+ *             else:
+ */
+      __pyx_t_11 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_e); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 151, __pyx_L6_except_error)
+      __Pyx_GOTREF(__pyx_t_11);
+      __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_kp_s_Invalid_RGB_Value, __pyx_t_11, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 151, __pyx_L6_except_error)
+      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      __pyx_t_3 = (__pyx_t_2 != 0);
+      if (unlikely(__pyx_t_3)) {
+
+        /* "pyrgbdev/All/SDK.pyx":152
+ *                 raise InvalidDeviceType(str(e))
+ *             elif "Invalid RGB Value" in str(e):
+ *                 raise InvalidRgbValueError(str(e))             # <<<<<<<<<<<<<<
+ *             else:
+ *                 raise e
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_InvalidRgbValueError); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 152, __pyx_L6_except_error)
+        __Pyx_GOTREF(__pyx_t_13);
+        __pyx_t_14 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_e); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 152, __pyx_L6_except_error)
+        __Pyx_GOTREF(__pyx_t_14);
+        __pyx_t_15 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
+          __pyx_t_15 = PyMethod_GET_SELF(__pyx_t_13);
+          if (likely(__pyx_t_15)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
+            __Pyx_INCREF(__pyx_t_15);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_13, function);
+          }
+        }
+        __pyx_t_11 = (__pyx_t_15) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_15, __pyx_t_14) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_t_14);
+        __Pyx_XDECREF(__pyx_t_15); __pyx_t_15 = 0;
+        __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
+        if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 152, __pyx_L6_except_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+        __Pyx_Raise(__pyx_t_11, 0, 0, 0);
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __PYX_ERR(0, 152, __pyx_L6_except_error)
+
+        /* "pyrgbdev/All/SDK.pyx":151
+ *             if "Invalid Device Type" in str(e):
+ *                 raise InvalidDeviceType(str(e))
+ *             elif "Invalid RGB Value" in str(e):             # <<<<<<<<<<<<<<
+ *                 raise InvalidRgbValueError(str(e))
+ *             else:
+ */
+      }
+
+      /* "pyrgbdev/All/SDK.pyx":154
+ *                 raise InvalidRgbValueError(str(e))
+ *             else:
+ *                 raise e             # <<<<<<<<<<<<<<
+ */
+      /*else*/ {
+        __Pyx_Raise(__pyx_v_e, 0, 0, 0);
+        __PYX_ERR(0, 154, __pyx_L6_except_error)
+      }
+    }
+    goto __pyx_L6_except_error;
+    __pyx_L6_except_error:;
+
+    /* "pyrgbdev/All/SDK.pyx":145
+ *         if not self.is_connected:
+ *             raise SDKNotConnectedError("ALL SDK is not Connected. Use connect() first.")
+ *         try:  # try setting values             # <<<<<<<<<<<<<<
+ *             for sdk in self.sdk_list:
+ *                 sdk.set_rgb(rgb_info)
+ */
+    __Pyx_XGIVEREF(__pyx_t_6);
+    __Pyx_XGIVEREF(__pyx_t_7);
+    __Pyx_XGIVEREF(__pyx_t_8);
+    __Pyx_ExceptionReset(__pyx_t_6, __pyx_t_7, __pyx_t_8);
+    goto __pyx_L1_error;
+    __pyx_L9_try_end:;
+  }
+
+  /* "pyrgbdev/All/SDK.pyx":133
  *         return all_devices
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
@@ -2927,13 +3280,17 @@ static PyObject *__pyx_pf_8pyrgbdev_3All_3sdk_12set_rgb(CYTHON_UNUSED PyObject *
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_13);
+  __Pyx_XDECREF(__pyx_t_14);
+  __Pyx_XDECREF(__pyx_t_15);
   __Pyx_AddTraceback("pyrgbdev.All.sdk.set_rgb", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_sdk);
+  __Pyx_XDECREF(__pyx_v_e);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -2986,22 +3343,29 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_ALL_SDK, __pyx_k_ALL_SDK, sizeof(__pyx_k_ALL_SDK), 0, 0, 1, 0},
+  {&__pyx_kp_s_ALL_SDK_is_not_Connected_Use_con, __pyx_k_ALL_SDK_is_not_Connected_Use_con, sizeof(__pyx_k_ALL_SDK_is_not_Connected_Use_con), 0, 0, 1, 0},
+  {&__pyx_kp_s_A_Error_class_for_when_sdk_is_n, __pyx_k_A_Error_class_for_when_sdk_is_n, sizeof(__pyx_k_A_Error_class_for_when_sdk_is_n), 0, 0, 1, 0},
   {&__pyx_kp_s_A_Exception_class_for_no_Availa, __pyx_k_A_Exception_class_for_no_Availa, sizeof(__pyx_k_A_Exception_class_for_no_Availa), 0, 0, 1, 0},
   {&__pyx_kp_s_A_sdk_class_for_ALL_Wrappers, __pyx_k_A_sdk_class_for_ALL_Wrappers, sizeof(__pyx_k_A_sdk_class_for_ALL_Wrappers), 0, 0, 1, 0},
+  {&__pyx_kp_s_An_Error_class_for_Invalid_Devi, __pyx_k_An_Error_class_for_Invalid_Devi, sizeof(__pyx_k_An_Error_class_for_Invalid_Devi), 0, 0, 1, 0},
+  {&__pyx_kp_s_An_Error_class_for_Invalid_RGB, __pyx_k_An_Error_class_for_Invalid_RGB, sizeof(__pyx_k_An_Error_class_for_Invalid_RGB), 0, 0, 1, 0},
   {&__pyx_n_s_CorsairSDK, __pyx_k_CorsairSDK, sizeof(__pyx_k_CorsairSDK), 0, 0, 1, 1},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
+  {&__pyx_n_s_InvalidDeviceType, __pyx_k_InvalidDeviceType, sizeof(__pyx_k_InvalidDeviceType), 0, 0, 1, 1},
+  {&__pyx_n_s_InvalidRgbValueError, __pyx_k_InvalidRgbValueError, sizeof(__pyx_k_InvalidRgbValueError), 0, 0, 1, 1},
+  {&__pyx_kp_s_Invalid_Device_Type, __pyx_k_Invalid_Device_Type, sizeof(__pyx_k_Invalid_Device_Type), 0, 0, 1, 0},
+  {&__pyx_kp_s_Invalid_RGB_Value, __pyx_k_Invalid_RGB_Value, sizeof(__pyx_k_Invalid_RGB_Value), 0, 0, 1, 0},
   {&__pyx_n_s_NoAvailableSDKError, __pyx_k_NoAvailableSDKError, sizeof(__pyx_k_NoAvailableSDKError), 0, 0, 1, 1},
   {&__pyx_kp_s_No_Available_SDK_was_found, __pyx_k_No_Available_SDK_was_found, sizeof(__pyx_k_No_Available_SDK_was_found), 0, 0, 1, 0},
   {&__pyx_n_s_RazerSDK, __pyx_k_RazerSDK, sizeof(__pyx_k_RazerSDK), 0, 0, 1, 1},
-  {&__pyx_kp_s_SDK_REMOVED, __pyx_k_SDK_REMOVED, sizeof(__pyx_k_SDK_REMOVED), 0, 0, 1, 0},
+  {&__pyx_n_s_SDKNotConnectedError, __pyx_k_SDKNotConnectedError, sizeof(__pyx_k_SDKNotConnectedError), 0, 0, 1, 1},
   {&__pyx_n_s_all_devices, __pyx_k_all_devices, sizeof(__pyx_k_all_devices), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_connect, __pyx_k_connect, sizeof(__pyx_k_connect), 0, 0, 1, 1},
   {&__pyx_n_s_disconnect, __pyx_k_disconnect, sizeof(__pyx_k_disconnect), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
-  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
+  {&__pyx_n_s_e, __pyx_k_e, sizeof(__pyx_k_e), 0, 0, 1, 1},
   {&__pyx_n_s_get_all_device_information, __pyx_k_get_all_device_information, sizeof(__pyx_k_get_all_device_information), 0, 0, 1, 1},
   {&__pyx_n_s_get_connected_sdk_names, __pyx_k_get_connected_sdk_names, sizeof(__pyx_k_get_connected_sdk_names), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -3013,7 +3377,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pyrgbdev_All, __pyx_k_pyrgbdev_All, sizeof(__pyx_k_pyrgbdev_All), 0, 0, 1, 1},
   {&__pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_k_pyrgbdev_All_SDK_pyx, sizeof(__pyx_k_pyrgbdev_All_SDK_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_pyrgbdev_Corsair, __pyx_k_pyrgbdev_Corsair, sizeof(__pyx_k_pyrgbdev_Corsair), 0, 0, 1, 1},
@@ -3040,7 +3403,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(0, 61, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -3050,89 +3413,89 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pyrgbdev/All/SDK.pyx":29
+  /* "pyrgbdev/All/SDK.pyx":53
  *     A sdk class for ALL Wrappers
  *     """
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         """
  *         A initializer method for class sdk in All Wrappers
  */
-  __pyx_tuple_ = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_RazerSDK, __pyx_n_s_CorsairSDK); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_RazerSDK, __pyx_n_s_CorsairSDK); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_init, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_init, 53, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 53, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":49
+  /* "pyrgbdev/All/SDK.pyx":72
  *         self.is_connected = False
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
  *         """
  *         A __repr__ method for representing current object.
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_repr, 49, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_repr, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 72, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":55
+  /* "pyrgbdev/All/SDK.pyx":78
  *         return "ALL SDK"
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for connecting all sdks in sdk_list and removing those sdks which does not connect
  */
-  __pyx_tuple__5 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_sdk_object); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_sdk_object); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_connect, 55, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_connect, 78, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 78, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":73
+  /* "pyrgbdev/All/SDK.pyx":95
  *             raise NoAvailableSDKError("No Available SDK was found")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for disconnecting every sdks connected.
  */
-  __pyx_tuple__7 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_sdk_object); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_tuple__7 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_sdk_object); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_disconnect, 73, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_disconnect, 95, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(0, 95, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":81
+  /* "pyrgbdev/All/SDK.pyx":103
  *         self.is_connected = False
  * 
  *     def get_connected_sdk_names(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for getting all connected sdk's names in list
  */
-  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_sdk_names, __pyx_n_s_sdk_object); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_sdk_names, __pyx_n_s_sdk_object); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_get_connected_sdk_names, 81, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_get_connected_sdk_names, 103, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 103, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":91
+  /* "pyrgbdev/All/SDK.pyx":116
  *         return sdk_names
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for getting all device information in dictionary format.
  */
-  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_all_devices, __pyx_n_s_sdk); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_all_devices, __pyx_n_s_sdk); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_get_all_device_information, 91, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_get_all_device_information, 116, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 116, __pyx_L1_error)
 
-  /* "pyrgbdev/All/SDK.pyx":105
+  /* "pyrgbdev/All/SDK.pyx":133
  *         return all_devices
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
  *         """
  *         A method for setting all device's color into one color.
  */
-  __pyx_tuple__13 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_rgb_info, __pyx_n_s_sdk); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_tuple__13 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_rgb_info, __pyx_n_s_sdk, __pyx_n_s_e); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_set_rgb, 105, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyrgbdev_All_SDK_pyx, __pyx_n_s_set_rgb, 133, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -3467,110 +3830,182 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":25
+  /* "pyrgbdev/All/SDK.pyx":24
+ *     pass
+ * 
+ * class SDKNotConnectedError(Exception):             # <<<<<<<<<<<<<<
+ *     """
+ *     A Error class for when sdk is not connected and use is trying to perform
+ */
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __Pyx_GIVEREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_SDKNotConnectedError, __pyx_n_s_SDKNotConnectedError, (PyObject *) NULL, __pyx_n_s_pyrgbdev_All, __pyx_kp_s_A_Error_class_for_when_sdk_is_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_SDKNotConnectedError, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_SDKNotConnectedError, __pyx_t_4) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pyrgbdev/All/SDK.pyx":31
+ *     pass
+ * 
+ * class InvalidRgbValueError(Exception):             # <<<<<<<<<<<<<<
+ *     """
+ *     An Error class for Invalid RGB Values.
+ */
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __Pyx_GIVEREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_InvalidRgbValueError, __pyx_n_s_InvalidRgbValueError, (PyObject *) NULL, __pyx_n_s_pyrgbdev_All, __pyx_kp_s_An_Error_class_for_Invalid_RGB); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_InvalidRgbValueError, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_InvalidRgbValueError, __pyx_t_4) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pyrgbdev/All/SDK.pyx":40
+ * 
+ * 
+ * class InvalidDeviceType(Exception):             # <<<<<<<<<<<<<<
+ *     """
+ *     An Error class for Invalid Device Type.
+ */
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __Pyx_GIVEREF(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_InvalidDeviceType, __pyx_n_s_InvalidDeviceType, (PyObject *) NULL, __pyx_n_s_pyrgbdev_All, __pyx_kp_s_An_Error_class_for_Invalid_Devi); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_InvalidDeviceType, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_InvalidDeviceType, __pyx_t_4) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pyrgbdev/All/SDK.pyx":49
  * 
  * 
  * class sdk:             # <<<<<<<<<<<<<<
  *     """
  *     A sdk class for ALL Wrappers
  */
-  __pyx_t_1 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_sdk, __pyx_n_s_sdk, (PyObject *) NULL, __pyx_n_s_pyrgbdev_All, __pyx_kp_s_A_sdk_class_for_ALL_Wrappers); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_sdk, __pyx_n_s_sdk, (PyObject *) NULL, __pyx_n_s_pyrgbdev_All, __pyx_kp_s_A_sdk_class_for_ALL_Wrappers); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "pyrgbdev/All/SDK.pyx":29
+  /* "pyrgbdev/All/SDK.pyx":53
  *     A sdk class for ALL Wrappers
  *     """
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         """
  *         A initializer method for class sdk in All Wrappers
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_1__init__, 0, __pyx_n_s_sdk___init, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_1__init__, 0, __pyx_n_s_sdk___init, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_init, __pyx_t_2) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_init, __pyx_t_2) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":49
+  /* "pyrgbdev/All/SDK.pyx":72
  *         self.is_connected = False
  * 
  *     def __repr__(self):             # <<<<<<<<<<<<<<
  *         """
  *         A __repr__ method for representing current object.
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_3__repr__, 0, __pyx_n_s_sdk___repr, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_3__repr__, 0, __pyx_n_s_sdk___repr, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_repr, __pyx_t_2) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_repr, __pyx_t_2) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":55
+  /* "pyrgbdev/All/SDK.pyx":78
  *         return "ALL SDK"
  * 
  *     def connect(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for connecting all sdks in sdk_list and removing those sdks which does not connect
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_5connect, 0, __pyx_n_s_sdk_connect, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_5connect, 0, __pyx_n_s_sdk_connect, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_connect, __pyx_t_2) < 0) __PYX_ERR(0, 55, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_connect, __pyx_t_2) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":73
+  /* "pyrgbdev/All/SDK.pyx":95
  *             raise NoAvailableSDKError("No Available SDK was found")
  * 
  *     def disconnect(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for disconnecting every sdks connected.
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_7disconnect, 0, __pyx_n_s_sdk_disconnect, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_7disconnect, 0, __pyx_n_s_sdk_disconnect, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_disconnect, __pyx_t_2) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_disconnect, __pyx_t_2) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":81
+  /* "pyrgbdev/All/SDK.pyx":103
  *         self.is_connected = False
  * 
  *     def get_connected_sdk_names(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for getting all connected sdk's names in list
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_9get_connected_sdk_names, 0, __pyx_n_s_sdk_get_connected_sdk_names, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_9get_connected_sdk_names, 0, __pyx_n_s_sdk_get_connected_sdk_names, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_connected_sdk_names, __pyx_t_2) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_connected_sdk_names, __pyx_t_2) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":91
+  /* "pyrgbdev/All/SDK.pyx":116
  *         return sdk_names
  * 
  *     def get_all_device_information(self):             # <<<<<<<<<<<<<<
  *         """
  *         A method for getting all device information in dictionary format.
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_11get_all_device_information, 0, __pyx_n_s_sdk_get_all_device_information, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_11get_all_device_information, 0, __pyx_n_s_sdk_get_all_device_information, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_all_device_information, __pyx_t_2) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_all_device_information, __pyx_t_2) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":105
+  /* "pyrgbdev/All/SDK.pyx":133
  *         return all_devices
  * 
  *     def set_rgb(self, rgb_info):             # <<<<<<<<<<<<<<
  *         """
  *         A method for setting all device's color into one color.
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_13set_rgb, 0, __pyx_n_s_sdk_set_rgb, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_8pyrgbdev_3All_3sdk_13set_rgb, 0, __pyx_n_s_sdk_set_rgb, NULL, __pyx_n_s_pyrgbdev_All, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_set_rgb, __pyx_t_2) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_set_rgb, __pyx_t_2) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyrgbdev/All/SDK.pyx":25
+  /* "pyrgbdev/All/SDK.pyx":49
  * 
  * 
  * class sdk:             # <<<<<<<<<<<<<<
  *     """
  *     A sdk class for ALL Wrappers
  */
-  __pyx_t_2 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_sdk, __pyx_empty_tuple, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_sdk, __pyx_empty_tuple, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sdk, __pyx_t_2) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sdk, __pyx_t_2) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
@@ -5669,149 +6104,6 @@ bad:
     Py_XDECREF(py_code);
     Py_XDECREF(py_frame);
 }
-
-/* Print */
-#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static PyObject *__Pyx_GetStdout(void) {
-    PyObject *f = PySys_GetObject((char *)"stdout");
-    if (!f) {
-        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-    }
-    return f;
-}
-static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
-    int i;
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
-        PyObject* v;
-        if (PyFile_SoftSpace(f, 1)) {
-            if (PyFile_WriteString(" ", f) < 0)
-                goto error;
-        }
-        v = PyTuple_GET_ITEM(arg_tuple, i);
-        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
-            goto error;
-        if (PyString_Check(v)) {
-            char *s = PyString_AsString(v);
-            Py_ssize_t len = PyString_Size(v);
-            if (len > 0) {
-                switch (s[len-1]) {
-                    case ' ': break;
-                    case '\f': case '\r': case '\n': case '\t': case '\v':
-                        PyFile_SoftSpace(f, 0);
-                        break;
-                    default:  break;
-                }
-            }
-        }
-    }
-    if (newline) {
-        if (PyFile_WriteString("\n", f) < 0)
-            goto error;
-        PyFile_SoftSpace(f, 0);
-    }
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-}
-#else
-static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
-    PyObject* kwargs = 0;
-    PyObject* result = 0;
-    PyObject* end_string;
-    if (unlikely(!__pyx_print)) {
-        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
-        if (!__pyx_print)
-            return -1;
-    }
-    if (stream) {
-        kwargs = PyDict_New();
-        if (unlikely(!kwargs))
-            return -1;
-        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
-            goto bad;
-        if (!newline) {
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                goto bad;
-            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                goto bad;
-            }
-            Py_DECREF(end_string);
-        }
-    } else if (!newline) {
-        if (unlikely(!__pyx_print_kwargs)) {
-            __pyx_print_kwargs = PyDict_New();
-            if (unlikely(!__pyx_print_kwargs))
-                return -1;
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                return -1;
-            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                return -1;
-            }
-            Py_DECREF(end_string);
-        }
-        kwargs = __pyx_print_kwargs;
-    }
-    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
-    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
-        Py_DECREF(kwargs);
-    if (!result)
-        return -1;
-    Py_DECREF(result);
-    return 0;
-bad:
-    if (kwargs != __pyx_print_kwargs)
-        Py_XDECREF(kwargs);
-    return -1;
-}
-#endif
-
-/* PrintOne */
-#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
 
 /* CIntToPy */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {

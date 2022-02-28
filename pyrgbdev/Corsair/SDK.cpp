@@ -1509,6 +1509,7 @@ static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_get_device_count[] = "get_device_count";
 static const char __pyx_k_pyrgbdev_Corsair[] = "pyrgbdev.Corsair";
 static const char __pyx_k_InvalidDeviceType[] = "InvalidDeviceType";
+static const char __pyx_k_Invalid_RGB_Value[] = "Invalid RGB Value : ";
 static const char __pyx_k_UnicodeDecodeError[] = "UnicodeDecodeError";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_Invalid_Device_Type[] = "Invalid Device Type : ";
@@ -1550,6 +1551,7 @@ static PyObject *__pyx_n_s_InvalidDeviceIndexError;
 static PyObject *__pyx_n_s_InvalidDeviceType;
 static PyObject *__pyx_n_s_InvalidRgbValueError;
 static PyObject *__pyx_kp_s_Invalid_Device_Type;
+static PyObject *__pyx_kp_s_Invalid_RGB_Value;
 static PyObject *__pyx_kp_s_Invalid_index;
 static PyObject *__pyx_n_s_Keyboard;
 static PyObject *__pyx_n_s_MemoryModule;
@@ -3374,7 +3376,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 else:
  *                     return InvalidDeviceType("Invalid Device Type : " + device_type)             # <<<<<<<<<<<<<<
  *             except TypeError:
- *                 raise InvalidRgbValueError
+ *                 raise InvalidRgbValueError("Invalid RGB Value : " + str(rgb_info))
  */
         /*else*/ {
           __Pyx_XDECREF(__pyx_r);
@@ -3425,7 +3427,7 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
  *                 else:
  *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  *             except TypeError:             # <<<<<<<<<<<<<<
- *                 raise InvalidRgbValueError
+ *                 raise InvalidRgbValueError("Invalid RGB Value : " + str(rgb_info))
  * 
  */
       __pyx_t_15 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError);
@@ -3439,12 +3441,33 @@ static PyObject *__pyx_pf_8pyrgbdev_7Corsair_3sdk_8set_rgb(struct __pyx_obj_8pyr
         /* "pyrgbdev/Corsair/SDK.pyx":160
  *                     return InvalidDeviceType("Invalid Device Type : " + device_type)
  *             except TypeError:
- *                 raise InvalidRgbValueError             # <<<<<<<<<<<<<<
+ *                 raise InvalidRgbValueError("Invalid RGB Value : " + str(rgb_info))             # <<<<<<<<<<<<<<
  * 
  * 
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_InvalidRgbValueError); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L8_except_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_InvalidRgbValueError); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L8_except_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __pyx_t_16 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyString_Type)), __pyx_v_rgb_info); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 160, __pyx_L8_except_error)
+        __Pyx_GOTREF(__pyx_t_16);
+        __pyx_t_11 = PyNumber_Add(__pyx_kp_s_Invalid_RGB_Value, __pyx_t_16); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 160, __pyx_L8_except_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+        __pyx_t_16 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
+          __pyx_t_16 = PyMethod_GET_SELF(__pyx_t_12);
+          if (likely(__pyx_t_16)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+            __Pyx_INCREF(__pyx_t_16);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_12, function);
+          }
+        }
+        __pyx_t_13 = (__pyx_t_16) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_16, __pyx_t_11) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_11);
+        __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L8_except_error)
         __Pyx_GOTREF(__pyx_t_13);
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_Raise(__pyx_t_13, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
         __PYX_ERR(0, 160, __pyx_L8_except_error)
@@ -4919,6 +4942,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_InvalidDeviceType, __pyx_k_InvalidDeviceType, sizeof(__pyx_k_InvalidDeviceType), 0, 0, 1, 1},
   {&__pyx_n_s_InvalidRgbValueError, __pyx_k_InvalidRgbValueError, sizeof(__pyx_k_InvalidRgbValueError), 0, 0, 1, 1},
   {&__pyx_kp_s_Invalid_Device_Type, __pyx_k_Invalid_Device_Type, sizeof(__pyx_k_Invalid_Device_Type), 0, 0, 1, 0},
+  {&__pyx_kp_s_Invalid_RGB_Value, __pyx_k_Invalid_RGB_Value, sizeof(__pyx_k_Invalid_RGB_Value), 0, 0, 1, 0},
   {&__pyx_kp_s_Invalid_index, __pyx_k_Invalid_index, sizeof(__pyx_k_Invalid_index), 0, 0, 1, 0},
   {&__pyx_n_s_Keyboard, __pyx_k_Keyboard, sizeof(__pyx_k_Keyboard), 0, 0, 1, 1},
   {&__pyx_n_s_MemoryModule, __pyx_k_MemoryModule, sizeof(__pyx_k_MemoryModule), 0, 0, 1, 1},
