@@ -86,7 +86,7 @@ This program needs a bit more programs in order to work. This is called `depende
 - 2. `pip install scipy`
 - 3. `pip install mss`
 - 4. `pip install pillow`
-- 5. `pip install pyrgbdev`
+- 5. `pip install pyrgbdev --user`
 
 If you have successfully installed all the dependencies, you are almost ready to use this program.
 
