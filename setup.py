@@ -47,7 +47,7 @@ ext_modules = [
 # General setup process
 setup(
     name='pyrgbdev',
-    version='1.0.4',
+    version='1.0.5',
     description='A RGB Controlling Library for Python',
     long_description_content_type="text/markdown",
     long_description=long_description,
