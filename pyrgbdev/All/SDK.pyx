@@ -12,8 +12,6 @@ This script is for ALL Wrappers for controlling all devices.
 import pyximport
 pyximport.install()
 
-from pyrgbdev.Razer import sdk as RazerSDK
-from pyrgbdev.Corsair import sdk as CorsairSDK
 # We have to use pyximport since we will be importing sdks from each SDK.pyx
 # If we do not have pyximport, we cannot use those sdks.
 
@@ -33,8 +31,19 @@ class sdk:
         A initializer method for class sdk in All Wrappers
         """
         self.sdk_list = list()
-        self.sdk_list.append(RazerSDK())  # add object for Razer
-        self.sdk_list.append(CorsairSDK())  # add object for Corsair
+
+        try:  # Try loading Razer SDK dll and the module
+            from pyrgbdev.Razer import sdk as RazerSDK
+            self.sdk_list.append(RazerSDK())  # add object for Razer
+        except ImportError:
+            pass
+
+        try:  # Try loading Corsair SDK dll and the module
+            from pyrgbdev.Corsair import sdk as CorsairSDK
+            self.sdk_list.append(CorsairSDK())  # add object for Corsair
+        except ImportError:
+            pass
+
         self.is_connected = False
 
     def __repr__(self):
@@ -53,7 +62,6 @@ class sdk:
             except:  # If any Exceptions occur that means that the connection was invalid.
                 # Yes, I know using bare except is dumb :b
                 self.sdk_list.remove(sdk_object)
-                print("SDK REMOVED : " + str(sdk_object))
 
         self.is_connected = True  # set self.is_connected = True
 
