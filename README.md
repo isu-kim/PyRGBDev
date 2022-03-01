@@ -38,7 +38,7 @@ Turning on RGBs of each devices is easy as below using pyrgbdev!
 >>> a.connect()  
 True  
 >>> a.set_rgb({"Keyboard": (255, 255,0)})  
-1  
+True  
 ```  
 ### Setting Razer Mouse Color Red  
 ```  
@@ -47,7 +47,7 @@ True
 >>> b.connect()  
 True  
 >>> b.set_rgb({"Mouse": (255, 255, 0)})  
-0  
+True  
 ```  
 ### Setting All Connected Devices Color Blue  
 ```  
