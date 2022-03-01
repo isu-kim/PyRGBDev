@@ -78,7 +78,7 @@ cdef class sdk:
         :return: returns True if success, False if not.
         """
         self.is_connected = False
-        return self.razer_ptr.disconnect()
+        return self.razer_ptr.disconnect() == 0
 
     def __set_device_rgb(self, type, r, g, b):
         """
@@ -108,37 +108,37 @@ cdef class sdk:
             values = rgb_info[device_type]
             try:
                 if device_type == "MouseMat":
-                    return self.__set_device_rgb(3, values[0], values[1], values[2])
+                    return self.__set_device_rgb(3, values[0], values[1], values[2]) == 0
 
                 elif device_type == "Mouse":
-                    return self.__set_device_rgb(0, values[0], values[1], values[2])
+                    return self.__set_device_rgb(0, values[0], values[1], values[2]) == 0
 
                 elif device_type == "Keyboard":
-                    return self.__set_device_rgb(1, values[0], values[1], values[2])
+                    return self.__set_device_rgb(1, values[0], values[1], values[2]) == 0
 
                 elif device_type == "Headset":
-                    return self.__set_device_rgb(2, values[0], values[1], values[2])
+                    return self.__set_device_rgb(2, values[0], values[1], values[2]) == 0
 
                 elif device_type == "HeadsetStand":
-                    return self.__set_device_rgb(4, values[0], values[1], values[2])
+                    return self.__set_device_rgb(4, values[0], values[1], values[2]) == 0
 
                 elif device_type == "Cooler":
-                    return self.__set_device_rgb(5, values[0], values[1], values[2])
+                    return self.__set_device_rgb(5, values[0], values[1], values[2]) == 0
 
                 elif device_type == "MemoryModule":
-                    return self.__set_device_rgb(6, values[0], values[1], values[2])
+                    return self.__set_device_rgb(6, values[0], values[1], values[2]) == 0
 
                 elif device_type == "Motherboard":
-                    return self.__set_device_rgb(7, values[0], values[1], values[2])
+                    return self.__set_device_rgb(7, values[0], values[1], values[2]) == 0
 
                 elif device_type == "GPU":
-                    return self.__set_device_rgb(8, values[0], values[1], values[2])
+                    return self.__set_device_rgb(8, values[0], values[1], values[2]) == 0
 
                 elif device_type == "ETC":
-                    return self.__set_device_rgb(9, values[0], values[1], values[2])
+                    return self.__set_device_rgb(9, values[0], values[1], values[2]) == 0
 
                 elif device_type == "ALL":
-                    return self.__set_device_rgb(10, values[0], values[1], values[2])
+                    return self.__set_device_rgb(10, values[0], values[1], values[2]) == 0
                 else:
                     raise InvalidDeviceType("Invalid Device Type : " + device_type)
             except TypeError:
