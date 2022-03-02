@@ -32,7 +32,7 @@ This demo reacts to the most dominant color of the screen. Then sets all device'
 - Scipy : `pip install scipy`
 - MSS : `pip install mss`
 - Pillow (AKA PIL) : `pip install pillow`
-- pyrgbdev : `pip install pyrgbdev`
+- pyrgbdev : `pip install pyrgbdev --user`
 
 Please install those libraries using. Then run `ScreenReactive.py` with Python.
 
