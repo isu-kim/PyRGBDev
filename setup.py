@@ -62,7 +62,7 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Topic :: System :: Hardware',
     ],
-    install_requires=["cython", "pywin32"],
+    install_requires=["cython", "pywin32", "pyserial", "wmi"],
     ext_modules=cythonize(ext_modules),
 )
 
