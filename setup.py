@@ -38,10 +38,16 @@ ext_modules = [
               include_dirs=["./pyrgbdev/Razer/includes/"],
               ),
 
+    # Extension for Neopixel
+    # Extension("pyrgbdev.Neopixel",
+    #          ["./pyrgbdev/NeoPixel/SDK.pyx"],
+    #          ),
+
     # Extension for All
     Extension("pyrgbdev.All",
               ["./pyrgbdev/All/SDK.pyx"],
               ),
+
 ]
 
 # General setup process
