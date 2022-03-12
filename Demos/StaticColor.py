@@ -58,7 +58,7 @@ class Demo(AbstractDemo):
 
 
 if __name__ == '__main__':
-    sdk_object = All.SDK()
+    sdk_object = All.sdk()
     sdk_object.connect()
     static_color = Demo()
     static_color.run(sdk_object=sdk_object, r=255, g=255, b=255)

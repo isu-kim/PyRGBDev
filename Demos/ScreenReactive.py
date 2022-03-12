@@ -130,7 +130,7 @@ class Demo(AbstractDemo):
 
 
 if __name__ == '__main__':
-    sdk_object = All.SDK()
+    sdk_object = All.sdk()
     sdk_object.connect()
     screen_reactive = Demo()
     screen_reactive.run(sdk_object=sdk_object)

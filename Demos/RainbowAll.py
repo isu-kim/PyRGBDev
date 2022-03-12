@@ -87,7 +87,7 @@ class Demo(AbstractDemo):
 
 
 if __name__ == '__main__':
-    sdk_object = All.SDK()
+    sdk_object = All.sdk()
     sdk_object.connect()
     rainbow_all = Demo()
-    rainbow_all.run(sdk_object=sdk_object, step=10)
+    rainbow_all.run(sdk_object=sdk_object, delay=0.0001)
