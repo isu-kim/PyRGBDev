@@ -40,7 +40,7 @@ True
 >>> a.set_rgb({"Keyboard": (255, 255,0)})  
 True  
 ```  
-### Setting Razer Mouse Color Red  
+### Setting Razer Mouse Color Yellow  
 ```  
 >>> from pyrgbdev import Razer  
 >>> b = Razer.sdk()  

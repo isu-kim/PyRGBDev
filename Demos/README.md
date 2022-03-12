@@ -35,12 +35,12 @@ Please install those libraries using. Then run `ScreenReactive.py` with Python.
   
 ### Rainbow All  
 This demo turns every device's color into a single rainbow shifting effect. The default speed is set to 10. However if you would like to make it slower or faster, please modify `RainbowAll.py`. The speed is set as `step` in the script. Dependencies are following libraries.  
-- pyrgbdev : `pip install pyrgbdev`  
+- pyrgbdev : `pip install pyrgbdev --user`  
   
   
 ### Static Color  
 This demo turns every device's color into a single static color. The default value is set to `(255, 0,0` which is RED in RGB. If you would like to modify the colors, please modify `StaticColor.py` and set it as you would like. Dependencies are following libraries.  
-- pyrgbdev : `pip install pyrgbdev`  
+- pyrgbdev : `pip install pyrgbdev --user`  
   
 ## Non-Programmers  
 No worries! For Non-programmer and those who have no knowledge regarding Python, this is the right instruction for you. As this project pyrgbdev reads, this project is written in a programming language named Python. In order for you to run all those fancy stuff, you should install Python itself, and some other programs in order for this script to run. **Please  note that this program is not perfect. This might have a lot of bugs, and even can be unable to run on your PC.**   
